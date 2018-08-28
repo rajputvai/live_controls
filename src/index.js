@@ -5,8 +5,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import theme from './utilities/theme';
 
-import registerServiceWorker from './registerServiceWorker';
-
 import App from './containers/App';
 
 ReactDOM.render(
@@ -17,4 +15,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
-registerServiceWorker();

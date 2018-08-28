@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
-import Color from '../../utilities/theme/Color'
-import { MainWrapper } from '../Layout'
-import Header from '../Header'
+import Color from '../../utilities/theme/Color';
+import { MainWrapper } from '../Layout';
+import Header from '../Header';
+import ControlsBody from '../ControlsBody';
 
 const styleSheet = theme => ({
   '@global': {
@@ -29,11 +30,13 @@ const styleSheet = theme => ({
 });
 
 class App extends Component {
+  state = {};
 
   render() {
     return (
       <MainWrapper>
         <Header />
+        <ControlsBody />
       </MainWrapper>
     );
   }

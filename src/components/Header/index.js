@@ -54,18 +54,13 @@ class Header extends Component {
       <div className={classes.root}>
         <AppBar position="fixed" color="primary">
           <Toolbar className={classes.rootToolbar}>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-            >
+            <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid>
                 <Typography variant="title" className={classes.rootTitle}>
                   LIVE EVENT
                 </Typography>
                 <select className={classes.textField}>
-                  <option>Live Event 1 Live Event 1 Live Event 1</option>
+                  <option>Live Event 1</option>
                   <option>Live Event 2</option>
                   <option>Live Event 3</option>
                   <option>Live Event 4</option>
@@ -79,7 +74,7 @@ class Header extends Component {
                   LIVE ON
                 </Button>
               </Grid>
-            </Grid>  
+            </Grid>
           </Toolbar>
         </AppBar>
       </div>

@@ -19,29 +19,16 @@ export default createMuiTheme({
         fontSize: 14,
       },
     },
-    // MuiTabs: {
-    //   indicator: {
-    //     background: '#00b6dc',
-    //     height: 4,
-    //   },
-    //   flexContainer: {
-    //     height: '100%',
-    //   },
-    // },
-    // MuiTab: {
-    //   root: {
-    //     margin: '0 20px',
-    //   },
-    //   selected: {
-    //     color: '#fff',
-    //   },
-    // },
+    MuiTabs: {
+      indicator: {
+        background: '#00b6dc',
+        height: 4,
+      },
+      flexContainer: {
+        height: '100%',
+      },
+    },
   },
-  // typography: {
-  //   body1: {
-  //     color: '#525e66',
-  //   },
-  // },
   palette: {
     primary: {
       main: Color.primary.p1,

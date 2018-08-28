@@ -18,10 +18,12 @@ export default {
   },
   other: {
     o1: '#0085dc',
-    o2: '#ffffff',
+    o2: '#edeff0',
     o3: '#f2f2f2',
     o4: '#bcbcbc',
     o5: '#fffdd9',
     o6: '#d6d6d6',
+    o7: '#dcdde0',
+    o8: '#dadada',
   },
 };
