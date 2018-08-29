@@ -9,7 +9,7 @@ class LiveGraphics extends Component {
   state = {};
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     return (
       <div>
         <div>a</div>

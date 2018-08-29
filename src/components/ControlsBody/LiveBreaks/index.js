@@ -1,28 +1,35 @@
 // Libraries
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import classNames from 'classnames';
+import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
 import produce from 'immer';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+// Components
+import BreaksRow from './BreaksRow';
 
 // Widgets
 import InfoIcon from '../../../widgets/svgs/Info';
 import IconButton from '../../../widgets/IconButton';
 import Color from '../../../utilities/theme/Color';
-import PlayIcon from '../../../widgets/svgs/Play';
-import ForceRescueIcon from '../../../widgets/svgs/ForceRescue';
-import QueueBreakIcon from '../../../widgets/svgs/QueueBreak';
 
 const styles = {
   infoIcon: {
     height: 20,
     width: 20,
+    marginLeft: 10,
   },
   actionBar: {
     marginBottom: 20,
   },
+  boldText: {
+    fontWeight: 'bold',
+    color: Color.primary.p2,
+  },
+  // divider: {
+  //   margin: '0 10px',
+  // },
   flex: {
     flex: 1,
   },
@@ -41,208 +48,267 @@ const styles = {
       backgroundColor: '#d5d5d5',
     },
   },
-  table: {
-    borderSpacing: 0,
-    width: '100%',
-    '& th': {
-      paddingLeft: 20,
-      paddingBottom: 10,
-      fontSize: 12,
-      fontWeight: 'bold',
-      color: Color.other.o11,
-      textAlign: 'left',
+  headerRow: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: Color.primary.p3,
+    padding: '0 20px 10px',
+    '& > div': {
+      width: '20%',
     },
-    '& td:first-child $cell': {
-      fontWeight: 500,
-      borderLeft: `solid 1px ${Color.other.o8}`,
-      borderRadius: '4px 0 0 4px',
+    '& > div:first-child': {
+      width: '40%',
     },
-    '& td:last-child $cell': {
-      borderRight: `solid 1px ${Color.other.o8}`,
-      borderRadius: '0 4px 4px 0',
-    },
-  },
-  cell: {
-    display: 'flex',
-    alignItems: 'center',
-    minHeight: 60,
-    backgroundColor: Color.other.o2,
-    borderBottom: `solid 1px ${Color.other.o8}`,
-    borderTop: `solid 1px ${Color.other.o8}`,
-    paddingLeft: 20,
   },
   expandIcons: {
     color: '#000',
-    fontSize: 17,
-    marginRight: 4,
+    fontSize: 18,
+    marginRight: 14,
   },
-  actionIcons: {
-    marginRight: 20,
+  root: {
+    marginBottom: 20,
+    color: Color.primary.p2,
   },
-  actionsCell: {
-    display: 'flex',
-  },
-  trWithMarginBottom: {
-    '& td': {
-      paddingBottom: 20,
+  breakRow: {
+    backgroundColor: Color.other.o2,
+    border: `solid 1px ${Color.other.o8}`,
+    borderRadius: 4,
+    padding: '0 20px',
+    '& > div': {
+      width: '20%',
+    },
+    '& > div:first-child': {
+      paddingLeft: 14,
+      width: '40%',
     },
   },
-  enter: {
-    opacity: 0.01,
+  breakItemsWrapper: {},
+  breakItemsRow: {
+    padding: '0 20px',
+    position: 'relative',
+    '&:before': {
+      content: '""',
+      position: 'absolute',
+      margin: '0 20px',
+      height: '100%',
+      width: 'calc(100% - 40px)',
+      top: 0,
+      left: 0,
+      backgroundColor: Color.other.o2,
+      border: `solid 1px ${Color.other.o8}`,
+      borderTop: 'none',
+      borderRadius: 4,
+    },
+    '& > div': {
+      width: '20%',
+      zIndex: 2,
+    },
+    '& > div:first-child': {
+      width: '40%',
+      paddingLeft: 20,
+    },
   },
-  enterActive: {
-    opacity: 1,
-    transition: 'opacity .3s ease-in',
+  title: {
+    fontSize: 16,
+    fontWeight: 500,
   },
-  exit: {
-    opacity: 1,
+  divider: {
+    margin: '0 10px',
   },
-  exitActive: {
-    opacity: 0.01,
-    transition: 'opacity .3s ease-in',
+  breakIndex: {
+    marginRight: 20,
   },
 };
 
-const breakInfos = ['Event start break', 'First over', 'Second Over', 'Emergency break', 'Event end break'];
-const duration = ['00:01:00:00', '00:10:00:00', '00:04:00:00', '00:00:08:00'];
-const tableData = [];
+const data = {
+  id: 1,
+  title: 'Intent_1_1',
+  type: 'signature',
+  sub_type: 'signature',
+  asset_id: 'Intent_1_1',
+  comments: null,
+  join_status: null,
+  offset: 0,
+  segment: null,
+  playing: false,
+  status: 'Present',
+  subtitle_scheduled: false,
+  duration: 7600,
+  available_segments: null,
+  break_item: {
+    id: 2,
+    title: 'res_00211_newexp',
+    type: 'primary',
+    sub_type: 'program_segment',
+    asset_id: 'res_00211_newexp',
+    comments: '',
+    join_status: null,
+    offset: 0,
+    segment: {
+      data: {
+        default_segment: true,
+        duration: 95,
+        start_time_code: 2880,
+        file_offset: '564',
+        offset: 0,
+      },
+      id: 870,
+      media_id: 8869,
+      segment_id: 211,
+    },
+    playing: false,
+    status: 'Present',
+    subtitle_scheduled: false,
+    duration: 3800,
+    available_segments: [
+      {
+        data: {
+          default_segment: true,
+          duration: 95,
+          start_time_code: 2880,
+          file_offset: '564',
+          offset: 0,
+        },
+        id: 870,
+        media_id: 8869,
+        segment_id: 211,
+      },
+    ],
+  },
+};
 
-for (let i = 0; i < 5; i += 1) {
-  tableData.push({
-    id: i,
-    breakInfo: breakInfos[i % 5],
-    duration: duration[i % 4],
-    playedStatus: 'NOT PLAYED',
-  });
-}
+const eventItemRange = new Array(30).fill(1);
+const breakItemRange = new Array(4).fill(1);
+
+const eventItems = eventItemRange.map((val, eventIndex) => ({
+  ...data,
+  break_items: breakItemRange.map((v, breakIndex) => ({
+    ...data.break_item,
+    id: breakIndex,
+  })),
+  id: eventIndex,
+}));
 
 class LiveBreaks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: [],
-    };
-    const { classes } = props;
-    this.cssTransitionClasses = {
-      enter: classes.enter,
-      enterActive: classes.enterActive,
-      exit: classes.exit,
-      exitActive: classes.exitActive,
-    };
+  constructor() {
+    super();
+    this.state = { expanded: [] };
+    // this.cache = new CellMeasurerCache({
+    //   fixedWidth: true,
+    //   defaultHeight: 100,
+    // });
   }
 
-  handleToggleExpansionClick = index => () => {
+  renderActionBar() {
+    const { classes } = this.props;
+    return (
+      <Grid container className={classes.actionBar} alignItems="center">
+        <div>
+          CURRENT HOUR: <span className={classes.boldText}>12:00 - 13:00</span>
+        </div>
+        <div className={classes.divider}>|</div>
+        <div>
+          FCT PLAYED: <span className={classes.boldText}>00:00:00:00</span>
+        </div>
+        <InfoIcon className={classes.infoIcon} />
+        <div className={classes.flex} />
+        <div className={classes.iconButtonWrapper}>
+          <IconButton type="edit" className={classes.iconButton} />
+        </div>
+        <div className={classes.iconButtonWrapper}>
+          <IconButton type="removeRedEye" className={classes.iconButton} />
+        </div>
+        <div className={classes.iconButtonWrapper}>
+          <IconButton type="search" className={classes.iconButton} />
+        </div>
+      </Grid>
+    );
+  }
+
+  componentDidUpdate() {
+    // this.cache.clear();
+    this.listEl.recomputeRowHeights();
+    this.listEl.forceUpdate();
+  }
+
+  handleToggleExpansionClick = eventItemIndex => event => {
+    event.stopPropagation();
+
     this.setState(
       produce(draft => {
-        const indexOfItem = draft.expanded.indexOf(index);
-        if (indexOfItem > -1) {
-          draft.expanded.splice(indexOfItem, 1);
+        const index = draft.expanded.indexOf(eventItemIndex);
+        if (index > -1) {
+          draft.expanded.splice(index, 1);
         } else {
-          draft.expanded.push(index);
+          draft.expanded.push(eventItemIndex);
         }
       })
     );
+    // this.cache.clear(eventItemIndex);
+    // this.listEl.recomputeRowHeights(eventItemIndex);
+    // // this.listEl.forceUpdate();
+    // this.forceUpdate();
+  };
+
+  renderRow = ({ index, key, parent, style }) => {
+    const isExpanded = this.state.expanded.includes(index);
+    return (
+      // <CellMeasurer key={key} cache={this.cache} parent={parent} columnIndex={0} rowIndex={index}>
+      <BreaksRow
+        key={key}
+        expanded={isExpanded}
+        eventItem={eventItems[index]}
+        index={index}
+        style={style}
+        onExpand={this.handleToggleExpansionClick(index)}
+      />
+      // </CellMeasurer>
+    );
+  };
+
+  getRowHeight = params => {
+    if (this.state.expanded.includes(params.index)) {
+      const expandedItemCount = eventItems[params.index].break_items.length;
+      return expandedItemCount * 50 + 70;
+    }
+    return 70;
   };
 
   renderLiveBreaksTable() {
     const { classes } = this.props;
-    const { expanded } = this.state;
     return (
-      <table className={classes.table} cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            <th>BREAK/ ASSET INFORMATION</th>
-            <th>ASSET TYPE</th>
-            <th>PLAYED STATUS</th>
-            <th>ACTIONS </th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData.map((data, index) => {
-            const isExpanded = expanded.includes(index);
-            return (
-              <Fragment key={data.id}>
-                <tr className={!isExpanded && classes.trWithMarginBottom}>
-                  <td>
-                    <div className={classes.cell}>
-                      <IconButton
-                        type={expanded.includes(index) ? 'removeCircle' : 'addCircle'}
-                        className={classes.expandIcons}
-                        onClick={this.handleToggleExpansionClick(index)}
-                      />
-                      <span>{data.breakInfo}</span> <span>|</span> <span>{data.duration}</span>
-                    </div>
-                  </td>
-                  <td>
-                    <div className={classes.cell} />
-                  </td>
-                  <td>
-                    <div className={classes.cell}>NOT PLAYED</div>
-                  </td>
-                  <td>
-                    <Grid className={classNames(classes.cell, classes.actionsCell)}>
-                      <PlayIcon className={classes.actionIcons} />
-                      <ForceRescueIcon className={classes.actionIcons} />
-                      <QueueBreakIcon className={classes.actionIcons} />
-                    </Grid>
-                  </td>
-                </tr>
-                {isExpanded && (
-                  <CSSTransition timeout={300} classNames={this.cssTransitionClasses} in={isExpanded}>
-                    <tr className={classes.trWithMarginBottom}>
-                      <td>
-                        <div className={classes.cell} style={{ marginLeft: 30 }}>
-                          <span>{data.breakInfo}</span> <span>|</span> <span>{data.duration}</span>
-                        </div>
-                      </td>
-                      <td>
-                        <div className={classes.cell} />
-                      </td>
-                      <td>
-                        <div className={classes.cell}>NOT PLAYED</div>
-                      </td>
-                      <td>
-                        <div className={classNames(classes.cell, classes.actionsCell)} style={{ marginRight: 30 }}>
-                          <PlayIcon className={classes.icon} />
-                          <ForceRescueIcon className={classes.icon} />
-                          <QueueBreakIcon className={classes.icon} />
-                        </div>
-                      </td>
-                    </tr>
-                  </CSSTransition>
-                )}
-              </Fragment>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className={classes.root}>
+        <Grid container className={classes.headerRow}>
+          <div className={classes.firstHeader}>BREAK/ ASSET INFORMATION</div>
+          <div>ASSET TYPE</div>
+          <div>PLAYED STATUS</div>
+          <div>ACTIONS </div>
+        </Grid>
+        <AutoSizer disableHeight>
+          {({ width }) => (
+            <List
+              ref={el => {
+                this.listEl = el;
+                // if (el) el.recomputeRowHeights();
+              }}
+              width={width}
+              height={400}
+              rowHeight={this.getRowHeight}
+              rowRenderer={this.renderRow}
+              rowCount={eventItems.length}
+              style={{ outline: 'none' }}
+              overscanRowCount={10}
+            />
+          )}
+        </AutoSizer>
+      </div>
     );
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
-        <Grid container className={classes.actionBar} alignItems="center">
-          <div>
-            CURRENT HOUR <span>12:00 - 13:00</span>
-          </div>
-          <div>|</div>
-          <div>
-            FCT PLAYED 00:00:00:00
-            <InfoIcon className={classes.infoIcon} />
-          </div>
-          <div className={classes.flex} />
-          <div className={classes.iconButtonWrapper}>
-            <IconButton type="edit" className={classes.iconButton} />
-          </div>
-          <div className={classes.iconButtonWrapper}>
-            <IconButton type="removeRedEye" className={classes.iconButton} />
-          </div>
-          <div className={classes.iconButtonWrapper}>
-            <IconButton type="search" className={classes.iconButton} />
-          </div>
-        </Grid>
+        {this.renderActionBar()}
         {this.renderLiveBreaksTable()}
       </div>
     );

@@ -19,4 +19,5 @@ rules:
   react/forbid-prop-types: 0
   react/destructuring-assignment: 0
   no-param-reassign: 0
+  react/sort-comp: 0
   prettier/prettier: ['error', { 'trailingComma': 'es5', 'singleQuote': true, 'printWidth': 120 }]
