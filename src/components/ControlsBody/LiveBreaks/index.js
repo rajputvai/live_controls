@@ -9,9 +9,9 @@ import produce from 'immer';
 // Components
 import BreaksRow from './BreaksRow';
 
-// Widgets
-import InfoIcon from '../../../widgets/svgs/Info';
-import IconButton from '../../../widgets/IconButton';
+// Assets
+import InfoIcon from '../../../assets/svgs/Info';
+import IconButton from '../../../assets/IconButton';
 import Color from '../../../utilities/theme/Color';
 
 const styles = {

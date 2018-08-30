@@ -5,12 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
 
-// Widgets
-import IconButton from '../../../widgets/IconButton';
-import PlayIcon from '../../../widgets/svgs/Play';
-import ForceRescueIcon from '../../../widgets/svgs/ForceRescue';
-import QueueBreakIcon from '../../../widgets/svgs/QueueBreak';
+// Assets
+import IconButton from '../../../assets/IconButton';
+import PlayIcon from '../../../assets/svgs/Play';
+import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
+import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
+
+// Utils
+import { formatDuration } from '../../../utilities/timeHelpers';
 
 const styles = {
   expandIcons: {
@@ -106,7 +109,7 @@ class BreaksRow extends Component {
               onClick={this.handleExpandClick}
             />
             <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
-            <span>{eventItem.duration}</span>
+            <span>{formatDuration(eventItem.duration)}</span>
           </Grid>
           <div>{index}</div>
           <div className={classes.cell}>NOT PLAYED</div>
@@ -128,7 +131,7 @@ class BreaksRow extends Component {
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
                 <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
-                <span>{breakItem.segment.data.duration}</span>
+                <span>{formatDuration(breakItem.segment.data.duration)}</span>
               </Grid>
               <div>{index}</div>
               <div>NOT PLAYED</div>
