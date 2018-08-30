@@ -1,10 +1,9 @@
 // Libraries
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
-import Collapse from '@material-ui/core/Collapse';
 
 // Widgets
 import IconButton from '../../../widgets/IconButton';
@@ -77,60 +76,78 @@ const styles = {
   },
 };
 
-function BreaksRow(props) {
-  const { classes, eventItem, index, onExpand, expanded, ...rest } = props;
-  return (
-    <div {...rest} className={classes.root}>
-      <Grid container className={classes.breakRow} alignItems="center">
-        <Grid container alignItems="center">
-          <IconButton
-            type={expanded ? 'removeCircle' : 'addCircle'}
-            className={classes.expandIcons}
-            onClick={onExpand}
-          />
-          <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
-          <span>{eventItem.duration}</span>
-        </Grid>
-        <div>{index}</div>
-        <div className={classes.cell}>NOT PLAYED</div>
-        <Grid className={classes.actionsCell}>
-          <MuiIconButton>
-            <PlayIcon className={classes.actionIcons} />
-          </MuiIconButton>
-          <MuiIconButton>
-            <ForceRescueIcon className={classes.actionIcons} />
-          </MuiIconButton>
-          <MuiIconButton>
-            <QueueBreakIcon className={classes.actionIcons} />
-          </MuiIconButton>
-        </Grid>
-      </Grid>
-      <Collapse in={expanded}>
-        {eventItem.break_items.map((breakItem, breakIndex) => (
-          <Grid key={breakItem.id} container className={classes.breakItemsRow} alignItems="center">
-            <Grid container alignItems="center">
-              <div className={classes.breakIndex}>{breakIndex + 1}</div>
-              <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
-              <span>{breakItem.segment.data.duration}</span>
-            </Grid>
-            <div>{index}</div>
-            <div>NOT PLAYED</div>
-            <div>
-              <MuiIconButton>
-                <PlayIcon className={classes.actionIcons} />
-              </MuiIconButton>
-              <MuiIconButton>
-                <ForceRescueIcon className={classes.actionIcons} />
-              </MuiIconButton>
-              <MuiIconButton>
-                <IconButton type="delete" />
-              </MuiIconButton>
-            </div>
+class BreaksRow extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (
+      this.props.eventItem === nextProps.eventItem &&
+      this.props.index === nextProps.index &&
+      this.props.onExpand === nextProps.onExpand &&
+      this.props.expanded === nextProps.expanded
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  handleExpandClick = event => {
+    event.stopPropagation();
+    this.props.onExpand(this.props.index);
+  };
+
+  render() {
+    const { classes, eventItem, index, expanded } = this.props;
+    return (
+      <div className={classes.root}>
+        <Grid container className={classes.breakRow} alignItems="center">
+          <Grid container alignItems="center">
+            <IconButton
+              type={expanded ? 'removeCircle' : 'addCircle'}
+              className={classes.expandIcons}
+              onClick={this.handleExpandClick}
+            />
+            <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
+            <span>{eventItem.duration}</span>
           </Grid>
-        ))}
-      </Collapse>
-    </div>
-  );
+          <div>{index}</div>
+          <div className={classes.cell}>NOT PLAYED</div>
+          <Grid className={classes.actionsCell}>
+            <MuiIconButton>
+              <PlayIcon className={classes.actionIcons} />
+            </MuiIconButton>
+            <MuiIconButton>
+              <ForceRescueIcon className={classes.actionIcons} />
+            </MuiIconButton>
+            <MuiIconButton>
+              <QueueBreakIcon className={classes.actionIcons} />
+            </MuiIconButton>
+          </Grid>
+        </Grid>
+        {expanded &&
+          eventItem.break_items.map((breakItem, breakIndex) => (
+            <Grid key={breakItem.id} container className={classes.breakItemsRow} alignItems="center">
+              <Grid container alignItems="center">
+                <div className={classes.breakIndex}>{breakIndex + 1}</div>
+                <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
+                <span>{breakItem.segment.data.duration}</span>
+              </Grid>
+              <div>{index}</div>
+              <div>NOT PLAYED</div>
+              <div>
+                <MuiIconButton>
+                  <PlayIcon className={classes.actionIcons} />
+                </MuiIconButton>
+                <MuiIconButton>
+                  <ForceRescueIcon className={classes.actionIcons} />
+                </MuiIconButton>
+                <MuiIconButton>
+                  <IconButton type="delete" />
+                </MuiIconButton>
+              </div>
+            </Grid>
+          ))}
+      </div>
+    );
+  }
 }
 
 BreaksRow.propTypes = {

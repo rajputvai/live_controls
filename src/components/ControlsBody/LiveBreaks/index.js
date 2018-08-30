@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { AutoSizer, List, CellMeasurer, CellMeasurerCache } from 'react-virtualized';
+import { AutoSizer, List } from 'react-virtualized';
 import produce from 'immer';
 
 // Components
@@ -27,9 +27,6 @@ const styles = {
     fontWeight: 'bold',
     color: Color.primary.p2,
   },
-  // divider: {
-  //   margin: '0 10px',
-  // },
   flex: {
     flex: 1,
   },
@@ -66,7 +63,6 @@ const styles = {
     marginRight: 14,
   },
   root: {
-    marginBottom: 20,
     color: Color.primary.p2,
   },
   breakRow: {
@@ -177,7 +173,7 @@ const data = {
   },
 };
 
-const eventItemRange = new Array(30).fill(1);
+const eventItemRange = new Array(3000).fill(1);
 const breakItemRange = new Array(4).fill(1);
 
 const eventItems = eventItemRange.map((val, eventIndex) => ({
@@ -190,14 +186,7 @@ const eventItems = eventItemRange.map((val, eventIndex) => ({
 }));
 
 class LiveBreaks extends Component {
-  constructor() {
-    super();
-    this.state = { expanded: [] };
-    // this.cache = new CellMeasurerCache({
-    //   fixedWidth: true,
-    //   defaultHeight: 100,
-    // });
-  }
+  state = { expanded: {}, rowHeightToUpdate: 0 };
 
   renderActionBar() {
     const { classes } = this.props;
@@ -226,48 +215,44 @@ class LiveBreaks extends Component {
   }
 
   componentDidUpdate() {
-    // this.cache.clear();
-    this.listEl.recomputeRowHeights();
-    this.listEl.forceUpdate();
+    this.listEl.recomputeRowHeights(this.state.rowHeightToUpdate);
   }
 
-  handleToggleExpansionClick = eventItemIndex => event => {
-    event.stopPropagation();
+  overscanIndicesGetter = ({ cellCount, overscanCellsCount, startIndex, stopIndex }) => ({
+    overscanStartIndex: Math.max(0, startIndex - overscanCellsCount),
+    overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount),
+  });
 
+  handleToggleExpansionClick = eventItemIndex => {
     this.setState(
       produce(draft => {
-        const index = draft.expanded.indexOf(eventItemIndex);
-        if (index > -1) {
-          draft.expanded.splice(index, 1);
+        if (draft.expanded[eventItemIndex]) {
+          draft.expanded[eventItemIndex] = false;
         } else {
-          draft.expanded.push(eventItemIndex);
+          draft.expanded[eventItemIndex] = true;
         }
+        draft.rowHeightToUpdate = eventItemIndex;
       })
     );
-    // this.cache.clear(eventItemIndex);
-    // this.listEl.recomputeRowHeights(eventItemIndex);
-    // // this.listEl.forceUpdate();
-    // this.forceUpdate();
   };
 
-  renderRow = ({ index, key, parent, style }) => {
-    const isExpanded = this.state.expanded.includes(index);
+  renderRow = ({ index, key, style }) => {
+    const isExpanded = this.state.expanded[index] || false;
     return (
-      // <CellMeasurer key={key} cache={this.cache} parent={parent} columnIndex={0} rowIndex={index}>
-      <BreaksRow
-        key={key}
-        expanded={isExpanded}
-        eventItem={eventItems[index]}
-        index={index}
-        style={style}
-        onExpand={this.handleToggleExpansionClick(index)}
-      />
-      // </CellMeasurer>
+      <div style={style} key={key}>
+        <BreaksRow
+          expanded={isExpanded}
+          eventItem={eventItems[index]}
+          index={index}
+          onExpand={this.handleToggleExpansionClick}
+          recomputeRowHeight={this.recomputeRowHeight}
+        />
+      </div>
     );
   };
 
   getRowHeight = params => {
-    if (this.state.expanded.includes(params.index)) {
+    if (this.state.expanded[params.index]) {
       const expandedItemCount = eventItems[params.index].break_items.length;
       return expandedItemCount * 50 + 70;
     }
@@ -289,7 +274,6 @@ class LiveBreaks extends Component {
             <List
               ref={el => {
                 this.listEl = el;
-                // if (el) el.recomputeRowHeights();
               }}
               width={width}
               height={400}
@@ -297,7 +281,8 @@ class LiveBreaks extends Component {
               rowRenderer={this.renderRow}
               rowCount={eventItems.length}
               style={{ outline: 'none' }}
-              overscanRowCount={10}
+              overscanIndicesGetter={this.overscanIndicesGetter}
+              overscanRowCount={50}
             />
           )}
         </AutoSizer>

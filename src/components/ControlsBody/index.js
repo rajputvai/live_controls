@@ -27,16 +27,14 @@ const styles = {
     borderBottom: `solid 1px ${Color.other.o6}`,
     marginBottom: 20,
   },
-  tab: {
-    fontSize: '0.875rem',
-    fontWeight: 'normal',
+  tabLabel: {
+    fontSize: 14,
   },
   tabIndicator: {
     height: 3,
   },
   selectedTab: {
     color: Color.secondary.s1,
-    fontWeight: 500,
   },
   tabDefault: {
     display: 'none',
@@ -80,8 +78,14 @@ class ControlsBody extends Component {
             classes={{ root: classes.tabs, indicator: classes.tabIndicator }}
             className="row"
           >
-            <Tab label="LIVE BREAKS" classes={{ root: classes.tab, selected: classes.selectedTab }} />
-            <Tab label="LIVE GRAPHICS" classes={{ root: classes.tab, selected: classes.selectedTab }} />
+            <Tab
+              classes={{ selected: classes.selectedTab }}
+              label={<span className={classes.tabLabel}>LIVE BREAKS</span>}
+            />
+            <Tab
+              classes={{ selected: classes.selectedTab }}
+              label={<span className={classes.tabLabel}>LIVE GRAPHICS</span>}
+            />
           </Tabs>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
             <div className={classNames(classes.tabContent, this.state.tab === 1 && classes.fadeLiveBreaks)}>
