@@ -131,9 +131,9 @@ class Header extends Component {
               {!loading &&
                 events.map(event => (
                   <MenuItem
-                    key={event.id}
+                    key={event.ref_id}
                     selected={selectedEvent.ref_id === event.ref_id}
-                    onClick={this.handleMenuItemClick(event.id)}
+                    onClick={this.handleMenuItemClick(event.ref_id)}
                   >
                     {event.name}
                   </MenuItem>
@@ -148,7 +148,7 @@ class Header extends Component {
 
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
-  events: PropTypes.array.isRequired,
+  events: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(Header));

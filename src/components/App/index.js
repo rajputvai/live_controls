@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+import axiosInstance from '../../utilities/axios';
 import Color from '../../utilities/theme/Color';
 import { MainWrapper } from '../Layout';
 import HeaderContainer from '../../containers/HeaderContainer';
@@ -43,6 +44,8 @@ class App extends Component {
   async componentDidMount() {
     const response = await axios.get('/config.json');
     window.live_controls_config = response.data;
+    axiosInstance.defaults.baseURL = response.data.API_URL;
+    axiosInstance.defaults.params = { auth_token: response.data.AUTH_TOKEN };
     this.setState({ configLoading: false });
     this.props.loadEvents();
   }

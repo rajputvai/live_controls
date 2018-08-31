@@ -14,5 +14,6 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/dom/webSocket';
 
 import eventsEpics from './eventsEpics';
+import playlistEpics from './playlistEpics';
 
-export default combineEpics(eventsEpics);
+export default combineEpics(eventsEpics, playlistEpics);

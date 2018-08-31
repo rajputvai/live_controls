@@ -50,6 +50,8 @@ const styles = {
     fontWeight: 'bold',
     color: Color.primary.p3,
     padding: '0 20px 10px',
+    display: 'flex',
+    maxWidth: 'calc(100% - 15px)',
     '& > div': {
       width: '20%',
     },
@@ -116,74 +118,74 @@ const styles = {
   },
 };
 
-const data = {
-  id: 1,
-  title: 'Intent_1_1',
-  type: 'signature',
-  sub_type: 'signature',
-  asset_id: 'Intent_1_1',
-  comments: null,
-  join_status: null,
-  offset: 0,
-  segment: null,
-  playing: false,
-  status: 'Present',
-  subtitle_scheduled: false,
-  duration: 7600,
-  available_segments: null,
-  break_item: {
-    id: 2,
-    title: 'res_00211_newexp',
-    type: 'primary',
-    sub_type: 'program_segment',
-    asset_id: 'res_00211_newexp',
-    comments: '',
-    join_status: null,
-    offset: 0,
-    segment: {
-      data: {
-        default_segment: true,
-        duration: 95,
-        start_time_code: 2880,
-        file_offset: '564',
-        offset: 0,
-      },
-      id: 870,
-      media_id: 8869,
-      segment_id: 211,
-    },
-    playing: false,
-    status: 'Present',
-    subtitle_scheduled: false,
-    duration: 3800,
-    available_segments: [
-      {
-        data: {
-          default_segment: true,
-          duration: 95,
-          start_time_code: 2880,
-          file_offset: '564',
-          offset: 0,
-        },
-        id: 870,
-        media_id: 8869,
-        segment_id: 211,
-      },
-    ],
-  },
-};
+// const data = {
+//   id: 1,
+//   title: 'Intent_1_1',
+//   type: 'signature',
+//   sub_type: 'signature',
+//   asset_id: 'Intent_1_1',
+//   comments: null,
+//   join_status: null,
+//   offset: 0,
+//   segment: null,
+//   playing: false,
+//   status: 'Present',
+//   subtitle_scheduled: false,
+//   duration: 7600,
+//   available_segments: null,
+//   break_item: {
+//     id: 2,
+//     title: 'res_00211_newexp',
+//     type: 'primary',
+//     sub_type: 'program_segment',
+//     asset_id: 'res_00211_newexp',
+//     comments: '',
+//     join_status: null,
+//     offset: 0,
+//     segment: {
+//       data: {
+//         default_segment: true,
+//         duration: 95,
+//         start_time_code: 2880,
+//         file_offset: '564',
+//         offset: 0,
+//       },
+//       id: 870,
+//       media_id: 8869,
+//       segment_id: 211,
+//     },
+//     playing: false,
+//     status: 'Present',
+//     subtitle_scheduled: false,
+//     duration: 3800,
+//     available_segments: [
+//       {
+//         data: {
+//           default_segment: true,
+//           duration: 95,
+//           start_time_code: 2880,
+//           file_offset: '564',
+//           offset: 0,
+//         },
+//         id: 870,
+//         media_id: 8869,
+//         segment_id: 211,
+//       },
+//     ],
+//   },
+// };
 
-const eventItemRange = new Array(3000).fill(1);
-const breakItemRange = new Array(4).fill(1);
+// const eventItemRange = new Array(3000).fill(1);
+// const breakItemRange = new Array(4).fill(1);
 
-const eventItems = eventItemRange.map((val, eventIndex) => ({
-  ...data,
-  break_items: breakItemRange.map((v, breakIndex) => ({
-    ...data.break_item,
-    id: breakIndex,
-  })),
-  id: eventIndex,
-}));
+// const eventItems = eventItemRange.map((val, eventIndex) => ({
+//   ...data,
+//   break_items: breakItemRange.map((v, breakIndex) => ({
+//     ...data.break_item,
+//     id: breakIndex,
+//   })),
+//   id: eventIndex,
+// }));
 
 class LiveBreaks extends Component {
   state = { expanded: {}, rowHeightToUpdate: 0 };
@@ -242,7 +244,7 @@ class LiveBreaks extends Component {
       <div style={style} key={key}>
         <BreaksRow
           expanded={isExpanded}
-          eventItem={eventItems[index]}
+          eventItem={this.props.playlist.playlist.items[index]}
           index={index}
           onExpand={this.handleToggleExpansionClick}
           recomputeRowHeight={this.recomputeRowHeight}
@@ -253,22 +255,27 @@ class LiveBreaks extends Component {
 
   getRowHeight = params => {
     if (this.state.expanded[params.index]) {
-      const expandedItemCount = eventItems[params.index].break_items.length;
+      const expandedItemCount = this.props.playlist.playlist.items[params.index].break_items.length;
       return expandedItemCount * 50 + 70;
     }
     return 70;
   };
 
   renderLiveBreaksTable() {
-    const { classes } = this.props;
+    const {
+      classes,
+      playlist: {
+        playlist: { items },
+      },
+    } = this.props;
     return (
       <div className={classes.root}>
-        <Grid container className={classes.headerRow}>
-          <div className={classes.firstHeader}>BREAK/ ASSET INFORMATION</div>
+        <div container className={classes.headerRow}>
+          <div>BREAK/ ASSET INFORMATION</div>
           <div>ASSET TYPE</div>
           <div>PLAYED STATUS</div>
           <div>ACTIONS </div>
-        </Grid>
+        </div>
         <AutoSizer disableHeight>
           {({ width }) => (
             <List
@@ -279,7 +286,7 @@ class LiveBreaks extends Component {
               height={400}
               rowHeight={this.getRowHeight}
               rowRenderer={this.renderRow}
-              rowCount={eventItems.length}
+              rowCount={items.length}
               style={{ outline: 'none' }}
               overscanIndicesGetter={this.overscanIndicesGetter}
               overscanRowCount={50}
@@ -302,6 +309,7 @@ class LiveBreaks extends Component {
 
 LiveBreaks.propTypes = {
   classes: PropTypes.object.isRequired,
+  playlist: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);

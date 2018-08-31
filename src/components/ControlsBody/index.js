@@ -12,6 +12,9 @@ import classNames from 'classnames';
 import LiveBreaks from './LiveBreaks';
 import LiveGraphics from './LiveGraphics';
 
+// Assets
+import Loading from '../../assets/svgs/Loading';
+
 // Utils
 import Color from '../../utilities/theme/Color';
 
@@ -58,6 +61,10 @@ const styles = {
   players: {
     height: 270,
   },
+  loadingWrapper: {
+    height: '100vh',
+    weight: '100vw',
+  },
 };
 
 class ControlsBody extends Component {
@@ -66,7 +73,14 @@ class ControlsBody extends Component {
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   render() {
-    const { classes } = this.props;
+    const { classes, playlist } = this.props;
+    if (playlist.loading) {
+      return (
+        <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
+          <Loading />
+        </Grid>
+      );
+    }
     return (
       <div>
         <div className={classes.headerSpacer} />
@@ -89,7 +103,7 @@ class ControlsBody extends Component {
           </Tabs>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
             <div className={classNames(classes.tabContent, this.state.tab === 1 && classes.fadeLiveBreaks)}>
-              <LiveBreaks />
+              <LiveBreaks playlist={playlist} />
             </div>
             <div className={classNames(classes.tabContent, this.state.tab === 0 && classes.fadeGraphics)}>
               <LiveGraphics />
@@ -103,6 +117,7 @@ class ControlsBody extends Component {
 
 ControlsBody.propTypes = {
   classes: PropTypes.object.isRequired,
+  playlist: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ControlsBody);

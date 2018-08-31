@@ -23,7 +23,6 @@ const styles = {
   },
   root: {
     color: Color.primary.p2,
-    padding: 1,
     '& > div:last-child': {
       marginBottom: 20,
     },
@@ -131,7 +130,7 @@ class BreaksRow extends Component {
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
                 <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
-                <span>{formatDuration(breakItem.segment.data.duration)}</span>
+                <span>{formatDuration(breakItem.duration)}</span>
               </Grid>
               <div>{index}</div>
               <div>NOT PLAYED</div>

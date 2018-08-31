@@ -1,5 +1,5 @@
 import produce from 'immer';
-import { types } from '../actions/events';
+import { types } from '../actions/eventsActions';
 
 const INITIAL_STATE = {
   events: [],

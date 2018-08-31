@@ -2,12 +2,29 @@ import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
 
 import axios from '../utilities/axios';
-import { types, loadingEvents, loadEventsSuccess } from '../actions/events';
+import { types as eventsActionTypes, loadingEvents, loadEventsSuccess } from '../actions/eventsActions';
+import { loadPlaylist } from '../actions/playlistActions';
+
+function getUrl() {
+  const feedId = window.live_controls_config.FEED_ID;
+  const playlistId = window.live_controls_config.PLAYLIST_ID;
+  return `/live_events/events_in_playlist.json?feed_id=${feedId}&playlist_id=${playlistId}`;
+}
+
+function getLatestPlaylist(events) {
+  const playlists = events.events[0].playlists;
+  const publishedPlaylists = playlists.filter(playlist => playlist.state === 'published');
+  const orderedByLatest = publishedPlaylists.sort((p1, p2) => p2.id - p1.id);
+  if (orderedByLatest.length > 0) {
+    return orderedByLatest[0].id;
+  }
+  return 3521;
+}
 
 const loadEventsEpic = $action =>
-  $action.ofType(types.LOAD).mergeMap(() =>
-    Observable.fromPromise(axios.get(window.live_controls_config.API_URL))
-      .map(response => loadEventsSuccess(response.data))
+  $action.ofType(eventsActionTypes.LOAD).mergeMap(() =>
+    Observable.fromPromise(axios.get(getUrl()))
+      .mergeMap(response => [loadEventsSuccess(response.data), loadPlaylist(getLatestPlaylist(response.data))])
       .startWith(loadingEvents())
   );
 

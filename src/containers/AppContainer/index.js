@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import App from '../../components/App';
-import { loadEvents } from '../../actions/events';
+import { loadEvents } from '../../actions/eventsActions';
 
 export default connect(
   null,
