@@ -7,13 +7,13 @@ import { Provider } from 'react-redux';
 import store from './store';
 import theme from './utilities/theme';
 
-import App from './containers/App';
+import AppContainer from './containers/AppContainer';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <MuiThemeProvider theme={theme}>
-        <App />
+        <AppContainer />
       </MuiThemeProvider>
     </BrowserRouter>
   </Provider>,

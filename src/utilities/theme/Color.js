@@ -25,5 +25,6 @@ export default {
     o6: '#d6d6d6',
     o7: '#dcdde0',
     o8: '#dadada',
+    o9: '#d5d5d5',
   },
 };
