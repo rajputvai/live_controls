@@ -1,6 +1,6 @@
 {
-  "API_URL": "",
-  "AUTH_TOKEN": "",
-  "FEED_ID": "",
-  "PLAYLIST_ID": ""
-}
+  "API_URL": "http://blipzzard.amagi.tv/v1/api/",
+  "AUTH_TOKEN": "RxqYxQC2qGw8tjzKsWB4",
+  "FEED_ID": "14",
+  "PLAYLIST_ID": "3513"
+  }
