@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
 import Header from '../../components/Header';
+import { sendMessage } from '../../actions/webSocketActions';
 
 function mapStateToProps(state) {
   return {
@@ -8,4 +9,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  { sendMessage }
+)(Header);

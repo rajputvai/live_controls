@@ -76,6 +76,15 @@ const styles = {
   breakIndex: {
     marginRight: 20,
   },
+  disabledActionIcons: {
+    opacity: 0.5,
+  },
+  subType: {
+    borderRadius: 8,
+    border: 'solid 1px #f06292',
+    color: '#f06292',
+    padding: 6,
+  },
 };
 
 class BreaksRow extends Component {
@@ -96,6 +105,10 @@ class BreaksRow extends Component {
     this.props.onExpand(this.props.index);
   };
 
+  handleBreakStartClick = () => {
+    this.props.sendBreakStartMessage(this.props.index);
+  };
+
   render() {
     const { classes, eventItem, index, expanded } = this.props;
     return (
@@ -110,19 +123,19 @@ class BreaksRow extends Component {
             <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
             <span>{formatDuration(eventItem.duration)}</span>
           </Grid>
-          <div>{index}</div>
+          <div />
           <div className={classes.cell}>NOT PLAYED</div>
-          <Grid className={classes.actionsCell}>
-            <MuiIconButton>
-              <PlayIcon className={classes.actionIcons} />
+          <div>
+            <MuiIconButton onClick={this.handleBreakStartClick}>
+              <PlayIcon />
             </MuiIconButton>
-            <MuiIconButton>
-              <ForceRescueIcon className={classes.actionIcons} />
+            <MuiIconButton disabled>
+              <ForceRescueIcon className={classes.disabledActionIcons} />
             </MuiIconButton>
-            <MuiIconButton>
-              <QueueBreakIcon className={classes.actionIcons} />
+            <MuiIconButton disabled>
+              <QueueBreakIcon className={classes.disabledActionIcons} />
             </MuiIconButton>
-          </Grid>
+          </div>
         </Grid>
         {expanded &&
           eventItem.break_items.map((breakItem, breakIndex) => (
@@ -132,16 +145,18 @@ class BreaksRow extends Component {
                 <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
                 <span>{formatDuration(breakItem.duration)}</span>
               </Grid>
-              <div>{index}</div>
+              <div>
+                <span className={classes.subType}>{breakItem.sub_type}</span>
+              </div>
               <div>NOT PLAYED</div>
               <div>
-                <MuiIconButton>
-                  <PlayIcon className={classes.actionIcons} />
+                <MuiIconButton disabled>
+                  <PlayIcon className={classes.disabledActionIcons} />
                 </MuiIconButton>
-                <MuiIconButton>
-                  <ForceRescueIcon className={classes.actionIcons} />
+                <MuiIconButton disabled>
+                  <ForceRescueIcon className={classes.disabledActionIcons} />
                 </MuiIconButton>
-                <MuiIconButton>
+                <MuiIconButton disabled>
                   <IconButton type="delete" />
                 </MuiIconButton>
               </div>
@@ -158,6 +173,7 @@ BreaksRow.propTypes = {
   index: PropTypes.number.isRequired,
   onExpand: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
+  sendBreakStartMessage: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

@@ -12,8 +12,10 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/dom/webSocket';
+import 'rxjs/observable/dom/WebSocketSubject';
 
 import eventsEpics from './eventsEpics';
 import playlistEpics from './playlistEpics';
+import websocketEpics from './websocketEpics';
 
-export default combineEpics(eventsEpics, playlistEpics);
+export default combineEpics(eventsEpics, playlistEpics, websocketEpics);

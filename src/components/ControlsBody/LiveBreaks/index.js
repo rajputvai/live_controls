@@ -238,6 +238,27 @@ class LiveBreaks extends Component {
     );
   };
 
+  sendBreakStartMessage = eventItemIndex => {
+    const {
+      playlist: { playlist },
+      selectedEvent,
+    } = this.props;
+    const playlistItem = playlist.items[eventItemIndex];
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'start',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp: -1,
+        duration_ms: playlistItem.duration,
+        jpeg_buffer: '??',
+        break_name: playlistItem.asset_id,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
+    });
+  };
+
   renderRow = ({ index, key, style }) => {
     const isExpanded = this.state.expanded[index] || false;
     return (
@@ -248,6 +269,7 @@ class LiveBreaks extends Component {
           index={index}
           onExpand={this.handleToggleExpansionClick}
           recomputeRowHeight={this.recomputeRowHeight}
+          sendBreakStartMessage={this.sendBreakStartMessage}
         />
       </div>
     );
@@ -270,7 +292,7 @@ class LiveBreaks extends Component {
     } = this.props;
     return (
       <div className={classes.root}>
-        <div container className={classes.headerRow}>
+        <div className={classes.headerRow}>
           <div>BREAK/ ASSET INFORMATION</div>
           <div>ASSET TYPE</div>
           <div>PLAYED STATUS</div>
@@ -310,6 +332,8 @@ class LiveBreaks extends Component {
 LiveBreaks.propTypes = {
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  selectedEvent: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);
