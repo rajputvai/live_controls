@@ -10,8 +10,10 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import classNames from 'classnames';
 
 import Color from '../../utilities/theme/Color';
+import { isLiveOnForEvent, setLiveOnForEvent } from '../../utilities/localStorageHelpers';
 
 const styles = {
   root: {
@@ -49,10 +51,35 @@ const styles = {
       marginLeft: 30,
     },
   },
+  liveOffBtn: {
+    backgroundColor: 'red',
+    color: 'white',
+    '&:hover': {
+      backgroundColor: '#c70303',
+    },
+  },
 };
 
+function getLiveMessage(selectedEvent, value) {
+  return {
+    trigger_type: 'live',
+    command: value,
+    params: {
+      live_event_id: selectedEvent.ref_id,
+      timestamp: -1,
+      jpeg_buffer: '??',
+    },
+  };
+}
+
 class Header extends Component {
-  state = { anchorEl: null };
+  state = { anchorEl: null, isLiveOn: false };
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.events.selectedEvent !== nextProps.events.selectedEvent) {
+      this.setState({ isLiveOn: isLiveOnForEvent(nextProps.events.selectedEvent.ref_id) });
+    }
+  }
 
   handleClick = event => {
     this.setState({
@@ -68,6 +95,22 @@ class Header extends Component {
 
   handleMenuItemClick = eventId => () => this.setState({ eventId, anchorEl: null });
 
+  handleLiveToggle = () => {
+    const {
+      events: { selectedEvent },
+      sendMessage,
+    } = this.props;
+    if (isLiveOnForEvent(selectedEvent.ref_id)) {
+      sendMessage(getLiveMessage(selectedEvent.ref_id, 'off'));
+      setLiveOnForEvent(selectedEvent.ref_id, false);
+      this.setState({ isLiveOn: false });
+    } else {
+      sendMessage(getLiveMessage(selectedEvent.ref_id, 'on'));
+      setLiveOnForEvent(selectedEvent.ref_id, true);
+      this.setState({ isLiveOn: true });
+    }
+  };
+
   renderContent() {
     const {
       classes,
@@ -82,8 +125,13 @@ class Header extends Component {
           <Typography variant="body1" className={classes.rootSubheading}>
             Live event scheduled at: 14:55:29 IST | Time remaining: 00:03:05
           </Typography>
-          <Button variant="contained" color="primary" className={classes.rootButton}>
-            LIVE ON
+          <Button
+            variant="contained"
+            color="primary"
+            className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
+            onClick={this.handleLiveToggle}
+          >
+            {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>
         </Fragment>
       );
@@ -150,6 +198,7 @@ class Header extends Component {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(withRouter(Header));

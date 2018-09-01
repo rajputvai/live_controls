@@ -110,7 +110,7 @@ class ControlsBody extends Component {
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   render() {
-    const { classes, playlist } = this.props;
+    const { classes, playlist, sendMessage, selectedEvent } = this.props;
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -164,7 +164,7 @@ class ControlsBody extends Component {
           </Tabs>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
             <div className={classNames(classes.tabContent, this.state.tab === 1 && classes.fadeLiveBreaks)}>
-              <LiveBreaks playlist={playlist} />
+              <LiveBreaks sendMessage={sendMessage} selectedEvent={selectedEvent} playlist={playlist} />
             </div>
             <div className={classNames(classes.tabContent, this.state.tab === 0 && classes.fadeGraphics)}>
               <LiveGraphics />
@@ -179,6 +179,8 @@ class ControlsBody extends Component {
 ControlsBody.propTypes = {
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
+  selectedEvent: PropTypes.object.isRequired,
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ControlsBody);

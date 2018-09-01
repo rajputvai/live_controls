@@ -48,6 +48,7 @@ class App extends Component {
     axiosInstance.defaults.params = { auth_token: response.data.AUTH_TOKEN };
     this.setState({ configLoading: false });
     this.props.loadEvents();
+    this.props.connectToWebSocket();
   }
 
   render() {
@@ -69,8 +70,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  loadEvents: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  loadEvents: PropTypes.func.isRequired,
+  connectToWebSocket: PropTypes.func.isRequired,
 };
 
 export default withStyles(styleSheet)(withRouter(App));

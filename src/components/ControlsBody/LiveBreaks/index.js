@@ -14,6 +14,9 @@ import InfoIcon from '../../../assets/svgs/Info';
 import IconButton from '../../../assets/IconButton';
 import Color from '../../../utilities/theme/Color';
 
+// Utilities
+import { getAllPlayedBreakItemsForEvent, setBreakItemPlayed } from '../../../utilities/localStorageHelpers';
+
 const styles = {
   infoIcon: {
     height: 20,
@@ -188,7 +191,11 @@ const styles = {
 // }));
 
 class LiveBreaks extends Component {
-  state = { expanded: {}, rowHeightToUpdate: 0 };
+  constructor(props) {
+    super(props);
+    const playedBreakItems = getAllPlayedBreakItemsForEvent(props.selectedEvent.ref_id);
+    this.state = { expanded: {}, rowHeightToUpdate: 0, playedBreakItems };
+  }
 
   renderActionBar() {
     const { classes } = this.props;
@@ -238,16 +245,45 @@ class LiveBreaks extends Component {
     );
   };
 
+  sendBreakStartMessage = eventItemIndex => {
+    const {
+      playlist: { playlist },
+      selectedEvent,
+    } = this.props;
+    const playlistItem = playlist.items[eventItemIndex];
+    setBreakItemPlayed(selectedEvent.ref_id, playlistItem.asset_id);
+    this.setState(
+      produce(draft => {
+        draft.playedBreakItems.push(playlistItem.asset_id);
+      })
+    );
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'start',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp: -1,
+        duration_ms: playlistItem.duration,
+        jpeg_buffer: '??',
+        break_name: playlistItem.asset_id,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
+    });
+  };
+
   renderRow = ({ index, key, style }) => {
     const isExpanded = this.state.expanded[index] || false;
     return (
       <div style={style} key={key}>
         <BreaksRow
+          playedBreakItems={this.state.playedBreakItems}
           expanded={isExpanded}
           eventItem={this.props.playlist.playlist.items[index]}
           index={index}
           onExpand={this.handleToggleExpansionClick}
           recomputeRowHeight={this.recomputeRowHeight}
+          sendBreakStartMessage={this.sendBreakStartMessage}
         />
       </div>
     );
@@ -270,7 +306,7 @@ class LiveBreaks extends Component {
     } = this.props;
     return (
       <div className={classes.root}>
-        <div container className={classes.headerRow}>
+        <div className={classes.headerRow}>
           <div>BREAK/ ASSET INFORMATION</div>
           <div>ASSET TYPE</div>
           <div>PLAYED STATUS</div>
@@ -310,6 +346,8 @@ class LiveBreaks extends Component {
 LiveBreaks.propTypes = {
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
+  sendMessage: PropTypes.func.isRequired,
+  selectedEvent: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);
