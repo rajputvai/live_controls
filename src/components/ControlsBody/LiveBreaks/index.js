@@ -14,6 +14,9 @@ import InfoIcon from '../../../assets/svgs/Info';
 import IconButton from '../../../assets/IconButton';
 import Color from '../../../utilities/theme/Color';
 
+// Utilities
+import { getAllPlayedBreakItemsForEvent, setBreakItemPlayed } from '../../../utilities/localStorageHelpers';
+
 const styles = {
   infoIcon: {
     height: 20,
@@ -188,7 +191,11 @@ const styles = {
 // }));
 
 class LiveBreaks extends Component {
-  state = { expanded: {}, rowHeightToUpdate: 0 };
+  constructor(props) {
+    super(props);
+    const playedBreakItems = getAllPlayedBreakItemsForEvent(props.selectedEvent.ref_id);
+    this.state = { expanded: {}, rowHeightToUpdate: 0, playedBreakItems };
+  }
 
   renderActionBar() {
     const { classes } = this.props;
@@ -244,6 +251,12 @@ class LiveBreaks extends Component {
       selectedEvent,
     } = this.props;
     const playlistItem = playlist.items[eventItemIndex];
+    setBreakItemPlayed(selectedEvent.ref_id, playlistItem.asset_id);
+    this.setState(
+      produce(draft => {
+        draft.playedBreakItems.push(playlistItem.asset_id);
+      })
+    );
     this.props.sendMessage({
       trigger_type: 'break',
       command: 'start',
@@ -264,6 +277,7 @@ class LiveBreaks extends Component {
     return (
       <div style={style} key={key}>
         <BreaksRow
+          playedBreakItems={this.state.playedBreakItems}
           expanded={isExpanded}
           eventItem={this.props.playlist.playlist.items[index]}
           index={index}

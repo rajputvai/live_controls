@@ -6,10 +6,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  config => {
+  config =>
     // config.url += config.url.indexOf('?') === -1 ? '?token=vSjrGDEXYbG8wE8dZqjg' : '&token=vSjrGDEXYbG8wE8dZqjg'; // EPSILON
-    return config;
-  },
+    config,
   error => Promise.reject(error)
 );
 

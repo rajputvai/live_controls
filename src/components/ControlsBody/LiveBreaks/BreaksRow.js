@@ -80,10 +80,10 @@ const styles = {
     opacity: 0.5,
   },
   subType: {
-    borderRadius: 8,
+    borderRadius: 30,
     border: 'solid 1px #f06292',
     color: '#f06292',
-    padding: 6,
+    padding: '2px 10px',
   },
 };
 
@@ -93,7 +93,8 @@ class BreaksRow extends Component {
       this.props.eventItem === nextProps.eventItem &&
       this.props.index === nextProps.index &&
       this.props.onExpand === nextProps.onExpand &&
-      this.props.expanded === nextProps.expanded
+      this.props.expanded === nextProps.expanded &&
+      this.props.playedBreakItems === nextProps.playedBreakItems
     ) {
       return false;
     }
@@ -110,7 +111,7 @@ class BreaksRow extends Component {
   };
 
   render() {
-    const { classes, eventItem, index, expanded } = this.props;
+    const { classes, eventItem, expanded, playedBreakItems } = this.props;
     return (
       <div className={classes.root}>
         <Grid container className={classes.breakRow} alignItems="center">
@@ -126,7 +127,10 @@ class BreaksRow extends Component {
           <div />
           <div className={classes.cell}>NOT PLAYED</div>
           <div>
-            <MuiIconButton onClick={this.handleBreakStartClick}>
+            <MuiIconButton
+              onClick={this.handleBreakStartClick}
+              className={playedBreakItems.includes(eventItem.asset_id) ? classes.disabledActionIcons : ''}
+            >
               <PlayIcon />
             </MuiIconButton>
             <MuiIconButton disabled>
@@ -174,6 +178,7 @@ BreaksRow.propTypes = {
   onExpand: PropTypes.func.isRequired,
   expanded: PropTypes.bool.isRequired,
   sendBreakStartMessage: PropTypes.func.isRequired,
+  playedBreakItems: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);
