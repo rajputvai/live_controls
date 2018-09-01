@@ -4,5 +4,6 @@
   "FEED_ID": "14",
   "PLAYLIST_ID": "3513",
   "INPUT_SOURCE_URL": "rtsp://10.0.5.201:32321/AmagiRTSPStream201",
-  "PLAYING_NOW_URL": "rtsp://10.0.5.201:32323/AmagiOutRTSPStream"
+  "PLAYING_NOW_URL": "rtsp://10.0.5.201:32323/AmagiOutRTSPStream",
+  "WEBSOCKET_URL": "ws://10.0.12.255:5006"
 }

@@ -123,7 +123,7 @@ class ControlsBody extends Component {
         <div className={classes.players}>
           <div>
             <div className={classes.playerTitle}>INPUT SOURCE</div>
-            <Player id="live" url={window.live_controls_config.INPUT_SOURCE} />
+            <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} />
           </div>
           <div className={classes.playerSpacer}>
             <div className={classes.playerTitle}>PLAYING NOW</div>
@@ -176,10 +176,14 @@ class ControlsBody extends Component {
   }
 }
 
+ControlsBody.defaultProps = {
+  selectedEvent: null,
+};
+
 ControlsBody.propTypes = {
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
-  selectedEvent: PropTypes.object.isRequired,
+  selectedEvent: PropTypes.object,
   sendMessage: PropTypes.func.isRequired,
 };
 

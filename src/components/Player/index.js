@@ -15,16 +15,17 @@ const styles = {
 };
 
 class Player extends Component {
-
   componentDidMount() {
-    window.vxgplayer(this.element.id)
+    window.vxgplayer(this.element.id);
   }
 
   render() {
     const { classes, id, url, width, height } = this.props;
     return (
       <div
-        ref={el => this.element = el}
+        ref={el => {
+          this.element = el;
+        }}
         id={id}
         className={classNames('vxgplayer', classes.root)}
         url={url}

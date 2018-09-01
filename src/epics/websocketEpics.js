@@ -16,7 +16,7 @@ let socket;
 const connectSocket = () => {
   console.log('connecting to websocket');
   socket = Observable.webSocket({
-    url: 'ws://localhost:5006',
+    url: window.live_controls_config.WEBSOCKET_URL,
   });
   console.log('connected to websocket');
   return socket;
@@ -28,7 +28,7 @@ const connectEpic = action$ =>
       .multiplex(() => '', () => ({ msg: 'disconnected' }), () => true)
       .takeUntil(action$.ofType(types.DISCONNECTED))
       .map(msg => receiveMessageFromWebSocket(msg))
-      .catch(() => Observable.of(reconnect(action.payload.feed_id)))
+      .catch(() => Observable.of(reconnect()))
       .merge(
         action$
           .ofType(types.SEND_MESSAGE)
