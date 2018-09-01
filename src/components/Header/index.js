@@ -13,6 +13,7 @@ import DropdownArrow from '../../assets/images/dropdown.png';
 const styles = {
   root: {
     flexGrow: 1,
+    paddingTop: 60,
   },
   rootToolbar: {
     minHeight: 60,
