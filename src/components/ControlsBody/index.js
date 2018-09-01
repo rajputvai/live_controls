@@ -11,6 +11,7 @@ import classNames from 'classnames';
 // Components
 import LiveBreaks from './LiveBreaks';
 import LiveGraphics from './LiveGraphics';
+import Player from '../Player';
 
 // Assets
 import Loading from '../../assets/svgs/Loading';
@@ -19,9 +20,6 @@ import Loading from '../../assets/svgs/Loading';
 import Color from '../../utilities/theme/Color';
 
 const styles = {
-  headerSpacer: {
-    marginTop: 60,
-  },
   paper: {
     padding: 20,
     margin: 10,
@@ -59,7 +57,46 @@ const styles = {
     opacity: 0.01,
   },
   players: {
-    height: 270,
+    display: 'flex',
+    padding: '40px 40px 20px 40px',
+  },
+  playerTitle: {
+    fontWeight: 500,
+    color: Color.primary.p2,
+    paddingBottom: 4,
+  },
+  streamTimeRemaining: {
+    background: '#fff',
+    padding: 8,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'solid 1px #dddddd',
+    fontSize: 16,
+    color: Color.primary.p2,
+    borderRadius: 2,
+    '& span': {
+      fontSize: 24,
+      fontWeight: 500,
+      paddingLeft: 10,
+    },
+  },
+  playerSpacer: {
+    padding: '0 60px',
+  },
+  liveLogo: {
+    color: Color.primary.p2,
+    paddingRight: 60,
+    '& span': {
+      fontSize: 12,
+    },
+    '& div': {
+      paddingTop: 5,
+      '& img': {
+        width: 130,
+        height: 130,
+      },
+    },
   },
   loadingWrapper: {
     height: '100vh',
@@ -83,8 +120,32 @@ class ControlsBody extends Component {
     }
     return (
       <div>
-        <div className={classes.headerSpacer} />
-        <div className={classes.players}>players and logos</div>
+        <div className={classes.players}>
+          <div>
+            <div className={classes.playerTitle}>INPUT SOURCE</div>
+            <Player id="live" url="rtsp://10.0.5.201:32321/AmagiRTSPStream201" />
+          </div>
+          <div className={classes.playerSpacer}>
+            <div className={classes.playerTitle}>PLAYING NOW</div>
+            <Player id="out" url="rtsp://10.0.5.201:32323/AmagiOutRTSPStream" />
+            <div className={classes.streamTimeRemaining}>
+              TIME REMAINING
+              <span>00:15:30:48</span>
+            </div>
+          </div>
+          <div className={classes.liveLogo}>
+            <span>LIVE LOGO</span>
+            <div>
+              <img />
+            </div>
+          </div>
+          <div className={classes.liveLogo}>
+            <span>BREAK LOGO</span>
+            <div>
+              <img />
+            </div>
+          </div>
+        </div>
         <Paper className={classes.paper}>
           <Tabs
             value={this.state.tab}

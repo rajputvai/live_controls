@@ -16,6 +16,7 @@ import Color from '../../utilities/theme/Color';
 const styles = {
   root: {
     flexGrow: 1,
+    paddingTop: 60,
   },
   rootToolbar: {
     minHeight: 60,
