@@ -16,7 +16,7 @@ const styles = {
 
 class Player extends Component {
   componentDidMount() {
-    window.vxgplayer(this.element.id);
+    window[this.props.globalKey] = window.vxgplayer(this.element.id);
   }
 
   render() {
@@ -48,6 +48,7 @@ Player.propTypes = {
   url: PropTypes.string.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
+  globalKey: PropTypes.string.isRequired,
 };
 
 Player.defaultProps = {

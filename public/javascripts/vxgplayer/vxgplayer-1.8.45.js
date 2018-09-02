@@ -445,26 +445,26 @@ window.vxgplayer = function(id, options_){
 						self.m.snapshotFile = snap_status;
 						if(snap_pts != undefined)
 							self.m.snapshotPTS = snap_pts;
-						window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-						window.requestFileSystem(window.TEMPORARY, 1, function(fs) {
-							fs.root.getFile(self.m.snapshotFile, {create: false}, function(fileEntry) { // /test is filename
-								var pom = document.createElement('a');
-								pom.setAttribute('href', fileEntry.toURL());
-								if(self.m.snapshotPTS == -1){
-									pom.setAttribute('download', "snapshot.jpg");
-								}else{
-									pom.setAttribute('download', "snapshot_"+self.m.snapshotPTS+".jpg");
-								}
-								pom.style.display = 'none';
-								document.body.appendChild(pom);
-								pom.click();
-								document.body.removeChild(pom);
-							}, function(e) {
-								console.error("[VXGPLAYER] TAKE_SNAPSHOT fs.root.getFile FAILED")
-							});
-						}, function(e) {
-							console.error("[VXGPLAYER] TAKE_SNAPSHOT requestFileSystem window.TEMPORARY FAILED")
-						});
+						// window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+						// window.requestFileSystem(window.TEMPORARY, 1, function(fs) {
+						// 	fs.root.getFile(self.m.snapshotFile, {create: false}, function(fileEntry) { // /test is filename
+						// 		var pom = document.createElement('a');
+						// 		pom.setAttribute('href', fileEntry.toURL());
+						// 		if(self.m.snapshotPTS == -1){
+						// 			pom.setAttribute('download', "snapshot.jpg");
+						// 		}else{
+						// 			pom.setAttribute('download', "snapshot_"+self.m.snapshotPTS+".jpg");
+						// 		}
+						// 		pom.style.display = 'none';
+						// 		document.body.appendChild(pom);
+						// 		pom.click();
+						// 		document.body.removeChild(pom);
+						// 	}, function(e) {
+						// 		console.error("[VXGPLAYER] TAKE_SNAPSHOT fs.root.getFile FAILED")
+						// 	});
+						// }, function(e) {
+						// 	console.error("[VXGPLAYER] TAKE_SNAPSHOT requestFileSystem window.TEMPORARY FAILED")
+						// });
 					}
 				}else if(msgEvent.data == "MEDIA_ERR_URL"){
 					self.showerror('Problem with URL');
@@ -814,10 +814,10 @@ window.vxgplayer = function(id, options_){
 			self.takescreenshot = function(){
 					self.module.command('take_snapshot', '1');
 					
-					el_screenshot_loading.style.display = "block";
-					setTimeout(function(){
-						el_screenshot_loading.style.display = "";
-					},5000);
+					// el_screenshot_loading.style.display = "block";
+					// setTimeout(function(){
+					// 	el_screenshot_loading.style.display = "";
+					// },5000);
 			};
 			self.getScreenshotPTS = function(){
 				return self.m.snapshotPTS;

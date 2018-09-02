@@ -123,11 +123,11 @@ class ControlsBody extends Component {
         <div className={classes.players}>
           <div>
             <div className={classes.playerTitle}>INPUT SOURCE</div>
-            <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} />
+            <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
           </div>
           <div className={classes.playerSpacer}>
             <div className={classes.playerTitle}>PLAYING NOW</div>
-            <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} />
+            <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
             <div className={classes.streamTimeRemaining}>
               TIME REMAINING
               <span>00:15:30:48</span>

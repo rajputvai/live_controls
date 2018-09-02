@@ -257,12 +257,16 @@ class LiveBreaks extends Component {
         draft.playedBreakItems.push(playlistItem.asset_id);
       })
     );
+
+    window.inputPlayer.takescreenshot();
+    const timestamp = window.inputPlayer.getScreenshotPTS();
+
     this.props.sendMessage({
       trigger_type: 'break',
       command: 'start',
       params: {
         live_event_id: selectedEvent.ref_id,
-        timestamp: -1,
+        timestamp,
         duration_ms: playlistItem.duration,
         jpeg_buffer: '??',
         break_name: playlistItem.asset_id,
