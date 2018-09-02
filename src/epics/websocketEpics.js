@@ -23,9 +23,9 @@ const connectSocket = () => {
 };
 
 const connectEpic = action$ =>
-  action$.ofType(types.CONNECT).switchMap(action =>
+  action$.ofType(types.CONNECT).switchMap(() =>
     connectSocket()
-      .multiplex(() => '', () => ({ msg: 'disconnected' }), () => true)
+      .multiplex(() => ({ msg: 'connection' }), () => ({ msg: 'disconnected' }), () => true)
       .takeUntil(action$.ofType(types.DISCONNECTED))
       .map(msg => receiveMessageFromWebSocket(msg))
       .catch(() => Observable.of(reconnect()))
