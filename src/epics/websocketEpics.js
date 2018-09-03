@@ -35,6 +35,7 @@ const connectEpic = action$ =>
           .takeUntil(action$.ofType(types.DISCONNECTED))
           .map(action2 => {
             socket.next(action2.payload);
+            console.log('Socket message sent at time: ', Date.now());
             return sentMessage();
           }),
         action$.ofType(types.DISCONNECT).map(() => {

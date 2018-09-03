@@ -258,21 +258,20 @@ class LiveBreaks extends Component {
       })
     );
 
-    window.inputPlayer.takescreenshot();
-    const timestamp = window.inputPlayer.getScreenshotPTS();
-
-    this.props.sendMessage({
-      trigger_type: 'break',
-      command: 'start',
-      params: {
-        live_event_id: selectedEvent.ref_id,
-        timestamp,
-        duration_ms: playlistItem.duration,
-        jpeg_buffer: '??',
-        break_name: playlistItem.asset_id,
-        best_effort_flag: true,
-        best_effort_threshold_ms: 1000,
-      },
+    window.inputPlayer.takescreenshot(pts => {
+      this.props.sendMessage({
+        trigger_type: 'break',
+        command: 'start',
+        params: {
+          live_event_id: 'AMAGI_LIVE_001',
+          timestamp: pts,
+          duration_ms: 5000,
+          jpeg_buffer: '??',
+          break_name: 'LIVE_001_BREAK1',
+          best_effort_flag: true,
+          best_effort_threshold_ms: 1000,
+        },
+      });
     });
   };
 
@@ -281,7 +280,8 @@ class LiveBreaks extends Component {
     return (
       <div style={style} key={key}>
         <BreaksRow
-          playedBreakItems={this.state.playedBreakItems}
+          playedBreakItems={[]}
+          // playedBreakItems={this.state.playedBreakItems}
           expanded={isExpanded}
           eventItem={this.props.playlist.playlist.items[index]}
           index={index}
