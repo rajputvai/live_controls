@@ -60,18 +60,6 @@ const styles = {
   },
 };
 
-function getLiveMessage(selectedEvent, value) {
-  return {
-    trigger_type: 'live',
-    command: value,
-    params: {
-      live_event_id: selectedEvent.ref_id,
-      timestamp: -1,
-      jpeg_buffer: '??',
-    },
-  };
-}
-
 class Header extends Component {
   state = { anchorEl: null, isLiveOn: false };
 
@@ -95,19 +83,39 @@ class Header extends Component {
 
   handleMenuItemClick = eventId => () => this.setState({ eventId, anchorEl: null });
 
+  getLiveMessage = (selectedEvent, value) => {
+    const startTime = Date.now();
+    console.log('requesting player for snapshot at: ', startTime);
+    window.inputPlayer.takescreenshot(pts => {
+      console.log('type: ', value);
+      // window.inputPlayer.pause();
+      console.log('pts', pts);
+      const endTime = Date.now();
+      console.log('pts received from player at: ', endTime);
+      console.log('time taken to get pts from player: ', endTime - startTime);
+      this.props.sendMessage({
+        trigger_type: 'live',
+        command: 'on',
+        params: {
+          live_event_id: 'AMAGI_LIVE_001',
+          timestamp: pts,
+          jpeg_buffer: '??',
+        },
+      });
+      setLiveOnForEvent(selectedEvent.ref_id, value);
+      this.setState({ isLiveOn: value === 'on' });
+    });
+  };
+
   handleLiveToggle = () => {
     const {
       events: { selectedEvent },
-      sendMessage,
     } = this.props;
-    if (isLiveOnForEvent(selectedEvent.ref_id)) {
-      sendMessage(getLiveMessage(selectedEvent.ref_id, 'off'));
-      setLiveOnForEvent(selectedEvent.ref_id, false);
-      this.setState({ isLiveOn: false });
+    console.log('on click: ', Date.now());
+    if (this.state.isLiveOn) {
+      this.getLiveMessage(selectedEvent.ref_id, 'off');
     } else {
-      sendMessage(getLiveMessage(selectedEvent.ref_id, 'on'));
-      setLiveOnForEvent(selectedEvent.ref_id, true);
-      this.setState({ isLiveOn: true });
+      this.getLiveMessage(selectedEvent.ref_id, 'on');
     }
   };
 

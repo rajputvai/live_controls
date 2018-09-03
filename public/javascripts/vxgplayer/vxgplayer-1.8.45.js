@@ -445,6 +445,7 @@ window.vxgplayer = function(id, options_){
 						self.m.snapshotFile = snap_status;
 						if(snap_pts != undefined)
 							self.m.snapshotPTS = snap_pts;
+							self.module.amagiCallBackToReturnPTS(snap_pts);
 						// window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 						// window.requestFileSystem(window.TEMPORARY, 1, function(fs) {
 						// 	fs.root.getFile(self.m.snapshotFile, {create: false}, function(fileEntry) { // /test is filename
@@ -811,8 +812,9 @@ window.vxgplayer = function(id, options_){
 				}
 			};
 
-			self.takescreenshot = function(){
+			self.takescreenshot = function(amagiCallBackToReturnPTS){
 					self.module.command('take_snapshot', '1');
+					self.module.amagiCallBackToReturnPTS = amagiCallBackToReturnPTS;
 					
 					// el_screenshot_loading.style.display = "block";
 					// setTimeout(function(){
