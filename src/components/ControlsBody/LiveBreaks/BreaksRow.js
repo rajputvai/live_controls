@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
+import StopIcon from '@material-ui/icons/Stop';
 
 // Assets
 import IconButton from '../../../assets/IconButton';
@@ -14,6 +15,28 @@ import Color from '../../../utilities/theme/Color';
 
 // Utils
 import { formatDuration } from '../../../utilities/timeHelpers';
+
+const playingStyle = {
+  backgroundColor: '#a8effe',
+  opacity: '1 !important',
+  '&$rescued': {
+    backgroundColor: '#ffd0d6',
+    borderColor: '#df041f',
+  },
+};
+const playedStyle = {
+  opacity: 0.7,
+  backgroundColor: '#adcadb',
+};
+const rescuedStyle = {
+  opacity: 0.7,
+  borderColor: '#df041f !important',
+};
+const comingUpNextStyle = {
+  backgroundColor: '#b7fed5 !important',
+  '-webkit-animation': 'flash linear 1.5s infinite',
+  animation: 'flash linear 1.5s infinite',
+};
 
 const styles = {
   expandIcons: {
@@ -85,54 +108,89 @@ const styles = {
     color: '#f06292',
     padding: '2px 10px',
   },
+  playingBreak: playingStyle,
+  playingItem: {
+    '&:before': playingStyle,
+  },
+  playedBreak: playedStyle,
+  playedItem: {
+    '&:before': playedStyle,
+  },
+  comingUpNextBreak: comingUpNextStyle,
+  comingUpNextItem: {
+    '&:before': comingUpNextStyle,
+  },
 };
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
-    if (
-      this.props.eventItem === nextProps.eventItem &&
-      this.props.index === nextProps.index &&
-      this.props.onExpand === nextProps.onExpand &&
-      this.props.expanded === nextProps.expanded &&
-      this.props.playedBreakItems === nextProps.playedBreakItems
-    ) {
-      return false;
-    }
-    return true;
+    return this.props.item !== nextProps.item || this.props.currentPlayingItemId !== nextProps.currentPlayingItemId;
   }
 
-  handleExpandClick = event => {
-    event.stopPropagation();
-    this.props.onExpand(this.props.index);
+  getClassname = () => {
+    const { classes, item } = this.props;
+
+    const classnames = [classes.breakRow];
+
+    if (item.playing) {
+      classnames.push(classes.playingBreak);
+    } else if (item.played) {
+      classnames.push(classes.playedBreak);
+    }
+
+    return classnames.join(' ');
   };
 
-  handleBreakStartClick = () => {
-    this.props.sendBreakStartMessage(this.props.index);
+  toggleItem = event => {
+    event.stopPropagation();
+    this.props.toggleItem(this.props.item.asset_id);
+  };
+
+  playItem = () => {
+    this.props.playBreak(this.props.item.asset_id);
+  };
+
+  stopItem = () => {
+    this.props.stopItem(this.props.item.asset_id);
   };
 
   render() {
-    const { classes, eventItem, expanded, playedBreakItems } = this.props;
+    const { classes, item, currentPlayingItemId } = this.props;
+
+    const isPlayDisabled = item.played || (currentPlayingItemId && currentPlayingItemId !== item.asset_id);
+
     return (
       <div className={classes.root}>
-        <Grid container className={classes.breakRow} alignItems="center">
+        <Grid container className={this.getClassname()} alignItems="center">
           <Grid container alignItems="center">
             <IconButton
-              type={expanded ? 'removeCircle' : 'addCircle'}
+              type={item.expanded ? 'removeCircle' : 'addCircle'}
               className={classes.expandIcons}
-              onClick={this.handleExpandClick}
+              onClick={this.toggleItem}
             />
-            <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
-            <span>{formatDuration(eventItem.duration)}</span>
+            <span className={classes.title}>{item.title}</span> <span className={classes.divider}>|</span>{' '}
+            <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div />
           <div className={classes.cell}>NOT PLAYED</div>
           <div>
-            <MuiIconButton
-              onClick={this.handleBreakStartClick}
-              className={playedBreakItems.includes(eventItem.asset_id) ? classes.disabledActionIcons : ''}
-            >
-              <PlayIcon />
-            </MuiIconButton>
+            {item.playing ? (
+              <MuiIconButton
+                onClick={this.stopItem}
+                className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                disabled={isPlayDisabled}
+              >
+                <StopIcon />
+              </MuiIconButton>
+            ) : (
+              <MuiIconButton
+                onClick={this.playItem}
+                className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                disabled={isPlayDisabled}
+              >
+                <PlayIcon />
+              </MuiIconButton>
+            )}
             <MuiIconButton disabled>
               <ForceRescueIcon className={classes.disabledActionIcons} />
             </MuiIconButton>
@@ -141,8 +199,8 @@ class BreaksRow extends Component {
             </MuiIconButton>
           </div>
         </Grid>
-        {expanded &&
-          eventItem.break_items.map((breakItem, breakIndex) => (
+        {item.expanded &&
+          item.break_items.map((breakItem, breakIndex) => (
             <Grid key={breakItem.id} container className={classes.breakItemsRow} alignItems="center">
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
@@ -173,12 +231,10 @@ class BreaksRow extends Component {
 
 BreaksRow.propTypes = {
   classes: PropTypes.object.isRequired,
-  eventItem: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  onExpand: PropTypes.func.isRequired,
-  expanded: PropTypes.bool.isRequired,
-  sendBreakStartMessage: PropTypes.func.isRequired,
-  playedBreakItems: PropTypes.array.isRequired,
+  playBreak: PropTypes.func.isRequired,
+  toggleItem: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);
