@@ -141,6 +141,20 @@ class BreaksRow extends Component {
     return classnames.join(' ');
   };
 
+  getMediaItemClassname = mediaItem => {
+    const { classes } = this.props;
+
+    const classnames = [classes.breakItemsRow];
+
+    if (mediaItem.playing) {
+      classnames.push(classes.playingItem);
+    } else if (mediaItem.played) {
+      classnames.push(classes.playedItem);
+    }
+
+    return classnames.join(' ');
+  };
+
   toggleItem = event => {
     event.stopPropagation();
     this.props.toggleItem(this.props.item.asset_id);
@@ -201,7 +215,7 @@ class BreaksRow extends Component {
         </Grid>
         {item.expanded &&
           item.break_items.map((breakItem, breakIndex) => (
-            <Grid key={breakItem.id} container className={classes.breakItemsRow} alignItems="center">
+            <Grid key={breakItem.id} container className={this.getMediaItemClassname(breakItem)} alignItems="center">
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
                 <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
