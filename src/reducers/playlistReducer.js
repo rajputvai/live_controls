@@ -21,12 +21,12 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
 
       case types.LOAD_SUCCESS: {
         draft.playlist = action.payload.playlist;
-        parsePlaylist(draft, action.payload.playlist.items);
+        parsePlaylist(draft, action.payload.playlist.items, action.payload.playlist.id);
         draft.loading = false;
         break;
       }
 
-      case types.PLAY_BREAK: {
+      case types.PLAY_ITEM: {
         const { breakId } = action.payload;
         playItem(breakId, draft.items[breakId]);
         draft.currentPlayingItemId = breakId;
@@ -42,6 +42,7 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
 
       case types.UPDATE_NOW_PLAYING:
         updateNowPlaying(state, draft);
+        localStorage.setItem(state.playlist.id, JSON.stringify(draft.items));
         break;
 
       case types.TOGGLE_ITEM:

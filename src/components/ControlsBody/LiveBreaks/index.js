@@ -169,7 +169,7 @@ class LiveBreaks extends Component {
     overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount),
   });
 
-  playBreak = breakIndex => {
+  playItem = breakIndex => {
     const {
       selectedEvent,
       playlist: { playlist, items },
@@ -195,7 +195,7 @@ class LiveBreaks extends Component {
       },
     });
 
-    this.props.playBreak(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
   stopItem = itemId => {
@@ -221,7 +221,7 @@ class LiveBreaks extends Component {
           playlistId={this.props.playlist.playlist.id}
           status={this.props.playlist.status}
           currentPlayingItemId={this.props.playlist.currentPlayingItemId}
-          playBreak={this.playBreak}
+          playItem={this.playItem}
           stopItem={this.stopItem}
           toggleItem={this.props.toggleItem}
         />
@@ -289,7 +289,10 @@ LiveBreaks.propTypes = {
   playlist: PropTypes.object.isRequired,
   sendMessage: PropTypes.func.isRequired,
   selectedEvent: PropTypes.object.isRequired,
-  playBreak: PropTypes.func.isRequired,
+  playItem: PropTypes.func.isRequired,
+  stopItem: PropTypes.func.isRequired,
+  toggleItem: PropTypes.func.isRequired,
+  updateNowPlaying: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);

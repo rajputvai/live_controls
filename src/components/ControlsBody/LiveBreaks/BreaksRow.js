@@ -12,6 +12,7 @@ import PlayIcon from '../../../assets/svgs/Play';
 import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
 import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
+import animations from '../../../constants/animations';
 
 // Utils
 import { formatDuration } from '../../../utilities/timeHelpers';
@@ -120,6 +121,7 @@ const styles = {
   comingUpNextItem: {
     '&:before': comingUpNextStyle,
   },
+  ...animations.flash,
 };
 
 class BreaksRow extends Component {
@@ -150,6 +152,8 @@ class BreaksRow extends Component {
       classnames.push(classes.playingItem);
     } else if (mediaItem.played) {
       classnames.push(classes.playedItem);
+    } else if (mediaItem.comingUpNext) {
+      classnames.push(classes.comingUpNextItem);
     }
 
     return classnames.join(' ');
@@ -161,7 +165,7 @@ class BreaksRow extends Component {
   };
 
   playItem = () => {
-    this.props.playBreak(this.props.item.asset_id);
+    this.props.playItem(this.props.item.asset_id);
   };
 
   stopItem = () => {
@@ -247,8 +251,10 @@ BreaksRow.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  playBreak: PropTypes.func.isRequired,
+  playItem: PropTypes.func.isRequired,
+  stopItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
+  currentPlayingItemId: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);
