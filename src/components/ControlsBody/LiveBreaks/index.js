@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { AutoSizer, List } from 'react-virtualized';
-import produce from 'immer';
 
 // Components
 import BreaksRow from './BreaksRow';
@@ -11,9 +10,6 @@ import TableHeader from './TableHeader';
 
 // Assets
 import Color from '../../../utilities/theme/Color';
-
-// Utilities
-import { getAllPlayedBreakItemsForEvent, setBreakItemPlayed } from '../../../utilities/localStorageHelpers';
 
 const styles = {
   headerRow: {
@@ -177,22 +173,20 @@ class LiveBreaks extends Component {
 
     const item = items[breakIndex];
 
-    // window.inputPlayer.takescreenshot();
-    // const timestamp = window.inputPlayer.getScreenshotPTS();
-    const timestamp = 'dummy';
-
-    this.props.sendMessage({
-      trigger_type: 'break',
-      command: 'start',
-      params: {
-        live_event_id: selectedEvent.ref_id,
-        timestamp,
-        duration_ms: item.duration,
-        jpeg_buffer: '??',
-        break_name: item.asset_id,
-        best_effort_flag: true,
-        best_effort_threshold_ms: 1000,
-      },
+    window.inputPlayer.takescreenshot(pts => {
+      this.props.sendMessage({
+        trigger_type: 'break',
+        command: 'start',
+        params: {
+          live_event_id: 'AMAGI_LIVE_001',
+          timestamp: pts,
+          duration_ms: 5000,
+          jpeg_buffer: '??',
+          break_name: 'LIVE_001_BREAK1',
+          best_effort_flag: true,
+          best_effort_threshold_ms: 1000,
+        },
+      });
     });
 
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);

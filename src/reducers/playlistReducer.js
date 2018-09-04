@@ -6,7 +6,7 @@ import { parsePlaylist, playItem, stopItem, updateNowPlaying } from './playlistR
 const INITIAL_STATE = {
   playlist: {},
   status: {},
-  currentPlayingItem: '',
+  currentPlayingItemId: '',
   loading: true,
   items: [],
 };

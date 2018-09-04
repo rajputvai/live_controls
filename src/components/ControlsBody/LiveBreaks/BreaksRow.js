@@ -20,7 +20,7 @@ import { formatDuration } from '../../../utilities/timeHelpers';
 const playingStyle = {
   backgroundColor: '#a8effe',
   opacity: '1 !important',
-  '&$rescued': {
+  '&$rescuedStyle': {
     backgroundColor: '#ffd0d6',
     borderColor: '#df041f',
   },
@@ -121,6 +121,7 @@ const styles = {
   comingUpNextItem: {
     '&:before': comingUpNextStyle,
   },
+  rescuedStyle,
   ...animations.flash,
 };
 
