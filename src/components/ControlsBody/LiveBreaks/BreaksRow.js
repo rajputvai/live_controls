@@ -137,7 +137,7 @@ class BreaksRow extends Component {
 
     if (item.playing) {
       classnames.push(classes.playingBreak);
-    } else if (item.played) {
+    } else if (item.played || item.stopped) {
       classnames.push(classes.playedBreak);
     }
 
@@ -151,7 +151,7 @@ class BreaksRow extends Component {
 
     if (mediaItem.playing) {
       classnames.push(classes.playingItem);
-    } else if (mediaItem.played) {
+    } else if (mediaItem.played || mediaItem.stopped) {
       classnames.push(classes.playedItem);
     } else if (mediaItem.comingUpNext) {
       classnames.push(classes.comingUpNextItem);
