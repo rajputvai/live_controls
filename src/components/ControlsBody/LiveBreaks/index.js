@@ -82,6 +82,8 @@ const styles = {
   },
 };
 
+const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
+
 class LiveBreaks extends Component {
   componentDidMount() {
     setInterval(this.props.updateNowPlaying, 1000);
@@ -134,7 +136,7 @@ class LiveBreaks extends Component {
   };
 
   renderRow = ({ index, key, style }) => {
-    const itemId = this.props.playlist.itemIds.filter(item => item !== 'LIVE_EVENT_LOGO')[index];
+    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
     const item = this.props.playlist.items[itemId];
 
     return (
@@ -170,7 +172,7 @@ class LiveBreaks extends Component {
       classes,
       playlist: { itemIds },
     } = this.props;
-    const itemIdsWithLogo = itemIds.filter(item => item !== 'LIVE_EVENT_LOGO');
+    const itemIdsWithLogo = itemIds.filter(item => !itemsNotToRenderInList.includes(item));
     return (
       <div className={classes.root}>
         <div className={classes.headerRow}>
