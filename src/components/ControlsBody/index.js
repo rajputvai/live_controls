@@ -109,6 +109,7 @@ const styles = {
     opacity: 0.01,
   },
 };
+window.moment = moment;
 
 const LIVE_EVENT_LOGO = 'LIVE_EVENT_LOGO';
 const LIVE_LOGO = 'live_logo';
@@ -117,31 +118,30 @@ const BREAK_LOGO = 'break_logo';
 class ControlsBody extends Component {
   state = { tab: 0, timeRemaining: 0 };
 
+  resetInterval() {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => {
+      const now = moment();
+      const eventStartTime = moment(this.props.selectedEvent.start_time);
+      const eventEndTime = moment(this.props.selectedEvent.end_time);
+      if (now.isAfter(eventStartTime)) {
+        const timeRemaining = eventEndTime.diff(now, 'milliseconds');
+        this.setState({ timeRemaining });
+      } else {
+        this.setState({ timeRemaining: 0 });
+      }
+    }, 1000);
+  }
+
   componentDidMount() {
     if (this.props.selectedEvent && this.props.selectedEvent.end_time) {
-      const timeUntilEvent = moment().diff(moment(this.props.selectedEvent.end_time), 'milliseconds');
-      this.timeout = setTimeout(() => {
-        this.interval = setInterval(() => {
-          const now = moment();
-          const timeRemaining = moment(this.selectedEvent.end_time).diff(now, 'milliseconds');
-          this.setState({ timeRemaining });
-        }, 1000);
-      }, timeUntilEvent);
+      this.resetInterval();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedEvent && this.props.selectedEvent !== nextProps.selectedEvent) {
-      clearInterval(this.interval);
-      clearTimeout(this.timeout);
-      const timeUntilEvent = moment().diff(moment(nextProps.selectedEvent.end_time), 'milliseconds');
-      this.timeout = setTimeout(() => {
-        this.interval = setInterval(() => {
-          const now = moment();
-          const timeRemaining = moment(nextProps.selectedEvent.end_time).diff(now, 'milliseconds');
-          this.setState({ timeRemaining });
-        }, 1000);
-      }, timeUntilEvent);
+      this.resetInterval();
     }
   }
 
