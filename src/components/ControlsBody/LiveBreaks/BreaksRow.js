@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
+import StopIcon from '@material-ui/icons/Stop';
 
 // Assets
 import IconButton from '../../../assets/IconButton';
@@ -11,9 +12,32 @@ import PlayIcon from '../../../assets/svgs/Play';
 import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
 import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
+import animations from '../../../constants/animations';
 
 // Utils
 import { formatDuration } from '../../../utilities/timeHelpers';
+
+const playingStyle = {
+  backgroundColor: '#a8effe',
+  opacity: '1 !important',
+  '&$rescuedStyle': {
+    backgroundColor: '#ffd0d6',
+    borderColor: '#df041f',
+  },
+};
+const playedStyle = {
+  opacity: 0.7,
+  backgroundColor: '#adcadb',
+};
+const rescuedStyle = {
+  opacity: 0.7,
+  borderColor: '#df041f !important',
+};
+const comingUpNextStyle = {
+  backgroundColor: '#b7fed5 !important',
+  '-webkit-animation': 'flash linear 1.5s infinite',
+  animation: 'flash linear 1.5s infinite',
+};
 
 const styles = {
   expandIcons: {
@@ -85,54 +109,111 @@ const styles = {
     color: '#f06292',
     padding: '2px 10px',
   },
+  playingBreak: playingStyle,
+  playingItem: {
+    '&:before': playingStyle,
+  },
+  playedBreak: playedStyle,
+  playedItem: {
+    '&:before': playedStyle,
+  },
+  comingUpNextBreak: comingUpNextStyle,
+  comingUpNextItem: {
+    '&:before': comingUpNextStyle,
+  },
+  rescuedStyle,
+  ...animations.flash,
 };
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
-    if (
-      this.props.eventItem === nextProps.eventItem &&
-      this.props.index === nextProps.index &&
-      this.props.onExpand === nextProps.onExpand &&
-      this.props.expanded === nextProps.expanded &&
-      this.props.playedBreakItems === nextProps.playedBreakItems
-    ) {
-      return false;
-    }
-    return true;
+    return this.props.item !== nextProps.item || this.props.currentPlayingItemId !== nextProps.currentPlayingItemId;
   }
 
-  handleExpandClick = event => {
-    event.stopPropagation();
-    this.props.onExpand(this.props.index);
+  getClassname = () => {
+    const { classes, item } = this.props;
+
+    const classnames = [classes.breakRow];
+
+    if (item.playing) {
+      classnames.push(classes.playingBreak);
+    } else if (item.played) {
+      classnames.push(classes.playedBreak);
+    }
+
+    return classnames.join(' ');
   };
 
-  handleBreakStartClick = () => {
-    this.props.sendBreakStartMessage(this.props.index);
+  getMediaItemClassname = mediaItem => {
+    const { classes } = this.props;
+
+    const classnames = [classes.breakItemsRow];
+
+    if (mediaItem.playing) {
+      classnames.push(classes.playingItem);
+    } else if (mediaItem.played) {
+      classnames.push(classes.playedItem);
+    } else if (mediaItem.comingUpNext) {
+      classnames.push(classes.comingUpNextItem);
+    }
+
+    return classnames.join(' ');
+  };
+
+  toggleItem = event => {
+    event.stopPropagation();
+    this.props.toggleItem(this.props.item.asset_id);
+  };
+
+  playItem = () => {
+    this.props.playItem(this.props.item.asset_id);
+  };
+
+  stopItem = () => {
+    this.props.stopItem(this.props.item.asset_id);
   };
 
   render() {
-    const { classes, eventItem, expanded, playedBreakItems } = this.props;
+    const { classes, item, currentPlayingItemId } = this.props;
+
+    const isPlayDisabled = item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
     return (
       <div className={classes.root}>
-        <Grid container className={classes.breakRow} alignItems="center">
+        <Grid container className={this.getClassname()} alignItems="center">
           <Grid container alignItems="center">
             <IconButton
-              type={expanded ? 'removeCircle' : 'addCircle'}
+              type={item.expanded ? 'removeCircle' : 'addCircle'}
               className={classes.expandIcons}
-              onClick={this.handleExpandClick}
+              onClick={this.toggleItem}
             />
-            <span className={classes.title}>{eventItem.title}</span> <span className={classes.divider}>|</span>{' '}
-            <span>{formatDuration(eventItem.duration)}</span>
+            <span className={classes.title}>{item.title}</span> <span className={classes.divider}>|</span>{' '}
+            <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div />
-          <div className={classes.cell}>NOT PLAYED</div>
+          <div className={classes.cell}>
+            {item.stopped && 'STOPPED'}
+            {item.playing && 'PLAYING'}
+            {item.played && 'PLAYED'}
+            {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
+          </div>
           <div>
-            <MuiIconButton
-              onClick={this.handleBreakStartClick}
-              className={playedBreakItems.includes(eventItem.asset_id) ? classes.disabledActionIcons : ''}
-            >
-              <PlayIcon />
-            </MuiIconButton>
+            {item.playing ? (
+              <MuiIconButton
+                onClick={this.stopItem}
+                className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                disabled={isPlayDisabled}
+              >
+                <StopIcon />
+              </MuiIconButton>
+            ) : (
+              <MuiIconButton
+                onClick={this.playItem}
+                className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                disabled={isPlayDisabled}
+              >
+                <PlayIcon />
+              </MuiIconButton>
+            )}
             <MuiIconButton disabled>
               <ForceRescueIcon className={classes.disabledActionIcons} />
             </MuiIconButton>
@@ -141,9 +222,9 @@ class BreaksRow extends Component {
             </MuiIconButton>
           </div>
         </Grid>
-        {expanded &&
-          eventItem.break_items.map((breakItem, breakIndex) => (
-            <Grid key={breakItem.id} container className={classes.breakItemsRow} alignItems="center">
+        {item.expanded &&
+          item.break_items.map((breakItem, breakIndex) => (
+            <Grid key={breakItem.id} container className={this.getMediaItemClassname(breakItem)} alignItems="center">
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
                 <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
@@ -152,7 +233,12 @@ class BreaksRow extends Component {
               <div>
                 <span className={classes.subType}>{breakItem.sub_type}</span>
               </div>
-              <div>NOT PLAYED</div>
+              <div>
+                {breakItem.stopped && 'STOPPED'}
+                {breakItem.playing && 'PLAYING'}
+                {breakItem.played && 'PLAYED'}
+                {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
+              </div>
               <div>
                 <MuiIconButton disabled>
                   <PlayIcon className={classes.disabledActionIcons} />
@@ -173,12 +259,12 @@ class BreaksRow extends Component {
 
 BreaksRow.propTypes = {
   classes: PropTypes.object.isRequired,
-  eventItem: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  onExpand: PropTypes.func.isRequired,
-  expanded: PropTypes.bool.isRequired,
-  sendBreakStartMessage: PropTypes.func.isRequired,
-  playedBreakItems: PropTypes.array.isRequired,
+  playItem: PropTypes.func.isRequired,
+  stopItem: PropTypes.func.isRequired,
+  toggleItem: PropTypes.func.isRequired,
+  currentPlayingItemId: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

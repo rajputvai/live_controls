@@ -2,52 +2,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import { AutoSizer, List } from 'react-virtualized';
-import produce from 'immer';
 
 // Components
 import BreaksRow from './BreaksRow';
+import TableHeader from './TableHeader';
 
 // Assets
-import InfoIcon from '../../../assets/svgs/Info';
-import IconButton from '../../../assets/IconButton';
 import Color from '../../../utilities/theme/Color';
 
-// Utilities
-import { getAllPlayedBreakItemsForEvent, setBreakItemPlayed } from '../../../utilities/localStorageHelpers';
-
 const styles = {
-  infoIcon: {
-    height: 20,
-    width: 20,
-    marginLeft: 10,
-  },
-  actionBar: {
-    marginBottom: 20,
-  },
-  boldText: {
-    fontWeight: 'bold',
-    color: Color.primary.p2,
-  },
-  flex: {
-    flex: 1,
-  },
-  iconButtonWrapper: {
-    marginLeft: 8,
-    width: 35,
-    height: 30,
-    borderRadius: 2,
-    backgroundColor: Color.other.o2,
-    border: `solid 1px ${Color.other.o7}`,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'background-color .3s',
-    '&:hover': {
-      backgroundColor: '#d5d5d5',
-    },
-  },
   headerRow: {
     fontSize: 12,
     fontWeight: 'bold',
@@ -112,9 +76,6 @@ const styles = {
   title: {
     fontSize: 16,
     fontWeight: 500,
-  },
-  divider: {
-    margin: '0 10px',
   },
   breakIndex: {
     marginRight: 20,
@@ -191,40 +152,12 @@ const styles = {
 // }));
 
 class LiveBreaks extends Component {
-  constructor(props) {
-    super(props);
-    const playedBreakItems = getAllPlayedBreakItemsForEvent(props.selectedEvent.ref_id);
-    this.state = { expanded: {}, rowHeightToUpdate: 0, playedBreakItems };
-  }
-
-  renderActionBar() {
-    const { classes } = this.props;
-    return (
-      <Grid container className={classes.actionBar} alignItems="center">
-        <div>
-          CURRENT HOUR: <span className={classes.boldText}>12:00 - 13:00</span>
-        </div>
-        <div className={classes.divider}>|</div>
-        <div>
-          FCT PLAYED: <span className={classes.boldText}>00:00:00:00</span>
-        </div>
-        <InfoIcon className={classes.infoIcon} />
-        <div className={classes.flex} />
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="edit" className={classes.iconButton} />
-        </div>
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="removeRedEye" className={classes.iconButton} />
-        </div>
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="search" className={classes.iconButton} />
-        </div>
-      </Grid>
-    );
+  componentDidMount() {
+    setInterval(this.props.updateNowPlaying, 1000);
   }
 
   componentDidUpdate() {
-    this.listEl.recomputeRowHeights(this.state.rowHeightToUpdate);
+    this.listEl.recomputeRowHeights();
   }
 
   overscanIndicesGetter = ({ cellCount, overscanCellsCount, startIndex, stopIndex }) => ({
@@ -232,31 +165,13 @@ class LiveBreaks extends Component {
     overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount),
   });
 
-  handleToggleExpansionClick = eventItemIndex => {
-    this.setState(
-      produce(draft => {
-        if (draft.expanded[eventItemIndex]) {
-          draft.expanded[eventItemIndex] = false;
-        } else {
-          draft.expanded[eventItemIndex] = true;
-        }
-        draft.rowHeightToUpdate = eventItemIndex;
-      })
-    );
-  };
-
-  sendBreakStartMessage = eventItemIndex => {
+  playItem = breakIndex => {
     const {
-      playlist: { playlist },
       selectedEvent,
+      playlist: { playlist, items },
     } = this.props;
-    const playlistItem = playlist.items[eventItemIndex];
-    setBreakItemPlayed(selectedEvent.ref_id, playlistItem.asset_id);
-    this.setState(
-      produce(draft => {
-        draft.playedBreakItems.push(playlistItem.asset_id);
-      })
-    );
+
+    const item = items[breakIndex];
 
     window.inputPlayer.takescreenshot(pts => {
       this.props.sendMessage({
@@ -273,29 +188,47 @@ class LiveBreaks extends Component {
         },
       });
     });
+
+    this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+  };
+
+  stopItem = itemId => {
+    const {
+      selectedEvent,
+      playlist: { playlist, items },
+    } = this.props;
+    const item = items[itemId];
+
+    this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
   renderRow = ({ index, key, style }) => {
-    const isExpanded = this.state.expanded[index] || false;
+    const itemId = this.props.playlist.itemIds[index];
+    const item = this.props.playlist.items[itemId];
+
     return (
       <div style={style} key={key}>
         <BreaksRow
-          playedBreakItems={[]}
-          // playedBreakItems={this.state.playedBreakItems}
-          expanded={isExpanded}
-          eventItem={this.props.playlist.playlist.items[index]}
+          item={item}
           index={index}
-          onExpand={this.handleToggleExpansionClick}
-          recomputeRowHeight={this.recomputeRowHeight}
-          sendBreakStartMessage={this.sendBreakStartMessage}
+          eventId={this.props.selectedEvent.ref_id}
+          playlistId={this.props.playlist.playlist.id}
+          status={this.props.playlist.status}
+          currentPlayingItemId={this.props.playlist.currentPlayingItemId}
+          playItem={this.playItem}
+          stopItem={this.stopItem}
+          toggleItem={this.props.toggleItem}
         />
       </div>
     );
   };
 
-  getRowHeight = params => {
-    if (this.state.expanded[params.index]) {
-      const expandedItemCount = this.props.playlist.playlist.items[params.index].break_items.length;
+  getRowHeight = ({ index }) => {
+    const itemId = this.props.playlist.itemIds[index];
+    const item = this.props.playlist.items[itemId];
+
+    if (item.expanded) {
+      const expandedItemCount = item.break_items.length;
       return expandedItemCount * 50 + 70;
     }
     return 70;
@@ -304,9 +237,7 @@ class LiveBreaks extends Component {
   renderLiveBreaksTable() {
     const {
       classes,
-      playlist: {
-        playlist: { items },
-      },
+      playlist: { itemIds },
     } = this.props;
     return (
       <div className={classes.root}>
@@ -326,7 +257,7 @@ class LiveBreaks extends Component {
               height={400}
               rowHeight={this.getRowHeight}
               rowRenderer={this.renderRow}
-              rowCount={items.length}
+              rowCount={itemIds.length}
               style={{ outline: 'none' }}
               overscanIndicesGetter={this.overscanIndicesGetter}
               overscanRowCount={50}
@@ -340,7 +271,7 @@ class LiveBreaks extends Component {
   render() {
     return (
       <div>
-        {this.renderActionBar()}
+        <TableHeader />
         {this.renderLiveBreaksTable()}
       </div>
     );
@@ -352,6 +283,10 @@ LiveBreaks.propTypes = {
   playlist: PropTypes.object.isRequired,
   sendMessage: PropTypes.func.isRequired,
   selectedEvent: PropTypes.object.isRequired,
+  playItem: PropTypes.func.isRequired,
+  stopItem: PropTypes.func.isRequired,
+  toggleItem: PropTypes.func.isRequired,
+  updateNowPlaying: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);
