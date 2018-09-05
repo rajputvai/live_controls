@@ -7,6 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
+import moment from 'moment';
 
 // Components
 import LiveBreaks from './LiveBreaks';
@@ -18,10 +19,11 @@ import Loading from '../../assets/svgs/Loading';
 
 // Utils
 import Color from '../../utilities/theme/Color';
+import { formatDuration } from '../../utilities/timeHelpers';
 
 const styles = {
   paper: {
-    padding: 20,
+    padding: '0 20px 10px',
     margin: 10,
   },
   tabs: {
@@ -104,13 +106,41 @@ const styles = {
   },
 };
 
+const LIVE_EVENT_LOGO = 'LIVE_EVENT_LOGO';
+const LIVE_LOGO = 'live_logo';
+const BREAK_LOGO = 'break_logo';
+
+const assumedEndTimeOfEvent = moment().add(5, 'minutes');
+
 class ControlsBody extends Component {
-  state = { tab: 0 };
+  state = { tab: 0, timeRemaining: 0 };
+
+  componentDidMount() {
+    setTimeout(() => {
+      setInterval(() => {
+        const now = moment();
+        const timeRemaining = assumedEndTimeOfEvent.diff(now, 'milliseconds');
+        this.setState({ timeRemaining });
+      }, 1000);
+    }, 60000);
+  }
 
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   render() {
     const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
+    let liveLogoURL = '';
+    let breakLogoURL = '';
+    if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
+      liveEventLogoAsset.break_items.forEach(item => {
+        if (item.sub_type === LIVE_LOGO) {
+          liveLogoURL = item.preview_image;
+        } else if (item.sub_type === BREAK_LOGO) {
+          breakLogoURL = item.preview_image;
+        }
+      });
+    }
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -128,21 +158,23 @@ class ControlsBody extends Component {
           <div className={classes.playerSpacer}>
             <div className={classes.playerTitle}>PLAYING NOW</div>
             <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
-            <div className={classes.streamTimeRemaining}>
-              TIME REMAINING
-              <span>00:15:30:48</span>
-            </div>
+            {this.state.timeRemaining > 0 && (
+              <div className={classes.streamTimeRemaining}>
+                TIME REMAINING
+                <span>{formatDuration(this.state.timeRemaining, false)}</span>
+              </div>
+            )}
           </div>
           <div className={classes.liveLogo}>
             <span>LIVE LOGO</span>
             <div>
-              <img />
+              <img src={liveLogoURL} alt="Live Logo" />
             </div>
           </div>
           <div className={classes.liveLogo}>
             <span>BREAK LOGO</span>
             <div>
-              <img />
+              <img src={breakLogoURL} alt="Break Logo" />
             </div>
           </div>
         </div>

@@ -11,9 +11,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import Color from '../../utilities/theme/Color';
 import { isLiveOnForEvent, setLiveOnForEvent } from '../../utilities/localStorageHelpers';
+import { formatDuration } from '../../utilities/timeHelpers';
 
 const styles = {
   root: {
@@ -58,10 +60,40 @@ const styles = {
       backgroundColor: '#c70303',
     },
   },
+  timeupAnimation: {
+    animation: 'timeRemainingUntilEventStartLessThanAMinute linear infinite 1s',
+  },
 };
 
+function getEventStartTime(time) {
+  return moment(time).format('HH:mm:ss');
+}
+
+const assumedStartTimeOfEvent = moment().add(1, 'minutes');
+
 class Header extends Component {
-  state = { anchorEl: null, isLiveOn: false };
+  state = { anchorEl: null, isLiveOn: false, timeRemaining: 0 };
+
+  componentDidMount() {
+    if (assumedStartTimeOfEvent.isAfter(moment())) {
+      this.timeRemainingInterval = setInterval(() => {
+        const now = moment();
+        if (assumedStartTimeOfEvent.isAfter(now)) {
+          const timeRemaining = assumedStartTimeOfEvent.diff(now, 'milliseconds');
+          this.setState({ timeRemaining });
+        } else {
+          clearInterval(this.timeRemainingInterval);
+          this.setState({ timeRemaining: 0 });
+        }
+      }, 1000);
+    } else {
+      this.setState({ timeRemaining: 0 });
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeRemainingInterval);
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.events.selectedEvent !== nextProps.events.selectedEvent) {
@@ -119,6 +151,21 @@ class Header extends Component {
     }
   };
 
+  renderRemainingTime() {
+    const { classes } = this.props;
+    const { timeRemaining } = this.state;
+    if (this.state.timeRemaining === 0) {
+      return null;
+    }
+    const animateTimeEnding = timeRemaining < 120000;
+    const timeRemainingSpan = (
+      <span className={classNames(animateTimeEnding && classes.timeupAnimation)}>
+        {formatDuration(timeRemaining, false)}
+      </span>
+    );
+    return <Fragment> | Time remaining: {timeRemainingSpan}</Fragment>;
+  }
+
   renderContent() {
     const {
       classes,
@@ -131,7 +178,8 @@ class Header extends Component {
       content = (
         <Fragment>
           <Typography variant="body1" className={classes.rootSubheading}>
-            Live event scheduled at: 14:55:29 IST | Time remaining: 00:03:05
+            Live event scheduled at: {getEventStartTime(assumedStartTimeOfEvent)} ({selectedEvent.timezone})
+            {this.renderRemainingTime()}
           </Typography>
           <Button
             variant="contained"

@@ -7,6 +7,7 @@ import 'core-js/fn/array/includes';
 
 import store from './store';
 import theme from './utilities/theme';
+import './utilities/styles/animations.css';
 
 import AppContainer from './containers/AppContainer';
 

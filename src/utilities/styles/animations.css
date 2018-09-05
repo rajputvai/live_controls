@@ -1,0 +1,6 @@
+@keyframes timeRemainingUntilEventStartLessThanAMinute {
+  50% {
+    text-shadow: 0 5px 8px red, 0 -5px 8px red, 5px 0 8px red, -5px 0 8px red;
+  }
+}
+
