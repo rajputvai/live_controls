@@ -176,7 +176,9 @@ class BreaksRow extends Component {
   render() {
     const { classes, item, currentPlayingItemId } = this.props;
 
-    const isPlayDisabled = item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
+    const isPlayDisabled =
+      item.stopped || item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
+
     return (
       <div className={classes.root}>
         <Grid container className={this.getClassname()} alignItems="center">
