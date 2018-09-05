@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
-import StopIcon from '@material-ui/icons/Stop';
 
 // Assets
 import IconButton from '../../../assets/IconButton';
 import PlayIcon from '../../../assets/svgs/Play';
+import StopIcon from '../../../assets/svgs/Stop';
 import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
 import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
@@ -200,11 +200,7 @@ class BreaksRow extends Component {
           </div>
           <div>
             {item.playing ? (
-              <MuiIconButton
-                onClick={this.stopItem}
-                className={isPlayDisabled ? classes.disabledActionIcons : ''}
-                disabled={isPlayDisabled}
-              >
+              <MuiIconButton onClick={this.stopItem}>
                 <StopIcon />
               </MuiIconButton>
             ) : (
