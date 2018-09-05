@@ -3,7 +3,7 @@
   "AUTH_TOKEN": "RxqYxQC2qGw8tjzKsWB4",
   "FEED_ID": "14",
   "PLAYLIST_ID": "3513",
-  "INPUT_SOURCE_URL": "rtsp://10.0.5.175:4002/AmagiRTSPStream",
-  "PLAYING_NOW_URL": "rtsp://10.0.5.175:4001/AmagiRTSPStream",
-  "WEBSOCKET_URL": "ws://10.0.5.175:23456"
+  "INPUT_SOURCE_URL": "rtsp://10.0.5.21:4002/AmagiRTSPStream",
+  "PLAYING_NOW_URL": "rtsp://10.0.5.21:4001/AmagiRTSPStream",
+  "WEBSOCKET_URL": "ws://localhost:5006"
 }

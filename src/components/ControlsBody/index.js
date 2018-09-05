@@ -7,6 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
+import moment from 'moment';
 
 // Components
 import LiveBreaks from './LiveBreaks';
@@ -18,47 +19,20 @@ import Loading from '../../assets/svgs/Loading';
 
 // Utils
 import Color from '../../utilities/theme/Color';
+import { formatDuration } from '../../utilities/timeHelpers';
 
 const styles = {
-  paper: {
-    padding: 20,
-    margin: 10,
+  loadingWrapper: {
+    height: '100vh',
+    weight: '100vw',
   },
-  tabs: {
-    borderBottom: `solid 1px ${Color.other.o6}`,
-    marginBottom: 20,
-  },
-  tabLabel: {
-    fontSize: 14,
-  },
-  tabIndicator: {
-    height: 3,
-  },
-  selectedTab: {
-    color: Color.secondary.s1,
-  },
-  tabDefault: {
-    display: 'none',
-  },
-  tabContentWrapper: {
-    overflowX: 'hidden',
-  },
-  tabContent: {
-    flex: 'none',
-    width: '100%',
-    transition: 'margin .3s ease-in, opacity .3s ease-in', // with slide
-    // transition: 'opacity .3s ease-in', // without slide
-  },
-  fadeLiveBreaks: {
-    marginLeft: '-100%',
-    opacity: 0.01,
-  },
-  fadeGraphics: {
-    opacity: 0.01,
+  root: {
+    height: 'calc(100vh - 60px)',
   },
   players: {
+    // height: '40%',
     display: 'flex',
-    padding: '40px 40px 20px 40px',
+    padding: '20px 40px',
   },
   playerTitle: {
     fontWeight: 500,
@@ -98,19 +72,96 @@ const styles = {
       },
     },
   },
-  loadingWrapper: {
-    height: '100vh',
-    weight: '100vw',
+  controlsSection: {
+    padding: '0 20px 10px',
+    margin: 10,
+  },
+  tabs: {
+    borderBottom: `solid 1px ${Color.other.o6}`,
+    marginBottom: 20,
+  },
+  tabLabel: {
+    fontSize: 14,
+  },
+  tabIndicator: {
+    height: 3,
+  },
+  selectedTab: {
+    color: Color.secondary.s1,
+  },
+  tabDefault: {
+    display: 'none',
+  },
+  tabContentWrapper: {
+    overflowX: 'hidden',
+  },
+  tabContent: {
+    flex: 'none',
+    width: '100%',
+    transition: 'margin .3s ease-in, opacity .3s ease-in', // with slide
+    // transition: 'opacity .3s ease-in', // without slide
+  },
+  fadeLiveBreaks: {
+    marginLeft: '-100%',
+    opacity: 0.01,
+  },
+  fadeGraphics: {
+    opacity: 0.01,
   },
 };
 
+const LIVE_EVENT_LOGO = 'LIVE_EVENT_LOGO';
+const LIVE_LOGO = 'live_logo';
+const BREAK_LOGO = 'break_logo';
+
 class ControlsBody extends Component {
-  state = { tab: 0 };
+  state = { tab: 0, timeRemaining: 0 };
+
+  componentDidMount() {
+    if (this.props.selectedEvent && this.props.selectedEvent.end_time) {
+      const timeUntilEvent = moment().diff(moment(this.props.selectedEvent.end_time), 'milliseconds');
+      this.timeout = setTimeout(() => {
+        this.interval = setInterval(() => {
+          const now = moment();
+          const timeRemaining = moment(this.selectedEvent.end_time).diff(now, 'milliseconds');
+          this.setState({ timeRemaining });
+        }, 1000);
+      }, timeUntilEvent);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedEvent && this.props.selectedEvent !== nextProps.selectedEvent) {
+      clearInterval(this.interval);
+      clearTimeout(this.timeout);
+      const timeUntilEvent = moment().diff(moment(nextProps.selectedEvent.end_time), 'milliseconds');
+      this.timeout = setTimeout(() => {
+        this.interval = setInterval(() => {
+          const now = moment();
+          const timeRemaining = moment(this.selectedEvent.end_time).diff(now, 'milliseconds');
+          this.setState({ timeRemaining });
+        }, 1000);
+      }, timeUntilEvent);
+    }
+  }
 
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   render() {
     const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
+    let liveLogoURL = '';
+    let breakLogoURL = '';
+    if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
+      liveEventLogoAsset.break_items.forEach(item => {
+        if (item.sub_type === LIVE_LOGO) {
+          liveLogoURL = item.preview_image;
+        } else if (item.sub_type === BREAK_LOGO) {
+          breakLogoURL = item.preview_image;
+        }
+      });
+    }
+
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -128,25 +179,27 @@ class ControlsBody extends Component {
           <div className={classes.playerSpacer}>
             <div className={classes.playerTitle}>PLAYING NOW</div>
             <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
-            <div className={classes.streamTimeRemaining}>
-              TIME REMAINING
-              <span>00:15:30:48</span>
-            </div>
+            {this.state.timeRemaining > 0 && (
+              <div className={classes.streamTimeRemaining}>
+                TIME REMAINING
+                <span>{formatDuration(this.state.timeRemaining, false)}</span>
+              </div>
+            )}
           </div>
           <div className={classes.liveLogo}>
             <span>LIVE LOGO</span>
             <div>
-              <img />
+              <img src={liveLogoURL} alt="Live Logo" />
             </div>
           </div>
           <div className={classes.liveLogo}>
             <span>BREAK LOGO</span>
             <div>
-              <img />
+              <img src={breakLogoURL} alt="Break Logo" />
             </div>
           </div>
         </div>
-        <Paper className={classes.paper}>
+        <Paper className={classes.controlsSection}>
           <Tabs
             value={this.state.tab}
             onChange={this.handleTabChange}

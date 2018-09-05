@@ -11,9 +11,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import Color from '../../utilities/theme/Color';
 import { isLiveOnForEvent, setLiveOnForEvent } from '../../utilities/localStorageHelpers';
+import { formatDuration } from '../../utilities/timeHelpers';
 
 const styles = {
   root: {
@@ -60,8 +62,36 @@ const styles = {
   },
 };
 
+function getEventStartTime(time) {
+  return moment(time).format('HH:mm:ss');
+}
+
 class Header extends Component {
-  state = { anchorEl: null, isLiveOn: false };
+  state = { anchorEl: null, isLiveOn: false, timeRemaining: 0 };
+
+  componentDidMount() {
+    if (this.props.events.selectedEvent && this.props.events.selectedEvent.start_time) {
+      const startTimeOfEvent = moment(this.props.events.selectedEvent.start_time);
+      if (startTimeOfEvent.isAfter(moment())) {
+        this.timeRemainingInterval = setInterval(() => {
+          const now = moment();
+          if (startTimeOfEvent.isAfter(now)) {
+            const timeRemaining = startTimeOfEvent.diff(now, 'milliseconds');
+            this.setState({ timeRemaining });
+          } else {
+            clearInterval(this.timeRemainingInterval);
+            this.setState({ timeRemaining: 0 });
+          }
+        }, 1000);
+      } else {
+        this.setState({ timeRemaining: 0 });
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeRemainingInterval);
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.events.selectedEvent !== nextProps.events.selectedEvent) {
@@ -83,7 +113,7 @@ class Header extends Component {
 
   handleMenuItemClick = eventId => () => this.setState({ eventId, anchorEl: null });
 
-  getLiveMessage = (selectedEvent, value) => {
+  getLiveMessage = (selectedEventId, value) => {
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
     window.inputPlayer.takescreenshot(pts => {
@@ -95,14 +125,14 @@ class Header extends Component {
       console.log('time taken to get pts from player: ', endTime - startTime);
       this.props.sendMessage({
         trigger_type: 'live',
-        command: 'on',
+        command: this.state.isLiveOn ? 'off' : 'on',
         params: {
-          live_event_id: 'AMAGI_LIVE_001',
+          live_event_id: selectedEventId,
           timestamp: pts,
           jpeg_buffer: '??',
         },
       });
-      setLiveOnForEvent(selectedEvent.ref_id, value);
+      setLiveOnForEvent(selectedEventId, value);
       this.setState({ isLiveOn: value === 'on' });
     });
   };
@@ -119,6 +149,20 @@ class Header extends Component {
     }
   };
 
+  renderRemainingTime() {
+    const { classes } = this.props;
+    const { timeRemaining } = this.state;
+    if (this.state.timeRemaining === 0) {
+      return null;
+    }
+    return (
+      <Fragment>
+        {' '}
+        | Time remaining: <span>{formatDuration(timeRemaining, false)}</span>
+      </Fragment>
+    );
+  }
+
   renderContent() {
     const {
       classes,
@@ -131,7 +175,8 @@ class Header extends Component {
       content = (
         <Fragment>
           <Typography variant="body1" className={classes.rootSubheading}>
-            Live event scheduled at: 14:55:29 IST | Time remaining: 00:03:05
+            Live event scheduled at: {getEventStartTime(selectedEvent.start_time)} ({selectedEvent.timezone})
+            {this.renderRemainingTime()}
           </Typography>
           <Button
             variant="contained"
