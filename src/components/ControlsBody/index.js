@@ -138,7 +138,7 @@ class ControlsBody extends Component {
       this.timeout = setTimeout(() => {
         this.interval = setInterval(() => {
           const now = moment();
-          const timeRemaining = moment(this.selectedEvent.end_time).diff(now, 'milliseconds');
+          const timeRemaining = moment(nextProps.selectedEvent.end_time).diff(now, 'milliseconds');
           this.setState({ timeRemaining });
         }, 1000);
       }, timeUntilEvent);
