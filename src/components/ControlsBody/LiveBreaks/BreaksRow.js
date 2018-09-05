@@ -176,8 +176,7 @@ class BreaksRow extends Component {
   render() {
     const { classes, item, currentPlayingItemId } = this.props;
 
-    const isPlayDisabled = item.played || (currentPlayingItemId && currentPlayingItemId !== item.asset_id);
-
+    const isPlayDisabled = item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
     return (
       <div className={classes.root}>
         <Grid container className={this.getClassname()} alignItems="center">
@@ -191,7 +190,12 @@ class BreaksRow extends Component {
             <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div />
-          <div className={classes.cell}>NOT PLAYED</div>
+          <div className={classes.cell}>
+            {item.stopped && 'STOPPED'}
+            {item.playing && 'PLAYING'}
+            {item.played && 'PLAYED'}
+            {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
+          </div>
           <div>
             {item.playing ? (
               <MuiIconButton
@@ -229,7 +233,12 @@ class BreaksRow extends Component {
               <div>
                 <span className={classes.subType}>{breakItem.sub_type}</span>
               </div>
-              <div>NOT PLAYED</div>
+              <div>
+                {breakItem.stopped && 'STOPPED'}
+                {breakItem.playing && 'PLAYING'}
+                {breakItem.played && 'PLAYED'}
+                {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
+              </div>
               <div>
                 <MuiIconButton disabled>
                   <PlayIcon className={classes.disabledActionIcons} />
