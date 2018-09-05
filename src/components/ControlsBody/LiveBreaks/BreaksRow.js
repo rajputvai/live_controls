@@ -166,6 +166,9 @@ class BreaksRow extends Component {
   };
 
   playItem = () => {
+    if (this.props.currentPlayingItemId !== '') {
+      this.props.stopItem(this.props.currentPlayingItemId);
+    }
     this.props.playItem(this.props.item.asset_id);
   };
 
@@ -174,10 +177,9 @@ class BreaksRow extends Component {
   };
 
   render() {
-    const { classes, item, currentPlayingItemId } = this.props;
+    const { classes, item } = this.props;
 
-    const isPlayDisabled =
-      item.stopped || item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
+    const isPlayDisabled = item.stopped || item.played;
 
     return (
       <div className={classes.root}>
