@@ -111,7 +111,14 @@ class Header extends Component {
     });
   };
 
-  handleMenuItemClick = eventId => () => this.setState({ eventId, anchorEl: null });
+  handleMenuItemClick = eventId => () => {
+    const {
+      history,
+      match: { params },
+    } = this.props;
+    history.push(`/${params.feedId}/${params.playlistId}/${eventId}`);
+    this.setState({ anchorEl: null });
+  };
 
   getLiveMessage = (selectedEventId, value) => {
     const startTime = Date.now();
@@ -150,7 +157,6 @@ class Header extends Component {
   };
 
   renderRemainingTime() {
-    const { classes } = this.props;
     const { timeRemaining } = this.state;
     if (this.state.timeRemaining === 0) {
       return null;
@@ -252,6 +258,8 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
   events: PropTypes.object.isRequired,
   sendMessage: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(Header));

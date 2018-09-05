@@ -1,78 +1,38 @@
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
 
-import axiosInstance from '../../utilities/axios';
-import Color from '../../utilities/theme/Color';
-import { MainWrapper } from '../Layout';
-import HeaderContainer from '../../containers/HeaderContainer';
-import ControlsBodyContainer from '../../containers/ControlsBodyContainer';
-import Loading from '../../assets/svgs/Loading';
-
-const styleSheet = theme => ({
-  '@global': {
-    html: {
-      boxSizing: 'border-box',
-    },
-    '*, *:before, *:after': {
-      boxSizing: 'inherit',
-    },
-    body: {
-      margin: 0,
-      background: Color.primary.p5,
-      color: Color.primary.p3,
-      lineHeight: '1.2',
-      overflowX: 'hidden',
-      WebkitFontSmoothing: 'antialiased',
-      MozOsxFontSmoothing: 'grayscale',
-      fontSize: 14,
-      fontFamily: theme.typography.fontFamily,
-    },
-  },
-  loadingWrapper: {
-    height: '100vh',
-    width: '100vw',
-  },
-});
+import AppWrapper from './AppWrapper';
 
 class App extends Component {
-  state = { configLoading: true };
-
-  async componentDidMount() {
-    const response = await axios.get('/config.json');
-    window.live_controls_config = response.data;
-    axiosInstance.defaults.baseURL = response.data.API_URL;
-    axiosInstance.defaults.params = { auth_token: response.data.AUTH_TOKEN };
-    this.setState({ configLoading: false });
-    this.props.loadEvents();
-    this.props.connectToWebSocket();
-  }
-
   render() {
-    const { classes } = this.props;
-    if (this.state.configLoading) {
-      return (
-        <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
-          <Loading />
-        </Grid>
-      );
+    const {
+      match: { params },
+      events,
+      selectEvent,
+      loadPlaylist,
+    } = this.props;
+    if (!params.feedId || !params.playlistId) {
+      return '404';
+    }
+    if (!params.eventId || !(params.eventId in events.byId)) {
+      const firstEventId = events.events[0].ref_id;
+      window.location.replace(`/${params.feedId}/${params.playlistId}/${firstEventId}`);
+      // route get's blocked when for wrong eventId senario, find solution
+      // return <Redirect to={`/${params.feedId}/${params.playlistId}/${firstEventId}`} />;
+      return null;
     }
     return (
-      <MainWrapper>
-        <HeaderContainer />
-        <ControlsBodyContainer />
-      </MainWrapper>
+      <AppWrapper eventIdInUrl={params.eventId} events={events} selectEvent={selectEvent} loadPlaylist={loadPlaylist} />
     );
   }
 }
 
 App.propTypes = {
-  classes: PropTypes.object.isRequired,
-  loadEvents: PropTypes.func.isRequired,
-  connectToWebSocket: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  selectEvent: PropTypes.func.isRequired,
+  loadPlaylist: PropTypes.func.isRequired,
+  events: PropTypes.object.isRequired,
 };
 
-export default withStyles(styleSheet)(withRouter(App));
+export default App;

@@ -9,8 +9,8 @@ import StopIcon from '@material-ui/icons/Stop';
 // Assets
 import IconButton from '../../../assets/IconButton';
 import PlayIcon from '../../../assets/svgs/Play';
-import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
-import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
+// import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
+// import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
 import animations from '../../../constants/animations';
 
@@ -66,6 +66,7 @@ const styles = {
   },
   breakItemsWrapper: {},
   breakItemsRow: {
+    minHeight: 50,
     padding: '0 20px',
     position: 'relative',
     '&:before': {
@@ -189,7 +190,9 @@ class BreaksRow extends Component {
             <span className={classes.title}>{item.title}</span> <span className={classes.divider}>|</span>{' '}
             <span>{formatDuration(item.duration)}</span>
           </Grid>
-          <div />
+          <div>
+            <span className={classes.subType}>{item.sub_type}</span>
+          </div>
           <div className={classes.cell}>
             {item.stopped && 'STOPPED'}
             {item.playing && 'PLAYING'}
@@ -214,12 +217,12 @@ class BreaksRow extends Component {
                 <PlayIcon />
               </MuiIconButton>
             )}
-            <MuiIconButton disabled>
+            {/* <MuiIconButton disabled>
               <ForceRescueIcon className={classes.disabledActionIcons} />
             </MuiIconButton>
             <MuiIconButton disabled>
               <QueueBreakIcon className={classes.disabledActionIcons} />
-            </MuiIconButton>
+            </MuiIconButton> */}
           </div>
         </Grid>
         {item.expanded &&
@@ -240,7 +243,7 @@ class BreaksRow extends Component {
                 {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
               </div>
               <div>
-                <MuiIconButton disabled>
+                {/* <MuiIconButton disabled>
                   <PlayIcon className={classes.disabledActionIcons} />
                 </MuiIconButton>
                 <MuiIconButton disabled>
@@ -248,7 +251,7 @@ class BreaksRow extends Component {
                 </MuiIconButton>
                 <MuiIconButton disabled>
                   <IconButton type="delete" />
-                </MuiIconButton>
+                </MuiIconButton> */}
               </div>
             </Grid>
           ))}
@@ -260,7 +263,6 @@ class BreaksRow extends Component {
 BreaksRow.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,

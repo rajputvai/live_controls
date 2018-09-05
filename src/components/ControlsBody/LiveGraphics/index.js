@@ -1,6 +1,6 @@
 // Libraries
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = {};
@@ -19,7 +19,7 @@ class LiveGraphics extends Component {
 }
 
 LiveGraphics.propTypes = {
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveGraphics);

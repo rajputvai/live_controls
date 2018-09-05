@@ -6,7 +6,7 @@ import { AutoSizer, List } from 'react-virtualized';
 
 // Components
 import BreaksRow from './BreaksRow';
-import TableHeader from './TableHeader';
+// import TableHeader from './TableHeader';
 
 // Assets
 import Color from '../../../utilities/theme/Color';
@@ -170,7 +170,6 @@ class LiveBreaks extends Component {
       <div style={style} key={key}>
         <BreaksRow
           item={item}
-          index={index}
           eventId={this.props.selectedEvent.ref_id}
           playlistId={this.props.playlist.playlist.id}
           status={this.props.playlist.status}
@@ -232,7 +231,7 @@ class LiveBreaks extends Component {
   render() {
     return (
       <div>
-        <TableHeader />
+        {/* <TableHeader /> */}
         {this.renderLiveBreaksTable()}
       </div>
     );
