@@ -255,7 +255,15 @@ class ControlsBody extends Component {
               />
             </div>
             <div className={classNames(classes.tabContent, this.state.tab === 0 && classes.fadeGraphics)}>
-              <LiveGraphics />
+              <LiveGraphics
+                playlist={playlist}
+                selectedEvent={selectedEvent}
+                sendMessage={sendMessage}
+                playItem={playItem}
+                stopItem={stopItem}
+                updateNowPlaying={this.props.updateNowPlaying}
+                toggleItem={toggleItem}
+              />
             </div>
           </Grid>
         </Paper>

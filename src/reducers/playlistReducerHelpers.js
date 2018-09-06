@@ -1,8 +1,12 @@
 import timerDurations from '../constants/timerDurations';
 
+const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
+
 export function parsePlaylist(draft, items, playlistId) {
   const itemsHash = {};
-  const itemIds = [];
+  // const itemIds = [];
+  const breakItemIds = [];
+  const graphicItemIds = [];
   let savedItems = localStorage.getItem(playlistId);
   if (savedItems) {
     savedItems = JSON.parse(savedItems);
@@ -15,7 +19,13 @@ export function parsePlaylist(draft, items, playlistId) {
 
   items.forEach(item => {
     let durationOffset = 0;
-    itemIds.push(item.asset_id);
+    if (!itemsNotToRenderInList.includes(item.asset_id)) {
+      if (item.sub_type === 'signature') {
+        breakItemIds.push(item.asset_id);
+      } else if (item.sub_type === 'graphic-signature') {
+        graphicItemIds.push(item.asset_id);
+      }
+    }
 
     itemsHash[item.asset_id] = {
       ...item,
@@ -41,7 +51,9 @@ export function parsePlaylist(draft, items, playlistId) {
   });
 
   draft.items = itemsHash;
-  draft.itemIds = itemIds;
+  // draft.itemIds = itemIds;
+  draft.breakItemIds = breakItemIds;
+  draft.graphicItemIds = graphicItemIds;
 }
 
 export function playItem(draft, item) {
