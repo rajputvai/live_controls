@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   items: {},
   noPublishedPlaylistAvailable: false,
   queue: [],
+  breakItemIds: [],
+  graphicItemIds: [],
 };
 
 export default function playlistReducer(state = INITIAL_STATE, action) {

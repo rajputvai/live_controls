@@ -239,9 +239,9 @@ class BreaksRow extends Component {
                   <PlayIcon />
                 </MuiIconButton>
               )}
-              <MuiIconButton disabled>
+              {/* <MuiIconButton disabled>
                 <ForceRescueIcon className={classes.disabledActionIcons} />
-              </MuiIconButton>
+              </MuiIconButton> */}
               <MuiIconButton disabled={isPlayDisabled || !someBreakPlaying || item.playing} onClick={this.queueItem}>
                 <QueueBreakIcon className={isPlayDisabled && classes.disabledActionIcons} />
               </MuiIconButton>
@@ -273,7 +273,7 @@ class BreaksRow extends Component {
                 {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
               </div>
               <div>
-                <MuiIconButton disabled>
+                {/* <MuiIconButton disabled>
                   <PlayIcon className={classes.disabledActionIcons} />
                 </MuiIconButton>
                 <MuiIconButton disabled>
@@ -281,7 +281,7 @@ class BreaksRow extends Component {
                 </MuiIconButton>
                 <MuiIconButton disabled>
                   <IconButton type="delete" />
-                </MuiIconButton>
+                </MuiIconButton> */}
               </div>
             </Grid>
           ))}
