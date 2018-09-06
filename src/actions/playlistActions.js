@@ -9,6 +9,7 @@ export const types = {
   DEQUEUE_ITEM: 'PLAYLIST.DEQUEUE_ITEM',
   UPDATE_NOW_PLAYING: 'PLAYLIST.UPDATE_NOW_PLAYING',
   TOGGLE_ITEM: 'PLAYLIST.TOGGLE_ITEM',
+  NO_PUBLISHED_PLAYLIST_AVAILABLE: 'PLAYLIST.NO_PUBLISHED_PLAYLIST_AVAILABLE',
 };
 
 export function loadPlaylist(playlistId) {
@@ -91,5 +92,11 @@ export function toggleItem(itemId) {
     payload: {
       itemId,
     },
+  };
+}
+
+export function noPublishedPlaylistAvailable() {
+  return {
+    type: types.NO_PUBLISHED_PLAYLIST_AVAILABLE,
   };
 }

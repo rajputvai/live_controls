@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   currentPlayingItemId: '',
   loading: true,
   items: {},
+  noPublishedPlaylistAvailable: false,
   queue: [],
 };
 
@@ -24,6 +25,7 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
         draft.playlist = action.payload.playlist;
         parsePlaylist(draft, action.payload.playlist.items, action.payload.playlist.id);
         draft.loading = false;
+        draft.noPublishedPlaylistAvailable = false;
         break;
       }
 
@@ -62,6 +64,10 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
         draft.items[action.payload.itemId].expanded = !draft.items[action.payload.itemId].expanded;
         break;
 
+      case types.NO_PUBLISHED_PLAYLIST_AVAILABLE:
+        draft.loading = false;
+        draft.noPublishedPlaylistAvailable = true;
+        break;
       default:
     }
   });

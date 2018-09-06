@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -147,6 +147,43 @@ class ControlsBody extends Component {
 
   handleTabChange = (event, value) => this.setState({ tab: value });
 
+  renderLogos() {
+    const { classes, playlist } = this.props;
+
+    if (playlist.noPublishedPlaylistAvailable) {
+      return null;
+    }
+
+    const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
+    let liveLogoURL = '';
+    let breakLogoURL = '';
+    if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
+      liveEventLogoAsset.break_items.forEach(item => {
+        if (item.sub_type === LIVE_LOGO) {
+          liveLogoURL = item.preview_image;
+        } else if (item.sub_type === BREAK_LOGO) {
+          breakLogoURL = item.preview_image;
+        }
+      });
+    }
+    return (
+      <Fragment>
+        <div className={classes.liveLogo}>
+          <span>LIVE LOGO</span>
+          <div>
+            <img src={liveLogoURL} alt="Live Logo" />
+          </div>
+        </div>
+        <div className={classes.liveLogo}>
+          <span>BREAK LOGO</span>
+          <div>
+            <img src={breakLogoURL} alt="Break Logo" />
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
+
   render() {
     const {
       classes,
@@ -171,6 +208,7 @@ class ControlsBody extends Component {
         }
       });
     }
+
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -178,6 +216,7 @@ class ControlsBody extends Component {
         </Grid>
       );
     }
+
     return (
       <div>
         <div className={classes.players}>
@@ -194,6 +233,7 @@ class ControlsBody extends Component {
                 <span>{formatDuration(this.state.timeRemaining, false)}</span>
               </div>
             )}
+
           </div>
           <div className={classes.liveLogo}>
             <span>LIVE LOGO</span>
@@ -207,6 +247,7 @@ class ControlsBody extends Component {
               <img src={breakLogoURL} alt="Break Logo" />
             </div>
           </div>
+          {this.renderLogos()}
         </div>
         <Paper className={classes.controlsSection}>
           <Tabs

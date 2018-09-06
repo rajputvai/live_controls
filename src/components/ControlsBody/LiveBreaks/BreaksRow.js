@@ -67,6 +67,7 @@ const styles = {
   },
   breakItemsWrapper: {},
   breakItemsRow: {
+    minHeight: 50,
     padding: '0 20px',
     position: 'relative',
     '&:before': {
@@ -217,7 +218,9 @@ class BreaksRow extends Component {
             <span className={classes.title}>{item.title}</span> <span className={classes.divider}>|</span>{' '}
             <span>{formatDuration(item.duration)}</span>
           </Grid>
-          <div />
+          <div>
+            <span className={classes.subType}>{item.sub_type}</span>
+          </div>
           <div className={classes.cell}>
             {item.stopped && 'STOPPED'}
             {item.playing && 'PLAYING'}
@@ -293,7 +296,6 @@ class BreaksRow extends Component {
 BreaksRow.propTypes = {
   classes: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
   queueItem: PropTypes.func.isRequired,

@@ -45,37 +45,31 @@ const styles = {
   },
 };
 
-class TableHeader extends React.Component {
-  componentDidMount() {
-    
-  }
+function TableHeader(props) {
+  const { classes } = props;
 
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <Grid container className={classes.actionBar} alignItems="center">
-        <div>
-          CURRENT HOUR: <span className={classes.boldText}>12:00 - 13:00</span>
-        </div>
-        <div className={classes.divider}>|</div>
-        <div>
-          FCT PLAYED: <span className={classes.boldText}>00:00:00:00</span>
-        </div>
-        <InfoIcon className={classes.infoIcon} />
-        <div className={classes.flex} />
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="edit" className={classes.iconButton} />
-        </div>
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="removeRedEye" className={classes.iconButton} />
-        </div>
-        <div className={classes.iconButtonWrapper}>
-          <IconButton type="search" className={classes.iconButton} />
-        </div>
-      </Grid>
-    );
-  }
+  return (
+    <Grid container className={classes.actionBar} alignItems="center">
+      <div>
+        CURRENT HOUR: <span className={classes.boldText}>12:00 - 13:00</span>
+      </div>
+      <div className={classes.divider}>|</div>
+      <div>
+        FCT PLAYED: <span className={classes.boldText}>00:00:00:00</span>
+      </div>
+      <InfoIcon className={classes.infoIcon} />
+      <div className={classes.flex} />
+      <div className={classes.iconButtonWrapper}>
+        <IconButton type="edit" className={classes.iconButton} />
+      </div>
+      <div className={classes.iconButtonWrapper}>
+        <IconButton type="removeRedEye" className={classes.iconButton} />
+      </div>
+      <div className={classes.iconButtonWrapper}>
+        <IconButton type="search" className={classes.iconButton} />
+      </div>
+    </Grid>
+  );
 }
 
 TableHeader.propTypes = {
