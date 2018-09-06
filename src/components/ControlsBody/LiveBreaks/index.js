@@ -140,6 +140,10 @@ class LiveBreaks extends Component {
       });
     });
 
+    if (this.props.playlist.currentPlayingItemId) {
+      this.props.stopItem(selectedEvent.ref_id, playlist.id, this.props.playlist.currentPlayingItemId);
+    }
+
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
@@ -259,7 +263,7 @@ class LiveBreaks extends Component {
   };
 
   getRowHeight = ({ index }) => {
-    const itemId = this.props.playlist.itemIds[index];
+    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
     const item = this.props.playlist.items[itemId];
 
     if (item.expanded) {
@@ -305,8 +309,8 @@ class LiveBreaks extends Component {
                 rowRenderer={this.renderRow}
                 rowCount={itemsWithoutLogoAndSlate.length}
                 style={{ outline: 'none' }}
-                overscanIndicesGetter={this.overscanIndicesGetter}
                 overscanRowCount={50}
+                estimatedRowSize={70}
               />
             )}
           </AutoSizer>
