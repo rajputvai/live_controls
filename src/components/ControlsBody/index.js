@@ -211,8 +211,8 @@ class ControlsBody extends Component {
                 <span>{formatDuration(this.state.timeRemaining, false)}</span>
               </div>
             )}
-            {this.renderLogos()}
           </div>
+          {this.renderLogos()}
         </div>
         <Paper className={classes.controlsSection}>
           <Tabs
