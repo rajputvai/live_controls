@@ -121,13 +121,26 @@ const styles = {
   comingUpNextItem: {
     '&:before': comingUpNextStyle,
   },
+  message: {
+    margin: '0px 5px',
+    padding: 5,
+    backgroundColor: '#fff',
+    border: '1px solid #333',
+    display: 'inline-block',
+    fontStyle: 'italic',
+    borderRadius: 10,
+  },
   rescuedStyle,
   ...animations.flash,
 };
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.item !== nextProps.item || this.props.currentPlayingItemId !== nextProps.currentPlayingItemId;
+    return (
+      this.props.item !== nextProps.item ||
+      this.props.currentPlayingItemId !== nextProps.currentPlayingItemId ||
+      this.props.queue !== nextProps.queue
+    );
   }
 
   getClassname = () => {
@@ -176,10 +189,20 @@ class BreaksRow extends Component {
     this.props.stopItem(this.props.item.asset_id);
   };
 
+  queueItem = () => {
+    this.props.queueItem(this.props.item.asset_id);
+  };
+
+  dequeueItem = () => {
+    this.props.dequeueItem(this.props.item.asset_id);
+  };
+
   render() {
-    const { classes, item } = this.props;
+    const { classes, item, queue, currentPlayingItemId } = this.props;
 
     const isPlayDisabled = item.stopped || item.played;
+    const queued = queue.indexOf(item.asset_id) > -1;
+    const someBreakPlaying = currentPlayingItemId !== '';
 
     return (
       <div className={classes.root}>
@@ -200,27 +223,36 @@ class BreaksRow extends Component {
             {item.played && 'PLAYED'}
             {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
           </div>
-          <div>
-            {item.playing ? (
-              <MuiIconButton onClick={this.stopItem}>
-                <StopIcon />
+          {!queued ? (
+            <div>
+              {item.playing ? (
+                <MuiIconButton onClick={this.stopItem}>
+                  <StopIcon />
+                </MuiIconButton>
+              ) : (
+                <MuiIconButton
+                  onClick={this.playItem}
+                  className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                  disabled={isPlayDisabled}
+                >
+                  <PlayIcon />
+                </MuiIconButton>
+              )}
+              <MuiIconButton disabled>
+                <ForceRescueIcon className={classes.disabledActionIcons} />
               </MuiIconButton>
-            ) : (
-              <MuiIconButton
-                onClick={this.playItem}
-                className={isPlayDisabled ? classes.disabledActionIcons : ''}
-                disabled={isPlayDisabled}
-              >
-                <PlayIcon />
+              <MuiIconButton disabled={isPlayDisabled || !someBreakPlaying || item.playing} onClick={this.queueItem}>
+                <QueueBreakIcon className={isPlayDisabled && classes.disabledActionIcons} />
               </MuiIconButton>
-            )}
-            <MuiIconButton disabled>
-              <ForceRescueIcon className={classes.disabledActionIcons} />
-            </MuiIconButton>
-            <MuiIconButton disabled>
-              <QueueBreakIcon className={classes.disabledActionIcons} />
-            </MuiIconButton>
-          </div>
+            </div>
+          ) : (
+            <div>
+              <span className={classes.message}>This break has been queued ({queue.indexOf(item.asset_id) + 1})</span>
+              <MuiIconButton onClick={this.dequeueItem}>
+                <QueueBreakIcon />
+              </MuiIconButton>
+            </div>
+          )}
         </Grid>
         {item.expanded &&
           item.break_items.map((breakItem, breakIndex) => (
@@ -263,8 +295,11 @@ BreaksRow.propTypes = {
   index: PropTypes.number.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   currentPlayingItemId: PropTypes.string.isRequired,
+  queue: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

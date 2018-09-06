@@ -10,6 +10,9 @@ export function parsePlaylist(draft, items, playlistId) {
     savedItems = {};
   }
 
+  // Get the queue
+  itemsHash.queue = savedItems.queue || [];
+
   items.forEach(item => {
     let durationOffset = 0;
     itemIds.push(item.asset_id);
@@ -69,6 +72,17 @@ export function stopItem(draft, item) {
       mediaItem.comingUpNext = false;
     }
   });
+
+  // dequeue everything
+  draft.items.queue = [];
+}
+
+export function queueItem(draft, item) {
+  draft.items.queue.push(item.asset_id);
+}
+
+export function dequeueItem(draft, item) {
+  draft.items.queue.splice(draft.items.queue.indexOf(item.asset_id), 1);
 }
 
 export function updateNowPlaying(state, draft) {
@@ -105,6 +119,7 @@ export function updateNowPlaying(state, draft) {
       mediaItem.stopped = false;
     }
 
+    // Finishes playing
     if (mediaItem.playing && item.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()) {
       mediaItem.playing = false;
       mediaItem.played = true;
@@ -116,7 +131,12 @@ export function updateNowPlaying(state, draft) {
     item.playing = false;
     item.played = true;
     item.stopped = false;
-
     draft.currentPlayingItemId = '';
+
+    if (draft.items.queue.length > 0) {
+      const breakId = draft.items.queue.splice(0, 1)[0];
+      playItem(draft, draft.items[breakId]);
+      draft.currentPlayingItemId = breakId;
+    }
   }
 }

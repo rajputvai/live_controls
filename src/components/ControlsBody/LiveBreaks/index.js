@@ -202,6 +202,26 @@ class LiveBreaks extends Component {
     this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
+  queueItem = itemId => {
+    const {
+      selectedEvent,
+      playlist: { playlist, items },
+    } = this.props;
+    const item = items[itemId];
+
+    this.props.queueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+  };
+
+  dequeueItem = itemId => {
+    const {
+      selectedEvent,
+      playlist: { playlist, items },
+    } = this.props;
+    const item = items[itemId];
+
+    this.props.dequeueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+  };
+
   renderRow = ({ index, key, style }) => {
     const itemId = this.props.playlist.itemIds[index];
     const item = this.props.playlist.items[itemId];
@@ -213,10 +233,12 @@ class LiveBreaks extends Component {
           index={index}
           eventId={this.props.selectedEvent.ref_id}
           playlistId={this.props.playlist.playlist.id}
-          status={this.props.playlist.status}
+          queue={this.props.playlist.items.queue}
           currentPlayingItemId={this.props.playlist.currentPlayingItemId}
           playItem={this.playItem}
           stopItem={this.stopItem}
+          queueItem={this.queueItem}
+          dequeueItem={this.dequeueItem}
           toggleItem={this.props.toggleItem}
         />
       </div>
@@ -285,6 +307,8 @@ LiveBreaks.propTypes = {
   selectedEvent: PropTypes.object.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
 };

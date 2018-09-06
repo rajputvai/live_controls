@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { types } from '../actions/playlistActions';
 
-import { parsePlaylist, playItem, stopItem, updateNowPlaying } from './playlistReducerHelpers';
+import { parsePlaylist, playItem, stopItem, queueItem, dequeueItem, updateNowPlaying } from './playlistReducerHelpers';
 
 const INITIAL_STATE = {
   playlist: {},
@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   currentPlayingItemId: '',
   loading: true,
   items: [],
+  queue: [],
 };
 
 export default function playlistReducer(state = INITIAL_STATE, action) {
@@ -37,6 +38,18 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
         const { breakId } = action.payload;
         stopItem(draft, draft.items[breakId]);
         draft.currentPlayingItemId = '';
+        break;
+      }
+
+      case types.QUEUE_ITEM: {
+        const { breakId } = action.payload;
+        queueItem(draft, draft.items[breakId]);
+        break;
+      }
+
+      case types.DEQUEUE_ITEM: {
+        const { breakId } = action.payload;
+        dequeueItem(draft, draft.items[breakId]);
         break;
       }
 

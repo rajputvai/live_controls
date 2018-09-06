@@ -110,7 +110,17 @@ class ControlsBody extends Component {
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   render() {
-    const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    const {
+      classes,
+      playlist,
+      sendMessage,
+      selectedEvent,
+      playItem,
+      stopItem,
+      queueItem,
+      dequeueItem,
+      toggleItem,
+    } = this.props;
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -170,6 +180,8 @@ class ControlsBody extends Component {
                 sendMessage={sendMessage}
                 playItem={playItem}
                 stopItem={stopItem}
+                queueItem={queueItem}
+                dequeueItem={dequeueItem}
                 updateNowPlaying={this.props.updateNowPlaying}
                 toggleItem={toggleItem}
               />
@@ -195,6 +207,8 @@ ControlsBody.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
 };
