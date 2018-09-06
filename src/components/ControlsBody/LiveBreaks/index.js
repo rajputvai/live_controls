@@ -92,17 +92,19 @@ const styles = {
   },
 };
 
-const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
-
 class LiveBreaks extends Component {
   componentDidMount() {
-    setInterval(this.props.updateNowPlaying, 1000);
+    this.interval = setInterval(this.props.updateNowPlaying, 1000);
   }
 
   componentDidUpdate() {
-    if (!this.props.playlist.noPublishedPlaylistAvailable) {
+    if (!this.props.playlist.noPublishedPlaylistAvailable && this.listEl) {
       this.listEl.recomputeRowHeights();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   overscanIndicesGetter = ({ cellCount, overscanCellsCount, startIndex, stopIndex }) => ({
@@ -241,8 +243,9 @@ class LiveBreaks extends Component {
   };
 
   renderRow = ({ index, key, style }) => {
-    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
-    const item = this.props.playlist.items[itemId];
+    const { items, breakItemIds } = this.props.playlist;
+    const itemId = breakItemIds[index];
+    const item = items[itemId];
 
     return (
       <div style={style} key={key}>
@@ -263,7 +266,7 @@ class LiveBreaks extends Component {
   };
 
   getRowHeight = ({ index }) => {
-    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
+    const itemId = this.props.playlist.breakItemIds[index];
     const item = this.props.playlist.items[itemId];
 
     if (item.expanded) {
@@ -276,15 +279,13 @@ class LiveBreaks extends Component {
   renderLiveBreaksTable() {
     const {
       classes,
-      playlist: { itemIds, noPublishedPlaylistAvailable },
+      playlist: { breakItemIds, noPublishedPlaylistAvailable },
     } = this.props;
     if (noPublishedPlaylistAvailable) {
       return <div className={classes.noPlaylists}>No Playlists Have Been Published</div>;
     }
 
-    const itemsWithoutLogoAndSlate = itemIds.filter(item => !itemsNotToRenderInList.includes(item));
-
-    if (itemsWithoutLogoAndSlate.length === 0) {
+    if (breakItemIds.length === 0) {
       return <div className={classes.noPlaylists}>No Break Items Available</div>;
     }
 
@@ -307,10 +308,10 @@ class LiveBreaks extends Component {
                 height={height}
                 rowHeight={this.getRowHeight}
                 rowRenderer={this.renderRow}
-                rowCount={itemsWithoutLogoAndSlate.length}
+                rowCount={breakItemIds.length}
                 style={{ outline: 'none' }}
+                overscanIndicesGetter={this.overscanIndicesGetter}
                 overscanRowCount={50}
-                estimatedRowSize={70}
               />
             )}
           </AutoSizer>
