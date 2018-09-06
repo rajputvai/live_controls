@@ -82,74 +82,7 @@ const styles = {
   },
 };
 
-// const data = {
-//   id: 1,
-//   title: 'Intent_1_1',
-//   type: 'signature',
-//   sub_type: 'signature',
-//   asset_id: 'Intent_1_1',
-//   comments: null,
-//   join_status: null,
-//   offset: 0,
-//   segment: null,
-//   playing: false,
-//   status: 'Present',
-//   subtitle_scheduled: false,
-//   duration: 7600,
-//   available_segments: null,
-//   break_item: {
-//     id: 2,
-//     title: 'res_00211_newexp',
-//     type: 'primary',
-//     sub_type: 'program_segment',
-//     asset_id: 'res_00211_newexp',
-//     comments: '',
-//     join_status: null,
-//     offset: 0,
-//     segment: {
-//       data: {
-//         default_segment: true,
-//         duration: 95,
-//         start_time_code: 2880,
-//         file_offset: '564',
-//         offset: 0,
-//       },
-//       id: 870,
-//       media_id: 8869,
-//       segment_id: 211,
-//     },
-//     playing: false,
-//     status: 'Present',
-//     subtitle_scheduled: false,
-//     duration: 3800,
-//     available_segments: [
-//       {
-//         data: {
-//           default_segment: true,
-//           duration: 95,
-//           start_time_code: 2880,
-//           file_offset: '564',
-//           offset: 0,
-//         },
-//         id: 870,
-//         media_id: 8869,
-//         segment_id: 211,
-//       },
-//     ],
-//   },
-// };
-
-// const eventItemRange = new Array(3000).fill(1);
-// const breakItemRange = new Array(4).fill(1);
-
-// const eventItems = eventItemRange.map((val, eventIndex) => ({
-//   ...data,
-//   break_items: breakItemRange.map((v, breakIndex) => ({
-//     ...data.break_item,
-//     id: breakIndex,
-//   })),
-//   id: eventIndex,
-// }));
+const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
 
 class LiveBreaks extends Component {
   componentDidMount() {
@@ -165,24 +98,30 @@ class LiveBreaks extends Component {
     overscanStopIndex: Math.min(cellCount - 1, stopIndex + overscanCellsCount),
   });
 
-  playItem = breakIndex => {
+  playItem = breakId => {
     const {
       selectedEvent,
       playlist: { playlist, items },
     } = this.props;
 
-    const item = items[breakIndex];
+    const item = items[breakId];
+    const startTime = Date.now();
+    console.log('requesting player for snapshot at: ', startTime);
 
     window.inputPlayer.takescreenshot(pts => {
+      console.log('pts', pts);
+      const endTime = Date.now();
+      console.log('pts received from player at: ', endTime);
+      console.log('time taken to get pts from player: ', endTime - startTime);
       this.props.sendMessage({
         trigger_type: 'break',
         command: 'start',
         params: {
-          live_event_id: 'AMAGI_LIVE_001',
+          live_event_id: selectedEvent.ref_id,
           timestamp: pts,
-          duration_ms: 5000,
+          duration_ms: item.duration,
           jpeg_buffer: '??',
-          break_name: 'LIVE_001_BREAK1',
+          break_name: item.title,
           best_effort_flag: true,
           best_effort_threshold_ms: 1000,
         },
@@ -198,7 +137,28 @@ class LiveBreaks extends Component {
       playlist: { playlist, items },
     } = this.props;
     const item = items[itemId];
+    const startTime = Date.now();
+    console.log('requesting player for snapshot at: ', startTime);
 
+    window.inputPlayer.takescreenshot(pts => {
+      console.log('pts', pts);
+      const endTime = Date.now();
+      console.log('pts received from player at: ', endTime);
+      console.log('time taken to get pts from player: ', endTime - startTime);
+      this.props.sendMessage({
+        trigger_type: 'break',
+        command: 'stop',
+        params: {
+          live_event_id: selectedEvent.ref_id,
+          timestamp: pts,
+          duration_ms: item.duration,
+          jpeg_buffer: '??',
+          break_name: item.title,
+          best_effort_flag: true,
+          best_effort_threshold_ms: 1000,
+        },
+      });
+    });
     this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
@@ -223,7 +183,7 @@ class LiveBreaks extends Component {
   };
 
   renderRow = ({ index, key, style }) => {
-    const itemId = this.props.playlist.itemIds[index];
+    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
     const item = this.props.playlist.items[itemId];
 
     return (
@@ -261,6 +221,7 @@ class LiveBreaks extends Component {
       classes,
       playlist: { itemIds },
     } = this.props;
+    const itemIdsWithLogo = itemIds.filter(item => !itemsNotToRenderInList.includes(item));
     return (
       <div className={classes.root}>
         <div className={classes.headerRow}>
@@ -279,7 +240,7 @@ class LiveBreaks extends Component {
               height={400}
               rowHeight={this.getRowHeight}
               rowRenderer={this.renderRow}
-              rowCount={itemIds.length}
+              rowCount={itemIdsWithLogo.length}
               style={{ outline: 'none' }}
               overscanIndicesGetter={this.overscanIndicesGetter}
               overscanRowCount={50}

@@ -14,7 +14,7 @@ export function setLiveOnForEvent(eventRefId, value) {
     config = { isLiveOn: value };
   } else {
     config = JSON.parse(localConfigForEvent);
-    config.isLiveOn = value;
+    config.isLiveOn = value === 'on';
   }
   localStorage.setItem(eventRefId, JSON.stringify(config));
 }

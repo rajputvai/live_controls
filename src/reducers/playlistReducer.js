@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   status: {},
   currentPlayingItemId: '',
   loading: true,
-  items: [],
+  items: {},
   queue: [],
 };
 
