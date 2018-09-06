@@ -196,18 +196,6 @@ class ControlsBody extends Component {
       dequeueItem,
       toggleItem,
     } = this.props;
-    const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
-    let liveLogoURL = '';
-    let breakLogoURL = '';
-    if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
-      liveEventLogoAsset.break_items.forEach(item => {
-        if (item.sub_type === LIVE_LOGO) {
-          liveLogoURL = item.preview_image;
-        } else if (item.sub_type === BREAK_LOGO) {
-          breakLogoURL = item.preview_image;
-        }
-      });
-    }
 
     if (playlist.loading) {
       return (
@@ -233,19 +221,6 @@ class ControlsBody extends Component {
                 <span>{formatDuration(this.state.timeRemaining, false)}</span>
               </div>
             )}
-
-          </div>
-          <div className={classes.liveLogo}>
-            <span>LIVE LOGO</span>
-            <div>
-              <img src={liveLogoURL} alt="Live Logo" />
-            </div>
-          </div>
-          <div className={classes.liveLogo}>
-            <span>BREAK LOGO</span>
-            <div>
-              <img src={breakLogoURL} alt="Break Logo" />
-            </div>
           </div>
           {this.renderLogos()}
         </div>

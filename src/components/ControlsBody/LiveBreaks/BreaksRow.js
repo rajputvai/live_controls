@@ -181,9 +181,6 @@ class BreaksRow extends Component {
   };
 
   playItem = () => {
-    if (this.props.currentPlayingItemId !== '') {
-      this.props.stopItem(this.props.currentPlayingItemId);
-    }
     this.props.playItem(this.props.item.asset_id);
   };
 
