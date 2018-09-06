@@ -12,7 +12,7 @@ class LiveGraphics extends Component {
     // const { classes } = this.props;
     return (
       <div>
-        <div>a</div>
+        <div />
       </div>
     );
   }

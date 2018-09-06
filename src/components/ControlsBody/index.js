@@ -1,5 +1,5 @@
 // Libraries
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -147,8 +147,13 @@ class ControlsBody extends Component {
 
   handleTabChange = (event, value) => this.setState({ tab: value });
 
-  render() {
-    const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+  renderLogos() {
+    const { classes, playlist } = this.props;
+
+    if (playlist.noPublishedPlaylistAvailable) {
+      return null;
+    }
+
     const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
     let liveLogoURL = '';
     let breakLogoURL = '';
@@ -161,6 +166,26 @@ class ControlsBody extends Component {
         }
       });
     }
+    return (
+      <Fragment>
+        <div className={classes.liveLogo}>
+          <span>LIVE LOGO</span>
+          <div>
+            <img src={liveLogoURL} alt="Live Logo" />
+          </div>
+        </div>
+        <div className={classes.liveLogo}>
+          <span>BREAK LOGO</span>
+          <div>
+            <img src={breakLogoURL} alt="Break Logo" />
+          </div>
+        </div>
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
 
     if (playlist.loading) {
       return (
@@ -169,6 +194,7 @@ class ControlsBody extends Component {
         </Grid>
       );
     }
+
     return (
       <div>
         <div className={classes.players}>
@@ -185,18 +211,7 @@ class ControlsBody extends Component {
                 <span>{formatDuration(this.state.timeRemaining, false)}</span>
               </div>
             )}
-          </div>
-          <div className={classes.liveLogo}>
-            <span>LIVE LOGO</span>
-            <div>
-              <img src={liveLogoURL} alt="Live Logo" />
-            </div>
-          </div>
-          <div className={classes.liveLogo}>
-            <span>BREAK LOGO</span>
-            <div>
-              <img src={breakLogoURL} alt="Break Logo" />
-            </div>
+            {this.renderLogos()}
           </div>
         </div>
         <Paper className={classes.controlsSection}>

@@ -80,6 +80,9 @@ const styles = {
   breakIndex: {
     marginRight: 20,
   },
+  noPlaylists: {
+    margin: 30,
+  },
 };
 
 const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
@@ -90,7 +93,9 @@ class LiveBreaks extends Component {
   }
 
   componentDidUpdate() {
-    this.listEl.recomputeRowHeights();
+    if (!this.props.playlist.noPublishedPlaylistAvailable) {
+      this.listEl.recomputeRowHeights();
+    }
   }
 
   overscanIndicesGetter = ({ cellCount, overscanCellsCount, startIndex, stopIndex }) => ({
@@ -196,9 +201,18 @@ class LiveBreaks extends Component {
   renderLiveBreaksTable() {
     const {
       classes,
-      playlist: { itemIds },
+      playlist: { itemIds, noPublishedPlaylistAvailable },
     } = this.props;
-    const itemIdsWithLogo = itemIds.filter(item => !itemsNotToRenderInList.includes(item));
+    if (noPublishedPlaylistAvailable) {
+      return <div className={classes.noPlaylists}>No Playlists Have Been Published</div>;
+    }
+
+    const itemsWithoutLogoAndSlate = itemIds.filter(item => !itemsNotToRenderInList.includes(item));
+
+    if (itemsWithoutLogoAndSlate.length === 0) {
+      return <div className={classes.noPlaylists}>No Break Items Available</div>;
+    }
+
     return (
       <div className={classes.root}>
         <div className={classes.headerRow}>
@@ -217,7 +231,7 @@ class LiveBreaks extends Component {
               height={400}
               rowHeight={this.getRowHeight}
               rowRenderer={this.renderRow}
-              rowCount={itemIdsWithLogo.length}
+              rowCount={itemsWithoutLogoAndSlate.length}
               style={{ outline: 'none' }}
               overscanIndicesGetter={this.overscanIndicesGetter}
               overscanRowCount={50}

@@ -6,9 +6,13 @@ export const types = {
   SELECT_EVENT: 'EVENTS.SELECT_EVENTS',
 };
 
-export function loadEvents() {
+export function loadEvents(feedId, playlistId) {
   return {
     type: types.LOAD,
+    payload: {
+      feedId,
+      playlistId,
+    },
   };
 }
 

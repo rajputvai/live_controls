@@ -6,17 +6,16 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import Grid from '@material-ui/core/Grid';
 
 // Actions
 import { loadEvents, selectEvent } from '../../actions/eventsActions';
-import { loadPlaylist } from '../../actions/playlistActions';
+import { loadPlaylist, noPublishedPlaylistAvailable } from '../../actions/playlistActions';
 
 // Assets
 import axiosInstance from '../../utilities/axios';
 import App from '../../components/App';
 import { connectToWebSocket, disconnectFromWebSocket } from '../../actions/webSocketActions';
-import Loading from '../../assets/svgs/Loading';
+import LoadingGrid from '../../assets/LoadingGrid';
 import Color from '../../utilities/theme/Color';
 
 const styles = theme => ({
@@ -39,10 +38,6 @@ const styles = theme => ({
       fontFamily: theme.typography.fontFamily,
     },
   },
-  loadingWrapper: {
-    height: '100vh',
-    width: '100vw',
-  },
 });
 
 class AppContainer extends Component {
@@ -54,25 +49,26 @@ class AppContainer extends Component {
     axiosInstance.defaults.baseURL = response.data.API_URL;
     axiosInstance.defaults.params = { auth_token: response.data.AUTH_TOKEN };
     this.setState({ configLoading: false });
-    this.props.loadEvents();
     this.props.connectToWebSocket();
   }
 
   renderApp = props => {
     const { events } = this.props;
     return (
-      <App {...props} events={events} selectEvent={this.props.selectEvent} loadPlaylist={this.props.loadPlaylist} />
+      <App
+        {...props}
+        events={events}
+        loadEvents={this.props.loadEvents}
+        selectEvent={this.props.selectEvent}
+        loadPlaylist={this.props.loadPlaylist}
+        noPublishedPlaylistAvailable={this.props.noPublishedPlaylistAvailable}
+      />
     );
   };
 
   render() {
-    const { classes, events } = this.props;
-    if (this.state.configLoading || events.loading) {
-      return (
-        <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
-          <Loading />
-        </Grid>
-      );
+    if (this.state.configLoading) {
+      return <LoadingGrid />;
     }
     return (
       <Switch>
@@ -92,18 +88,25 @@ function mapStateToProps(state) {
 }
 
 AppContainer.propTypes = {
-  classes: PropTypes.object.isRequired,
   loadEvents: PropTypes.func.isRequired,
   connectToWebSocket: PropTypes.func.isRequired,
   events: PropTypes.object.isRequired,
   selectEvent: PropTypes.func.isRequired,
   loadPlaylist: PropTypes.func.isRequired,
+  noPublishedPlaylistAvailable: PropTypes.func.isRequired,
 };
 
 export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    { loadEvents, connectToWebSocket, disconnectFromWebSocket, selectEvent, loadPlaylist }
+    {
+      loadEvents,
+      connectToWebSocket,
+      disconnectFromWebSocket,
+      selectEvent,
+      loadPlaylist,
+      noPublishedPlaylistAvailable,
+    }
   )
 )(AppContainer);

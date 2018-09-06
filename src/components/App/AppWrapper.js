@@ -21,18 +21,28 @@ class AppWrapper extends Component {
     if (orderedByLatest.length > 0) {
       return orderedByLatest[0].id;
     }
-    return 3521;
+    return '';
   }
 
   componentDidMount() {
     this.props.selectEvent(this.props.eventIdInUrl);
-    this.props.loadPlaylist(this.getLatestPlaylistId());
+    const idToFetch = this.getLatestPlaylistId();
+    if (idToFetch) {
+      this.props.loadPlaylist(idToFetch);
+    } else {
+      this.props.noPublishedPlaylistAvailable();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.eventIdInUrl !== nextProps.eventIdInUrl) {
       this.props.selectEvent(nextProps.eventIdInUrl);
-      this.props.loadPlaylist(this.getLatestPlaylistId());
+      const idToFetch = this.getLatestPlaylistId();
+      if (idToFetch) {
+        this.props.loadPlaylist(idToFetch);
+      } else {
+        this.props.noPublishedPlaylistAvailable();
+      }
     }
   }
 
@@ -51,6 +61,7 @@ AppWrapper.propTypes = {
   events: PropTypes.object.isRequired,
   selectEvent: PropTypes.func.isRequired,
   loadPlaylist: PropTypes.func.isRequired,
+  noPublishedPlaylistAvailable: PropTypes.func.isRequired,
 };
 
 export default AppWrapper;
