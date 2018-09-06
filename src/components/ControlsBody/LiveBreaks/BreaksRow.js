@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
 
 // Assets
+import DequeueIcon from '../../../assets/svgs/Dequeue';
 import IconButton from '../../../assets/IconButton';
 import PlayIcon from '../../../assets/svgs/Play';
 import StopIcon from '../../../assets/svgs/Stop';
@@ -249,7 +250,7 @@ class BreaksRow extends Component {
             <div>
               <span className={classes.message}>This break has been queued ({queue.indexOf(item.asset_id) + 1})</span>
               <MuiIconButton onClick={this.dequeueItem}>
-                <QueueBreakIcon />
+                <DequeueIcon />
               </MuiIconButton>
             </div>
           )}
