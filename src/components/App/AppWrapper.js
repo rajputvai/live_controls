@@ -24,8 +24,8 @@ class AppWrapper extends Component {
     return '';
   }
 
-  componentDidMount() {
-    this.props.selectEvent(this.props.eventIdInUrl);
+  selectEventAndLoadPlaylist(eventId) {
+    this.props.selectEvent(eventId);
     const idToFetch = this.getLatestPlaylistId();
     if (idToFetch) {
       this.props.loadPlaylist(idToFetch);
@@ -34,15 +34,13 @@ class AppWrapper extends Component {
     }
   }
 
+  componentDidMount() {
+    this.selectEventAndLoadPlaylist(this.props.eventIdInUrl);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props.eventIdInUrl !== nextProps.eventIdInUrl) {
-      this.props.selectEvent(nextProps.eventIdInUrl);
-      const idToFetch = this.getLatestPlaylistId();
-      if (idToFetch) {
-        this.props.loadPlaylist(idToFetch);
-      } else {
-        this.props.noPublishedPlaylistAvailable();
-      }
+      this.selectEventAndLoadPlaylist(nextProps.eventIdInUrl);
     }
   }
 
