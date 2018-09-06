@@ -23,22 +23,30 @@ class Player extends Component {
     const { classes, id, url, width, height } = this.props;
     return (
       <div
-        ref={el => {
-          this.element = el;
+        style={{
+          width,
+          height,
+          overflow: 'hidden',
         }}
-        id={id}
-        className={classNames('vxgplayer', classes.root)}
-        url={url}
-        aspect-ratio="true"
-        mute="true"
-        latency="150"
-        autostart="true"
-        nmf-src="/javascripts/vxgplayer/pnacl/Release/media_player.nmf"
-        nmf-path="/vxgplayer/media_player.nmf"
-        width={`${width}px`}
-        height={`${height}px`}
-        avsync="true"
-      />
+      >
+        <div
+          ref={el => {
+            this.element = el;
+          }}
+          id={id}
+          className={classNames('vxgplayer', classes.root)}
+          url={url}
+          aspect-ratio="true"
+          mute="true"
+          latency="150"
+          autostart="true"
+          nmf-src="/javascripts/vxgplayer/pnacl/Release/media_player.nmf"
+          nmf-path="/vxgplayer/media_player.nmf"
+          width={`${width}px`}
+          height={`${height}px`}
+          avsync="true"
+        />
+      </div>
     );
   }
 }

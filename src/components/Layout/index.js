@@ -5,6 +5,8 @@ const styleSheet = {
   mainWrapper: {
     height: '100vh',
     fontSize: 14,
+    display: 'flex',
+    flexDirection: 'column',
   },
 };
 

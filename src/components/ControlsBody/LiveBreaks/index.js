@@ -33,6 +33,10 @@ const styles = {
   },
   root: {
     color: Color.primary.p2,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
   },
   breakRow: {
     backgroundColor: Color.other.o2,
@@ -82,6 +86,9 @@ const styles = {
   },
   noPlaylists: {
     margin: 30,
+  },
+  autoSizer: {
+    flex: 1,
   },
 };
 
@@ -285,34 +292,31 @@ class LiveBreaks extends Component {
           <div>PLAYED STATUS</div>
           <div>ACTIONS </div>
         </div>
-        <AutoSizer disableHeight>
-          {({ width }) => (
-            <List
-              ref={el => {
-                this.listEl = el;
-              }}
-              width={width}
-              height={400}
-              rowHeight={this.getRowHeight}
-              rowRenderer={this.renderRow}
-              rowCount={itemsWithoutLogoAndSlate.length}
-              style={{ outline: 'none' }}
-              overscanIndicesGetter={this.overscanIndicesGetter}
-              overscanRowCount={50}
-            />
-          )}
-        </AutoSizer>
+        <div className={classes.autoSizer}>
+          <AutoSizer>
+            {({ width, height }) => (
+              <List
+                ref={el => {
+                  this.listEl = el;
+                }}
+                width={width}
+                height={height}
+                rowHeight={this.getRowHeight}
+                rowRenderer={this.renderRow}
+                rowCount={itemsWithoutLogoAndSlate.length}
+                style={{ outline: 'none' }}
+                overscanIndicesGetter={this.overscanIndicesGetter}
+                overscanRowCount={50}
+              />
+            )}
+          </AutoSizer>
+        </div>
       </div>
     );
   }
 
   render() {
-    return (
-      <div>
-        {/* <TableHeader /> */}
-        {this.renderLiveBreaksTable()}
-      </div>
-    );
+    return this.renderLiveBreaksTable();
   }
 }
 
