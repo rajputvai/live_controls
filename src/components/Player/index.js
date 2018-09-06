@@ -33,8 +33,8 @@ class Player extends Component {
         mute="true"
         latency="150"
         autostart="true"
-        nmf-src="javascripts/vxgplayer/pnacl/Release/media_player.nmf"
-        nmf-path="vxgplayer/media_player.nmf"
+        nmf-src="/javascripts/vxgplayer/pnacl/Release/media_player.nmf"
+        nmf-path="/vxgplayer/media_player.nmf"
         width={`${width}px`}
         height={`${height}px`}
         avsync="true"
