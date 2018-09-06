@@ -5,6 +5,8 @@ export const types = {
   LOAD_FAILURE: 'PLAYLIST.LOAD_FAILURE',
   PLAY_ITEM: 'PLAYLIST.PLAY_ITEM',
   STOP_ITEM: 'PLAYLIST.STOP_ITEM',
+  QUEUE_ITEM: 'PLAYLIST.QUEUE_ITEM',
+  DEQUEUE_ITEM: 'PLAYLIST.DEQUEUE_ITEM',
   UPDATE_NOW_PLAYING: 'PLAYLIST.UPDATE_NOW_PLAYING',
   TOGGLE_ITEM: 'PLAYLIST.TOGGLE_ITEM',
 };
@@ -47,6 +49,28 @@ export function playItem(eventId, playlistId, breakId) {
 export function stopItem(eventId, playlistId, breakId) {
   return {
     type: types.STOP_ITEM,
+    payload: {
+      eventId,
+      playlistId,
+      breakId,
+    },
+  };
+}
+
+export function queueItem(eventId, playlistId, breakId) {
+  return {
+    type: types.QUEUE_ITEM,
+    payload: {
+      eventId,
+      playlistId,
+      breakId,
+    },
+  };
+}
+
+export function dequeueItem(eventId, playlistId, breakId) {
+  return {
+    type: types.DEQUEUE_ITEM,
     payload: {
       eventId,
       playlistId,
