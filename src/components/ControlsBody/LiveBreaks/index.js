@@ -167,6 +167,68 @@ class LiveBreaks extends Component {
     this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
+  queueItem = itemId => {
+    const {
+      selectedEvent,
+      playlist: { playlist, items },
+    } = this.props;
+    const item = items[itemId];
+    const startTime = Date.now();
+
+    window.inputPlayer.takescreenshot(pts => {
+      console.log('pts', pts);
+      const endTime = Date.now();
+      console.log('pts received from player at: ', endTime);
+      console.log('time taken to get pts from player: ', endTime - startTime);
+      this.props.sendMessage({
+        trigger_type: 'break',
+        command: 'queue',
+        params: {
+          live_event_id: selectedEvent.ref_id,
+          timestamp: pts,
+          duration_ms: item.duration,
+          jpeg_buffer: '??',
+          break_name: item.title,
+          best_effort_flag: true,
+          best_effort_threshold_ms: 1000,
+        },
+      });
+    });
+
+    this.props.queueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+  };
+
+  dequeueItem = itemId => {
+    const {
+      selectedEvent,
+      playlist: { playlist, items },
+    } = this.props;
+    const item = items[itemId];
+    const startTime = Date.now();
+
+    window.inputPlayer.takescreenshot(pts => {
+      console.log('pts', pts);
+      const endTime = Date.now();
+      console.log('pts received from player at: ', endTime);
+      console.log('time taken to get pts from player: ', endTime - startTime);
+      this.props.sendMessage({
+        trigger_type: 'break',
+        command: 'dequeue',
+        params: {
+          live_event_id: selectedEvent.ref_id,
+          timestamp: pts,
+          duration_ms: item.duration,
+          jpeg_buffer: '??',
+          break_name: item.title,
+          best_effort_flag: true,
+          best_effort_threshold_ms: 1000,
+        },
+      });
+    });
+
+    this.props.dequeueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+  };
+
   renderRow = ({ index, key, style }) => {
     const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
     const item = this.props.playlist.items[itemId];
@@ -177,10 +239,12 @@ class LiveBreaks extends Component {
           item={item}
           eventId={this.props.selectedEvent.ref_id}
           playlistId={this.props.playlist.playlist.id}
-          status={this.props.playlist.status}
+          queue={this.props.playlist.items.queue}
           currentPlayingItemId={this.props.playlist.currentPlayingItemId}
           playItem={this.playItem}
           stopItem={this.stopItem}
+          queueItem={this.queueItem}
+          dequeueItem={this.dequeueItem}
           toggleItem={this.props.toggleItem}
         />
       </div>
@@ -259,6 +323,8 @@ LiveBreaks.propTypes = {
   selectedEvent: PropTypes.object.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
 };

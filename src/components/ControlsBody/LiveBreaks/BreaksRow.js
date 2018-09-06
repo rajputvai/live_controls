@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
-import StopIcon from '@material-ui/icons/Stop';
 
 // Assets
+import DequeueIcon from '../../../assets/svgs/Dequeue';
 import IconButton from '../../../assets/IconButton';
 import PlayIcon from '../../../assets/svgs/Play';
+import StopIcon from '../../../assets/svgs/Stop';
 import ForceRescueIcon from '../../../assets/svgs/ForceRescue';
 import QueueBreakIcon from '../../../assets/svgs/QueueBreak';
 import Color from '../../../utilities/theme/Color';
@@ -122,13 +123,26 @@ const styles = {
   comingUpNextItem: {
     '&:before': comingUpNextStyle,
   },
+  message: {
+    margin: '0px 5px',
+    padding: 5,
+    backgroundColor: '#fff',
+    border: '1px solid #333',
+    display: 'inline-block',
+    fontStyle: 'italic',
+    borderRadius: 10,
+  },
   rescuedStyle,
   ...animations.flash,
 };
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.item !== nextProps.item || this.props.currentPlayingItemId !== nextProps.currentPlayingItemId;
+    return (
+      this.props.item !== nextProps.item ||
+      this.props.currentPlayingItemId !== nextProps.currentPlayingItemId ||
+      this.props.queue !== nextProps.queue
+    );
   }
 
   getClassname = () => {
@@ -138,7 +152,7 @@ class BreaksRow extends Component {
 
     if (item.playing) {
       classnames.push(classes.playingBreak);
-    } else if (item.played) {
+    } else if (item.played || item.stopped) {
       classnames.push(classes.playedBreak);
     }
 
@@ -152,7 +166,7 @@ class BreaksRow extends Component {
 
     if (mediaItem.playing) {
       classnames.push(classes.playingItem);
-    } else if (mediaItem.played) {
+    } else if (mediaItem.played || mediaItem.stopped) {
       classnames.push(classes.playedItem);
     } else if (mediaItem.comingUpNext) {
       classnames.push(classes.comingUpNextItem);
@@ -167,6 +181,9 @@ class BreaksRow extends Component {
   };
 
   playItem = () => {
+    if (this.props.currentPlayingItemId !== '') {
+      this.props.stopItem(this.props.currentPlayingItemId);
+    }
     this.props.playItem(this.props.item.asset_id);
   };
 
@@ -174,10 +191,21 @@ class BreaksRow extends Component {
     this.props.stopItem(this.props.item.asset_id);
   };
 
-  render() {
-    const { classes, item, currentPlayingItemId } = this.props;
+  queueItem = () => {
+    this.props.queueItem(this.props.item.asset_id);
+  };
 
-    const isPlayDisabled = item.played || (currentPlayingItemId !== '' && currentPlayingItemId !== item.asset_id);
+  dequeueItem = () => {
+    this.props.dequeueItem(this.props.item.asset_id);
+  };
+
+  render() {
+    const { classes, item, queue, currentPlayingItemId } = this.props;
+
+    const isPlayDisabled = item.stopped || item.played;
+    const queued = queue.indexOf(item.asset_id) > -1;
+    const someBreakPlaying = currentPlayingItemId !== '';
+
     return (
       <div className={classes.root}>
         <Grid container className={this.getClassname()} alignItems="center">
@@ -199,31 +227,36 @@ class BreaksRow extends Component {
             {item.played && 'PLAYED'}
             {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
           </div>
-          <div>
-            {item.playing ? (
-              <MuiIconButton
-                onClick={this.stopItem}
-                className={isPlayDisabled ? classes.disabledActionIcons : ''}
-                disabled={isPlayDisabled}
-              >
-                <StopIcon />
+          {!queued ? (
+            <div>
+              {item.playing ? (
+                <MuiIconButton onClick={this.stopItem}>
+                  <StopIcon />
+                </MuiIconButton>
+              ) : (
+                <MuiIconButton
+                  onClick={this.playItem}
+                  className={isPlayDisabled ? classes.disabledActionIcons : ''}
+                  disabled={isPlayDisabled}
+                >
+                  <PlayIcon />
+                </MuiIconButton>
+              )}
+              <MuiIconButton disabled>
+                <ForceRescueIcon className={classes.disabledActionIcons} />
               </MuiIconButton>
-            ) : (
-              <MuiIconButton
-                onClick={this.playItem}
-                className={isPlayDisabled ? classes.disabledActionIcons : ''}
-                disabled={isPlayDisabled}
-              >
-                <PlayIcon />
+              <MuiIconButton disabled={isPlayDisabled || !someBreakPlaying || item.playing} onClick={this.queueItem}>
+                <QueueBreakIcon className={isPlayDisabled && classes.disabledActionIcons} />
               </MuiIconButton>
-            )}
-            <MuiIconButton disabled>
-              <ForceRescueIcon className={classes.disabledActionIcons} />
-            </MuiIconButton>
-            <MuiIconButton disabled>
-              <QueueBreakIcon className={classes.disabledActionIcons} />
-            </MuiIconButton>
-          </div>
+            </div>
+          ) : (
+            <div>
+              <span className={classes.message}>This break has been queued ({queue.indexOf(item.asset_id) + 1})</span>
+              <MuiIconButton onClick={this.dequeueItem}>
+                <DequeueIcon />
+              </MuiIconButton>
+            </div>
+          )}
         </Grid>
         {item.expanded &&
           item.break_items.map((breakItem, breakIndex) => (
@@ -265,8 +298,11 @@ BreaksRow.propTypes = {
   item: PropTypes.object.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   currentPlayingItemId: PropTypes.string.isRequired,
+  queue: PropTypes.array.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

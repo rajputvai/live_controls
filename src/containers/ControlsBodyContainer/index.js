@@ -4,7 +4,14 @@ import { bindActionCreators } from 'redux';
 import ControlsBody from '../../components/ControlsBody';
 import { sendMessage } from '../../actions/webSocketActions';
 
-import { playItem, stopItem, updateNowPlaying, toggleItem } from '../../actions/playlistActions';
+import {
+  playItem,
+  stopItem,
+  queueItem,
+  dequeueItem,
+  updateNowPlaying,
+  toggleItem,
+} from '../../actions/playlistActions';
 
 function mapStateToProps(state) {
   return {
@@ -19,6 +26,8 @@ function mapDispatchToProps(dispatch) {
       sendMessage,
       playItem,
       stopItem,
+      queueItem,
+      dequeueItem,
       updateNowPlaying,
       toggleItem,
     },

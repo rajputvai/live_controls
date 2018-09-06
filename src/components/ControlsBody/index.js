@@ -185,7 +185,29 @@ class ControlsBody extends Component {
   }
 
   render() {
-    const { classes, playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    const {
+      classes,
+      playlist,
+      sendMessage,
+      selectedEvent,
+      playItem,
+      stopItem,
+      queueItem,
+      dequeueItem,
+      toggleItem,
+    } = this.props;
+    const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
+    let liveLogoURL = '';
+    let breakLogoURL = '';
+    if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
+      liveEventLogoAsset.break_items.forEach(item => {
+        if (item.sub_type === LIVE_LOGO) {
+          liveLogoURL = item.preview_image;
+        } else if (item.sub_type === BREAK_LOGO) {
+          breakLogoURL = item.preview_image;
+        }
+      });
+    }
 
     if (playlist.loading) {
       return (
@@ -211,6 +233,19 @@ class ControlsBody extends Component {
                 <span>{formatDuration(this.state.timeRemaining, false)}</span>
               </div>
             )}
+
+          </div>
+          <div className={classes.liveLogo}>
+            <span>LIVE LOGO</span>
+            <div>
+              <img src={liveLogoURL} alt="Live Logo" />
+            </div>
+          </div>
+          <div className={classes.liveLogo}>
+            <span>BREAK LOGO</span>
+            <div>
+              <img src={breakLogoURL} alt="Break Logo" />
+            </div>
           </div>
           {this.renderLogos()}
         </div>
@@ -238,6 +273,8 @@ class ControlsBody extends Component {
                 sendMessage={sendMessage}
                 playItem={playItem}
                 stopItem={stopItem}
+                queueItem={queueItem}
+                dequeueItem={dequeueItem}
                 updateNowPlaying={this.props.updateNowPlaying}
                 toggleItem={toggleItem}
               />
@@ -263,6 +300,8 @@ ControlsBody.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   playItem: PropTypes.func.isRequired,
   stopItem: PropTypes.func.isRequired,
+  queueItem: PropTypes.func.isRequired,
+  dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
 };
