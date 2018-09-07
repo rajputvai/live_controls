@@ -271,7 +271,17 @@ class ControlsBody extends Component {
                 toggleItem={toggleItem}
               />
             )}
-            {this.state.tab === 1 && <LiveGraphics />}
+            {this.state.tab === 1 && (
+              <LiveGraphics
+                playlist={playlist}
+                selectedEvent={selectedEvent}
+                sendMessage={sendMessage}
+                playItem={playItem}
+                stopItem={stopItem}
+                updateNowPlaying={this.props.updateNowPlaying}
+                toggleItem={toggleItem}
+              />
+            )}
           </Grid>
         </Paper>
       </div>
