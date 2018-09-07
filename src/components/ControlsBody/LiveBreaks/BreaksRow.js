@@ -243,7 +243,9 @@ class BreaksRow extends Component {
                 <ForceRescueIcon className={classes.disabledActionIcons} />
               </MuiIconButton> */}
               <MuiIconButton disabled={isPlayDisabled || !someBreakPlaying || item.playing} onClick={this.queueItem}>
-                <QueueBreakIcon className={isPlayDisabled ? classes.disabledActionIcons : ''} />
+                <QueueBreakIcon
+                  className={isPlayDisabled || !someBreakPlaying || item.playing ? classes.disabledActionIcons : ''}
+                />
               </MuiIconButton>
             </div>
           ) : (
