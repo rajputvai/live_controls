@@ -145,8 +145,6 @@ class BreaksRow extends Component {
 
     if (item.playing) {
       classnames.push(classes.playingBreak);
-    } else if (item.played || item.stopped) {
-      classnames.push(classes.playedBreak);
     }
 
     return classnames.join(' ');
@@ -159,8 +157,6 @@ class BreaksRow extends Component {
 
     if (mediaItem.playing) {
       classnames.push(classes.playingItem);
-    } else if (mediaItem.played || mediaItem.stopped) {
-      classnames.push(classes.playedItem);
     } else if (mediaItem.comingUpNext) {
       classnames.push(classes.comingUpNextItem);
     }
@@ -183,8 +179,6 @@ class BreaksRow extends Component {
 
   render() {
     const { classes, item } = this.props;
-
-    const isPlayDisabled = item.stopped || item.played;
 
     return (
       <div className={classes.root}>
@@ -213,11 +207,7 @@ class BreaksRow extends Component {
                 <StopIcon />
               </MuiIconButton>
             ) : (
-              <MuiIconButton
-                onClick={this.playItem}
-                className={isPlayDisabled ? classes.disabledActionIcons : ''}
-                disabled={isPlayDisabled}
-              >
+              <MuiIconButton onClick={this.playItem}>
                 <PlayIcon />
               </MuiIconButton>
             )}
