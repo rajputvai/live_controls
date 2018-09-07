@@ -203,7 +203,7 @@ class ControlsBody extends Component {
           <div className={classes.players}>
             <div>
               <div className={classes.playerTitle}>INPUT SOURCE</div>
-              <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+              <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
             </div>
 
             <div className={classes.playerSpacer}>
@@ -279,6 +279,7 @@ ControlsBody.defaultProps = {
 };
 
 ControlsBody.propTypes = {
+  config: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
   selectedEvent: PropTypes.object,

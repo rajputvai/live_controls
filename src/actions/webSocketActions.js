@@ -9,9 +9,18 @@ export const types = {
   DISCONNECTED: 'LIVE_CONTROLS.WEBSOCKET_DISCONNECTED',
 };
 
-export function connectToWebSocket() {
+export function connectToWebSocket(websocketUrl) {
   return {
     type: types.CONNECT,
+    payload: {
+      websocketUrl,
+    },
+  };
+}
+
+export function connectedToWebSocket() {
+  return {
+    type: types.CONNECTED,
   };
 }
 
