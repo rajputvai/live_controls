@@ -4,6 +4,8 @@ export const types = {
   LOAD_SUCCESS: 'EVENTS.LOAD_SUCCESS',
   LOAD_FAILURE: 'EVENTS.LOAD_FAILURE',
   SELECT_EVENT: 'EVENTS.SELECT_EVENTS',
+  START_INTERVAL_TO_CALCULATE_REMAINING_TIME: 'EVENTS.START_INTERVAL_TO_CALCULATE_REMAINING_TIME',
+  CALCULATE_REMAINING_TIME: 'EVENTS.CALCULATE_REMAINING_TIME',
 };
 
 export function loadEvents(feedId, playlistId) {
@@ -37,5 +39,17 @@ export function selectEvent(eventId) {
     payload: {
       eventId,
     },
+  };
+}
+
+export function startIntervalToCalculateRemainingTime() {
+  return {
+    type: types.START_INTERVAL_TO_CALCULATE_REMAINING_TIME,
+  };
+}
+
+export function calculateRemainingTime() {
+  return {
+    type: types.CALCULATE_REMAINING_TIME,
   };
 }
