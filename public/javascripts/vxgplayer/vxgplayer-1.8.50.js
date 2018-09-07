@@ -1,5 +1,5 @@
 window.vxgplayer = function(id, options_){
-	window.vxgplayer.version="1.8.49"; //version is updated by 'npm run build'
+	window.vxgplayer.version="1.8.50"; //version is updated by 'npm run build'
 	window.vxgplayer.players = window.vxgplayer.players || {};
 
 	if(!document.getElementById(id)){
