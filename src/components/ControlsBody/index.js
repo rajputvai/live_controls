@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
-import classNames from 'classnames';
 import moment from 'moment';
 
 // Components
@@ -208,7 +207,7 @@ class ControlsBody extends Component {
 
             <div className={classes.playerSpacer}>
               <div className={classes.playerTitle}>PLAYING NOW</div>
-              <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+              <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
               {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
                 this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
                   <div className={classes.streamTimeRemaining}>

@@ -3,9 +3,7 @@ import { bindActionCreators } from 'redux';
 
 import ConfigLoader from '../../components/ConfigLoader';
 
-import {
-  loadConfig,
-} from '../../actions/configActions';
+import { loadConfig } from '../../actions/configActions';
 
 function mapStateToProps(state) {
   return {
