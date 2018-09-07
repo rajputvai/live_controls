@@ -33,6 +33,10 @@ const styles = {
   },
   root: {
     color: Color.primary.p2,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
   },
   breakRow: {
     backgroundColor: Color.other.o2,
@@ -83,6 +87,9 @@ const styles = {
   noPlaylists: {
     margin: 30,
   },
+  autoSizer: {
+    flex: 1,
+  },
 };
 
 const itemsNotToRenderInList = ['LIVE_EVENT_LOGO', 'LIVE_SLATE'];
@@ -132,6 +139,10 @@ class LiveBreaks extends Component {
         },
       });
     });
+
+    if (this.props.playlist.currentPlayingItemId) {
+      this.props.stopItem(selectedEvent.ref_id, playlist.id, this.props.playlist.currentPlayingItemId);
+    }
 
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
@@ -252,7 +263,7 @@ class LiveBreaks extends Component {
   };
 
   getRowHeight = ({ index }) => {
-    const itemId = this.props.playlist.itemIds[index];
+    const itemId = this.props.playlist.itemIds.filter(item => !itemsNotToRenderInList.includes(item))[index];
     const item = this.props.playlist.items[itemId];
 
     if (item.expanded) {
@@ -285,34 +296,31 @@ class LiveBreaks extends Component {
           <div>PLAYED STATUS</div>
           <div>ACTIONS </div>
         </div>
-        <AutoSizer disableHeight>
-          {({ width }) => (
-            <List
-              ref={el => {
-                this.listEl = el;
-              }}
-              width={width}
-              height={400}
-              rowHeight={this.getRowHeight}
-              rowRenderer={this.renderRow}
-              rowCount={itemsWithoutLogoAndSlate.length}
-              style={{ outline: 'none' }}
-              overscanIndicesGetter={this.overscanIndicesGetter}
-              overscanRowCount={50}
-            />
-          )}
-        </AutoSizer>
+        <div className={classes.autoSizer}>
+          <AutoSizer>
+            {({ width, height }) => (
+              <List
+                ref={el => {
+                  this.listEl = el;
+                }}
+                width={width}
+                height={height}
+                rowHeight={this.getRowHeight}
+                rowRenderer={this.renderRow}
+                rowCount={itemsWithoutLogoAndSlate.length}
+                style={{ outline: 'none' }}
+                overscanRowCount={50}
+                estimatedRowSize={70}
+              />
+            )}
+          </AutoSizer>
+        </div>
       </div>
     );
   }
 
   render() {
-    return (
-      <div>
-        {/* <TableHeader /> */}
-        {this.renderLiveBreaksTable()}
-      </div>
-    );
+    return this.renderLiveBreaksTable();
   }
 }
 

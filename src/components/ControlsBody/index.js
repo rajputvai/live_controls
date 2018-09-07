@@ -29,10 +29,14 @@ const styles = {
   root: {
     height: 'calc(100vh - 60px)',
   },
-  players: {
-    // height: '40%',
+  controlBody: {
     display: 'flex',
-    padding: '20px 40px',
+    flexDirection: 'column',
+    flex: 1,
+  },
+  players: {
+    display: 'flex',
+    padding: '20px 40px 0px 20px',
   },
   playerTitle: {
     fontWeight: 500,
@@ -73,8 +77,11 @@ const styles = {
     },
   },
   controlsSection: {
+    flex: 1,
     padding: '0 20px 10px',
     margin: 10,
+    display: 'flex',
+    flexDirection: 'column',
   },
   tabs: {
     borderBottom: `solid 1px ${Color.other.o6}`,
@@ -94,9 +101,10 @@ const styles = {
   },
   tabContentWrapper: {
     overflowX: 'hidden',
+    flex: 1,
   },
   tabContent: {
-    flex: 'none',
+    height: '100%',
     width: '100%',
     transition: 'margin .3s ease-in, opacity .3s ease-in', // with slide
     // transition: 'opacity .3s ease-in', // without slide
@@ -107,6 +115,12 @@ const styles = {
   },
   fadeGraphics: {
     opacity: 0.01,
+  },
+  logos: {
+    display: 'flex',
+  },
+  playersContainer: {
+    display: 'flex',
   },
 };
 window.moment = moment;
@@ -167,7 +181,7 @@ class ControlsBody extends Component {
       });
     }
     return (
-      <Fragment>
+      <div className={classes.logos}>
         <div className={classes.liveLogo}>
           <span>LIVE LOGO</span>
           <div>
@@ -180,7 +194,7 @@ class ControlsBody extends Component {
             <img src={breakLogoURL} alt="Break Logo" />
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 
@@ -206,23 +220,26 @@ class ControlsBody extends Component {
     }
 
     return (
-      <div>
-        <div className={classes.players}>
-          <div>
-            <div className={classes.playerTitle}>INPUT SOURCE</div>
-            <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+      <div className={classes.controlBody}>
+        <div className={classes.playersContainer}>
+          <div className={classes.players}>
+            <div>
+              <div className={classes.playerTitle}>INPUT SOURCE</div>
+              <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+            </div>
+
+            <div className={classes.playerSpacer}>
+              <div className={classes.playerTitle}>PLAYING NOW</div>
+              <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+              {this.state.timeRemaining > 0 && (
+                <div className={classes.streamTimeRemaining}>
+                  TIME REMAINING
+                  <span>{formatDuration(this.state.timeRemaining, false)}</span>
+                </div>
+              )}
+            </div>
+            {this.renderLogos()}
           </div>
-          <div className={classes.playerSpacer}>
-            <div className={classes.playerTitle}>PLAYING NOW</div>
-            <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
-            {this.state.timeRemaining > 0 && (
-              <div className={classes.streamTimeRemaining}>
-                TIME REMAINING
-                <span>{formatDuration(this.state.timeRemaining, false)}</span>
-              </div>
-            )}
-          </div>
-          {this.renderLogos()}
         </div>
         <Paper className={classes.controlsSection}>
           <Tabs
@@ -241,7 +258,7 @@ class ControlsBody extends Component {
             />
           </Tabs>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            <div className={classNames(classes.tabContent, this.state.tab === 1 && classes.fadeLiveBreaks)}>
+            {this.state.tab === 0 && (
               <LiveBreaks
                 playlist={playlist}
                 selectedEvent={selectedEvent}
@@ -253,10 +270,8 @@ class ControlsBody extends Component {
                 updateNowPlaying={this.props.updateNowPlaying}
                 toggleItem={toggleItem}
               />
-            </div>
-            <div className={classNames(classes.tabContent, this.state.tab === 0 && classes.fadeGraphics)}>
-              <LiveGraphics />
-            </div>
+            )}
+            {this.state.tab === 1 && <LiveGraphics />}
           </Grid>
         </Paper>
       </div>

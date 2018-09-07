@@ -19,7 +19,6 @@ import { formatDuration } from '../../utilities/timeHelpers';
 
 const styles = {
   root: {
-    flexGrow: 1,
     paddingTop: 60,
   },
   rootToolbar: {
