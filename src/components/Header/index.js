@@ -66,30 +66,17 @@ function getEventStartTime(time) {
 }
 
 class Header extends Component {
-  state = { anchorEl: null, isLiveOn: false, timeRemaining: 0 };
+  state = { anchorEl: null, isLiveOn: false };
+
+  liveOffAutomaticallyAfterEndTime = () => {
+    const { selectedEvent } = this.props.events;
+    if (this.state.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
+      this.getLiveMessage(selectedEvent.ref_id, 'off');
+    }
+  };
 
   componentDidMount() {
-    if (this.props.events.selectedEvent && this.props.events.selectedEvent.start_time) {
-      const startTimeOfEvent = moment(this.props.events.selectedEvent.start_time);
-      if (startTimeOfEvent.isAfter(moment())) {
-        this.timeRemainingInterval = setInterval(() => {
-          const now = moment();
-          if (startTimeOfEvent.isAfter(now)) {
-            const timeRemaining = startTimeOfEvent.diff(now, 'milliseconds');
-            this.setState({ timeRemaining });
-          } else {
-            clearInterval(this.timeRemainingInterval);
-            this.setState({ timeRemaining: 0 });
-          }
-        }, 1000);
-      } else {
-        this.setState({ timeRemaining: 0 });
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timeRemainingInterval);
+    setInterval(this.liveOffAutomaticallyAfterEndTime, 1000);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -156,14 +143,14 @@ class Header extends Component {
   };
 
   renderRemainingTime() {
-    const { timeRemaining } = this.state;
-    if (this.state.timeRemaining === 0) {
+    const { timeRemainingTillEventStart } = this.props.events.selectedEvent;
+    if (timeRemainingTillEventStart <= 0) {
       return null;
     }
     return (
       <Fragment>
         {' '}
-        | Time remaining: <span>{formatDuration(timeRemaining, false)}</span>
+        | Time remaining: <span>{formatDuration(timeRemainingTillEventStart, false)}</span>
       </Fragment>
     );
   }
@@ -188,6 +175,7 @@ class Header extends Component {
             color="primary"
             className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
             onClick={this.handleLiveToggle}
+            disabled={selectedEvent.timeRemainingTillEventEnd < 0}
           >
             {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>
