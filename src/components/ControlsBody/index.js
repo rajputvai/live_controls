@@ -122,6 +122,11 @@ const styles = {
   playersContainer: {
     display: 'flex',
   },
+  eventHasEnded: {
+    padding: 30,
+    textAlign: 'center',
+    fontSize: 20,
+  },
 };
 window.moment = moment;
 
@@ -130,34 +135,7 @@ const LIVE_LOGO = 'live_logo';
 const BREAK_LOGO = 'break_logo';
 
 class ControlsBody extends Component {
-  state = { tab: 0, timeRemaining: 0 };
-
-  resetInterval() {
-    clearInterval(this.interval);
-    this.interval = setInterval(() => {
-      const now = moment();
-      const eventStartTime = moment(this.props.selectedEvent.start_time);
-      const eventEndTime = moment(this.props.selectedEvent.end_time);
-      if (now.isAfter(eventStartTime)) {
-        const timeRemaining = eventEndTime.diff(now, 'milliseconds');
-        this.setState({ timeRemaining });
-      } else {
-        this.setState({ timeRemaining: 0 });
-      }
-    }, 1000);
-  }
-
-  componentDidMount() {
-    if (this.props.selectedEvent && this.props.selectedEvent.end_time) {
-      this.resetInterval();
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedEvent && this.props.selectedEvent !== nextProps.selectedEvent) {
-      this.resetInterval();
-    }
-  }
+  state = { tab: 0 };
 
   handleTabChange = (event, value) => this.setState({ tab: value });
 
@@ -231,58 +209,65 @@ class ControlsBody extends Component {
             <div className={classes.playerSpacer}>
               <div className={classes.playerTitle}>PLAYING NOW</div>
               <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
-              {this.state.timeRemaining > 0 && (
-                <div className={classes.streamTimeRemaining}>
-                  TIME REMAINING
-                  <span>{formatDuration(this.state.timeRemaining, false)}</span>
-                </div>
-              )}
+              {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
+                this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
+                  <div className={classes.streamTimeRemaining}>
+                    TIME REMAINING
+                    <span>{formatDuration(this.props.selectedEvent.timeRemainingTillEventEnd, false)}</span>
+                  </div>
+                )}
             </div>
             {this.renderLogos()}
           </div>
         </div>
         <Paper className={classes.controlsSection}>
-          <Tabs
-            value={this.state.tab}
-            onChange={this.handleTabChange}
-            classes={{ root: classes.tabs, indicator: classes.tabIndicator }}
-            className="row"
-          >
-            <Tab
-              classes={{ selected: classes.selectedTab }}
-              label={<span className={classes.tabLabel}>LIVE BREAKS</span>}
-            />
-            <Tab
-              classes={{ selected: classes.selectedTab }}
-              label={<span className={classes.tabLabel}>LIVE GRAPHICS</span>}
-            />
-          </Tabs>
-          <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            {this.state.tab === 0 && (
-              <LiveBreaks
-                playlist={playlist}
-                selectedEvent={selectedEvent}
-                sendMessage={sendMessage}
-                playItem={playItem}
-                stopItem={stopItem}
-                queueItem={queueItem}
-                dequeueItem={dequeueItem}
-                updateNowPlaying={this.props.updateNowPlaying}
-                toggleItem={toggleItem}
-              />
-            )}
-            {this.state.tab === 1 && (
-              <LiveGraphics
-                playlist={playlist}
-                selectedEvent={selectedEvent}
-                sendMessage={sendMessage}
-                playItem={playItem}
-                stopItem={stopItem}
-                updateNowPlaying={this.props.updateNowPlaying}
-                toggleItem={toggleItem}
-              />
-            )}
-          </Grid>
+          {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
+            <Fragment>
+              <Tabs
+                value={this.state.tab}
+                onChange={this.handleTabChange}
+                classes={{ root: classes.tabs, indicator: classes.tabIndicator }}
+                className="row"
+              >
+                <Tab
+                  classes={{ selected: classes.selectedTab }}
+                  label={<span className={classes.tabLabel}>LIVE BREAKS</span>}
+                />
+                <Tab
+                  classes={{ selected: classes.selectedTab }}
+                  label={<span className={classes.tabLabel}>LIVE GRAPHICS</span>}
+                />
+              </Tabs>
+              <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+                {this.state.tab === 0 && (
+                  <LiveBreaks
+                    playlist={playlist}
+                    selectedEvent={selectedEvent}
+                    sendMessage={sendMessage}
+                    playItem={playItem}
+                    stopItem={stopItem}
+                    queueItem={queueItem}
+                    dequeueItem={dequeueItem}
+                    updateNowPlaying={this.props.updateNowPlaying}
+                    toggleItem={toggleItem}
+                  />
+                )}
+                {this.state.tab === 1 && (
+                  <LiveGraphics
+                    playlist={playlist}
+                    selectedEvent={selectedEvent}
+                    sendMessage={sendMessage}
+                    playItem={playItem}
+                    stopItem={stopItem}
+                    updateNowPlaying={this.props.updateNowPlaying}
+                    toggleItem={toggleItem}
+                  />
+                )}
+              </Grid>
+            </Fragment>
+          ) : (
+            <div className={classes.eventHasEnded}>The event has ended.</div>
+          )}
         </Paper>
       </div>
     );

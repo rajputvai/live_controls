@@ -2,17 +2,28 @@ import { Observable } from 'rxjs';
 import { combineEpics } from 'redux-observable';
 
 import axios from '../utilities/axios';
-import { types as eventsActionTypes, loadingEvents, loadEventsSuccess } from '../actions/eventsActions';
+import {
+  types,
+  loadingEvents,
+  loadEventsSuccess,
+  startIntervalToCalculateRemainingTime,
+  calculateRemainingTime,
+} from '../actions/eventsActions';
 
 function getUrl({ feedId, playlistId }) {
   return `/live_events/events_in_playlist.json?feed_id=${feedId}&playlist_id=${playlistId}`;
 }
 
 const loadEventsEpic = $action =>
-  $action.ofType(eventsActionTypes.LOAD).mergeMap(action =>
+  $action.ofType(types.LOAD).mergeMap(action =>
     Observable.fromPromise(axios.get(getUrl(action.payload)))
-      .mergeMap(response => [loadEventsSuccess(response.data)])
+      .mergeMap(response => [loadEventsSuccess(response.data), startIntervalToCalculateRemainingTime()])
       .startWith(loadingEvents())
   );
 
-export default combineEpics(loadEventsEpic);
+const startCalculatingRemainingTimeEpic = $action =>
+  $action
+    .ofType(types.START_INTERVAL_TO_CALCULATE_REMAINING_TIME)
+    .switchMap(() => Observable.interval(1000).mapTo(calculateRemainingTime()));
+
+export default combineEpics(loadEventsEpic, startCalculatingRemainingTimeEpic);
