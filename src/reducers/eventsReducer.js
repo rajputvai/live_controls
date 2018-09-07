@@ -1,4 +1,6 @@
 import produce from 'immer';
+import moment from 'moment';
+
 import { types } from '../actions/eventsActions';
 
 import { isLiveOnForEvent } from '../utilities/localStorageHelpers';
@@ -10,6 +12,12 @@ const INITIAL_STATE = {
   loading: true,
   isLiveOn: false,
 };
+
+function getRemainingTime(draft) {
+  const now = moment();
+  draft.selectedEvent.timeRemainingTillEventStart = moment(draft.selectedEvent.start_time).diff(now, 'milliseconds');
+  draft.selectedEvent.timeRemainingTillEventEnd = moment(draft.selectedEvent.end_time).diff(now, 'milliseconds');
+}
 
 export default function eventsReducer(state = INITIAL_STATE, action) {
   return produce(state, draft => {
@@ -27,6 +35,7 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
         if (!draft.selectedEvent) {
           draft.selectedEvent = action.payload.events.events[0];
           draft.isLiveOn = isLiveOnForEvent(action.payload.events.events[0].ref_id);
+          getRemainingTime(draft);
         }
         draft.loading = false;
         break;
@@ -34,6 +43,11 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
 
       case types.SELECT_EVENT: {
         draft.selectedEvent = draft.byId[action.payload.eventId];
+        break;
+      }
+
+      case types.CALCULATE_REMAINING_TIME: {
+        getRemainingTime(draft);
         break;
       }
 
