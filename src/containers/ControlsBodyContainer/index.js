@@ -15,6 +15,7 @@ import {
 
 function mapStateToProps(state) {
   return {
+    config: state.config.config,
     playlist: state.playlist,
     selectedEvent: state.events.selectedEvent,
   };

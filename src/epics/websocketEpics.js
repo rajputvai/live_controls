@@ -1,9 +1,11 @@
 import { combineEpics } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import {
   types,
   reconnect,
   connectToWebSocket,
+  connectedToWebSocket,
   receiveMessageFromWebSocket,
   sentMessage,
   disconnectFromWebSocket,
@@ -12,24 +14,22 @@ import {
 import TimerDurations from '../constants/timerDurations';
 
 let socket;
+const onOpenSubject = new Subject();
 
-const connectSocket = () => {
-  console.log('connecting to websocket');
-  socket = Observable.webSocket({
-    url: window.live_controls_config.WEBSOCKET_URL,
-  });
-  console.log('connected to websocket');
+const connectSocket = websocketUrl => {
+  socket = Observable.webSocket({ url: websocketUrl, openObserver: onOpenSubject });
   return socket;
 };
 
 const connectEpic = action$ =>
-  action$.ofType(types.CONNECT).switchMap(() =>
-    connectSocket()
+  action$.ofType(types.CONNECT).switchMap(action =>
+    connectSocket(action.payload.websocketUrl)
       .multiplex(() => ({ msg: 'connection' }), () => ({ msg: 'disconnected' }), () => true)
       .takeUntil(action$.ofType(types.DISCONNECTED))
       .map(msg => receiveMessageFromWebSocket(msg))
       .catch(() => Observable.of(reconnect()))
       .merge(
+        onOpenSubject.map(connectedToWebSocket),
         action$
           .ofType(types.SEND_MESSAGE)
           .takeUntil(action$.ofType(types.DISCONNECTED))
