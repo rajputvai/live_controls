@@ -225,12 +225,12 @@ class ControlsBody extends Component {
           <div className={classes.players}>
             <div>
               <div className={classes.playerTitle}>INPUT SOURCE</div>
-              <Player id="live" url={window.live_controls_config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+              <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
             </div>
 
             <div className={classes.playerSpacer}>
               <div className={classes.playerTitle}>PLAYING NOW</div>
-              <Player id="out" url={window.live_controls_config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+              <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
               {this.state.timeRemaining > 0 && (
                 <div className={classes.streamTimeRemaining}>
                   TIME REMAINING
@@ -294,6 +294,7 @@ ControlsBody.defaultProps = {
 };
 
 ControlsBody.propTypes = {
+  config: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   playlist: PropTypes.object.isRequired,
   selectedEvent: PropTypes.object,
