@@ -28,6 +28,10 @@ const styles = {
   },
   root: {
     color: Color.primary.p2,
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
   },
   breakRow: {
     backgroundColor: Color.other.o2,
@@ -77,6 +81,9 @@ const styles = {
   },
   noPlaylists: {
     margin: 30,
+  },
+  autoSizer: {
+    flex: 1,
   },
 };
 
@@ -205,22 +212,22 @@ class LiveGraphics extends Component {
       playlist: { graphicItemIds },
     } = this.props;
     return (
-      <div>
-        <div className={classes.root}>
-          <div className={classes.headerRow}>
-            <div>GRAPHIC INFORMATION</div>
-            <div>GRAPHIC TYPE</div>
-            <div>PLAYED STATUS</div>
-            <div>ACTIONS </div>
-          </div>
-          <AutoSizer disableHeight>
-            {({ width }) => (
+      <div className={classes.root}>
+        <div className={classes.headerRow}>
+          <div>GRAPHIC INFORMATION</div>
+          <div>GRAPHIC TYPE</div>
+          <div>PLAYED STATUS</div>
+          <div>ACTIONS </div>
+        </div>
+        <div className={classes.autoSizer}>
+          <AutoSizer>
+            {({ width, height }) => (
               <List
                 ref={el => {
                   this.listEl = el;
                 }}
                 width={width}
-                height={400}
+                height={height}
                 rowHeight={this.getRowHeight}
                 rowRenderer={this.renderRow}
                 rowCount={graphicItemIds.length}
