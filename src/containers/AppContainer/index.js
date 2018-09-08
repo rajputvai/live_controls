@@ -9,10 +9,11 @@ import { loadPlaylist, noPublishedPlaylistAvailable } from '../../actions/playli
 // Assets
 import App from '../../components/App';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     events: state.events,
     playlist: state.playlist,
+    location: ownProps.location,
   };
 }
 

@@ -5,11 +5,12 @@ import { withRouter } from 'react-router-dom';
 import Websocket from '../../components/Websocket';
 import { connectToWebSocket, disconnectFromWebSocket } from '../../actions/webSocketActions';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     connected: state.webSocket.connected,
     connecting: state.webSocket.connecting,
     websocketUrl: state.config.config.WEBSOCKET_URL,
+    location: ownProps.location,
   };
 }
 
