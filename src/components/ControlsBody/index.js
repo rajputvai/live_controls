@@ -141,7 +141,7 @@ class ControlsBody extends Component {
       () =>
         setInterval(() => {
           this.setState({ inputSourcePTS: window.inputPlayer.getPTSVideo() });
-        }, 250),
+        }, 40),
       5000
     );
   }
@@ -231,7 +231,7 @@ class ControlsBody extends Component {
           </div>
         </div>
         <Paper className={classes.controlsSection}>
-          {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
+          {this.props.selectedEvent.timeRemainingTillEventEnd > 10000 ? (
             <Fragment>
               <Tabs
                 value={this.state.tab}

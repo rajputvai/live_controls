@@ -1,5 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Websocket from '../../components/Websocket';
 import { connectToWebSocket, disconnectFromWebSocket } from '../../actions/webSocketActions';
@@ -16,7 +17,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ connectToWebSocket, disconnectFromWebSocket }, dispatch);
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Websocket);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Websocket)
+);

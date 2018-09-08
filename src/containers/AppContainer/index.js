@@ -1,5 +1,6 @@
 // Libraries
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 // Actions
 import { loadEvents, selectEvent } from '../../actions/eventsActions';
@@ -15,12 +16,14 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    loadEvents,
-    selectEvent,
-    loadPlaylist,
-    noPublishedPlaylistAvailable,
-  }
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    {
+      loadEvents,
+      selectEvent,
+      loadPlaylist,
+      noPublishedPlaylistAvailable,
+    }
+  )(App)
+);
