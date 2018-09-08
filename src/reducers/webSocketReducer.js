@@ -11,6 +11,7 @@ export default function socketReducer(state = intialState, action) {
     switch (action.type) {
       case types.CONNECT:
         draft.connecting = true;
+        draft.connected = false;
         break;
 
       case types.CONNECTED:
@@ -18,13 +19,13 @@ export default function socketReducer(state = intialState, action) {
         draft.connecting = false;
         break;
 
+      case types.SENT_MESSAGE:
+        console.log('sent message');
+        break;
+
       case types.DISCONNECTED:
         draft.connected = false;
         draft.connecting = false;
-        break;
-
-      case types.SENT_MESSAGE:
-        console.log('sent message');
         break;
 
       default:

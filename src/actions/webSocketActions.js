@@ -1,6 +1,5 @@
 export const types = {
   CONNECT: 'LIVE_CONTROLS.WEBSOCKET_CONNECT',
-  RECONNECT: 'LIVE_CONTROLS.WEBSOCKET_RECONNECT',
   CONNECTED: 'LIVE_CONTROLS.WEBSOCKET_CONNECTED',
   RECEIVE_MESSAGE: 'LIVE_CONTROLS.RECEIVE_MESSAGE',
   SEND_MESSAGE: 'LIVE_CONTROLS.SEND_MESSAGE',
@@ -21,15 +20,6 @@ export function connectToWebSocket(websocketUrl) {
 export function connectedToWebSocket() {
   return {
     type: types.CONNECTED,
-  };
-}
-
-export function reconnect(feedId) {
-  return {
-    type: types.RECONNECT,
-    payload: {
-      feedId,
-    },
   };
 }
 

@@ -11,6 +11,7 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/retryWhen';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/dom/webSocket';
