@@ -29,6 +29,10 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
 
       case types.LOAD_SUCCESS: {
         draft.events = action.payload.events.events;
+        draft.loading = false;
+        if (draft.events.length === 0) {
+          break;
+        }
         action.payload.events.events.forEach(event => {
           draft.byId[event.ref_id] = event;
         });
@@ -37,6 +41,10 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
           draft.isLiveOn = isLiveOnForEvent(action.payload.events.events[0].ref_id);
           getRemainingTime(draft);
         }
+        break;
+      }
+
+      case types.LOAD_FAILURE: {
         draft.loading = false;
         break;
       }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import AppWrapper from './AppWrapper';
 import LoadingGrid from '../../assets/LoadingGrid';
+import NoFeedIdAndNoPlaylistId from './NoFeedIdAndNoPlaylistId';
 
 class App extends Component {
   componentDidMount() {
@@ -24,10 +25,13 @@ class App extends Component {
       noPublishedPlaylistAvailable,
     } = this.props;
     if (!params.feedId || !params.playlistId) {
-      return '404';
+      return <NoFeedIdAndNoPlaylistId />;
     }
     if (events.loading) {
       return <LoadingGrid />;
+    }
+    if (events.events.length === 0) {
+      return <NoFeedIdAndNoPlaylistId />;
     }
     if (!params.eventId || !(params.eventId in events.byId)) {
       const firstEventId = events.events[0].ref_id;
