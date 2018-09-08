@@ -136,6 +136,16 @@ const BREAK_LOGO = 'break_logo';
 class ControlsBody extends Component {
   state = { tab: 0 };
 
+  componentDidMount() {
+    setTimeout(
+      () =>
+        setInterval(() => {
+          this.setState({ inputSourcePTS: window.inputPlayer.getPTSVideo() });
+        }, 250),
+      5000
+    );
+  }
+
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   renderLogos() {
@@ -203,6 +213,7 @@ class ControlsBody extends Component {
             <div>
               <div className={classes.playerTitle}>INPUT SOURCE</div>
               <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+              <div style={{ padding: 10, fontWeight: 'bold' }}>{this.state.inputSourcePTS}</div>
             </div>
 
             <div className={classes.playerSpacer}>

@@ -109,25 +109,23 @@ class Header extends Component {
   getLiveMessage = (selectedEventId, value) => {
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('type: ', value);
-      // window.inputPlayer.pause();
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'live',
-        command: this.state.isLiveOn ? 'off' : 'on',
-        params: {
-          live_event_id: selectedEventId,
-          timestamp: pts,
-          jpeg_buffer: '??',
-        },
-      });
-      setLiveOnForEvent(selectedEventId, value);
-      this.setState({ isLiveOn: value === 'on' });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('type: ', value);
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'live',
+      command: this.state.isLiveOn ? 'off' : 'on',
+      params: {
+        live_event_id: selectedEventId,
+        timestamp,
+        jpeg_buffer: '??',
+      },
     });
+    setLiveOnForEvent(selectedEventId, value);
+    this.setState({ isLiveOn: value === 'on' });
   };
 
   handleLiveToggle = () => {

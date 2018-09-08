@@ -121,25 +121,23 @@ class LiveBreaks extends Component {
     const item = items[breakId];
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'break',
-        command: 'start',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          break_name: item.title,
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'start',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        break_name: item.title,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
     });
 
     if (this.props.playlist.currentPlayingItemId) {
@@ -157,25 +155,23 @@ class LiveBreaks extends Component {
     const item = items[itemId];
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'break',
-        command: 'stop',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          break_name: item.title,
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'stop',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        break_name: item.title,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
     });
     this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
@@ -187,27 +183,24 @@ class LiveBreaks extends Component {
     } = this.props;
     const item = items[itemId];
     const startTime = Date.now();
-
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'break',
-        command: 'queue',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          break_name: item.title,
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'queue',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        break_name: item.title,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
     });
-
     this.props.queueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
@@ -218,25 +211,23 @@ class LiveBreaks extends Component {
     } = this.props;
     const item = items[itemId];
     const startTime = Date.now();
-
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'break',
-        command: 'dequeue',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          break_name: item.title,
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'dequeue',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        break_name: item.title,
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+      },
     });
 
     this.props.dequeueItem(selectedEvent.ref_id, playlist.id, item.asset_id);

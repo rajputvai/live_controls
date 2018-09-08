@@ -118,26 +118,24 @@ class LiveGraphics extends Component {
     const item = items[breakId];
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'graphic',
-        command: 'start',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          graphic_name: 'soccer',
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-          non_live_masking_flag: true,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'graphic',
+      command: 'start',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        graphic_name: 'soccer',
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+        non_live_masking_flag: true,
+      },
     });
 
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
@@ -152,25 +150,24 @@ class LiveGraphics extends Component {
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
 
-    window.inputPlayer.takescreenshot(pts => {
-      console.log('pts', pts);
-      const endTime = Date.now();
-      console.log('pts received from player at: ', endTime);
-      console.log('time taken to get pts from player: ', endTime - startTime);
-      this.props.sendMessage({
-        trigger_type: 'break',
-        command: 'stop',
-        params: {
-          live_event_id: selectedEvent.ref_id,
-          timestamp: pts,
-          duration_ms: item.duration,
-          jpeg_buffer: '??',
-          graphic_name: 'soccer',
-          best_effort_flag: true,
-          best_effort_threshold_ms: 1000,
-          non_live_masking_flag: true,
-        },
-      });
+    const timestamp = window.inputPlayer.getPTSVideo();
+    console.log('pts', timestamp);
+    const endTime = Date.now();
+    console.log('pts received from player at: ', endTime);
+    console.log('time taken to get pts from player: ', endTime - startTime);
+    this.props.sendMessage({
+      trigger_type: 'break',
+      command: 'stop',
+      params: {
+        live_event_id: selectedEvent.ref_id,
+        timestamp,
+        duration_ms: item.duration,
+        jpeg_buffer: '??',
+        graphic_name: 'soccer',
+        best_effort_flag: true,
+        best_effort_threshold_ms: 1000,
+        non_live_masking_flag: true,
+      },
     });
     this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };

@@ -1,5 +1,5 @@
 window.vxgplayer = function(id, options_){
-	window.vxgplayer.version="1.8.50"; //version is updated by 'npm run build'
+	window.vxgplayer.version="1.8.51"; //version is updated by 'npm run build'
 	window.vxgplayer.players = window.vxgplayer.players || {};
 
 	if(!document.getElementById(id)){
@@ -179,7 +179,9 @@ window.vxgplayer = function(id, options_){
 
 			self.currentZoom = 10;
 			self.m.snapshotFile = "";
-			self.m.snapshotPTS = -1;
+			self.m.snapshotPTS = "-1";
+			self.m.PTSVideo = "-1";
+			self.m.PTSAudio = "-1";
 			
 			vxgplayer.initVolumeControls(self, false);
 
@@ -437,6 +439,12 @@ window.vxgplayer = function(id, options_){
 					if(self.m.debug)
 						console.log('=VERSION_APP '+self.m.versionapp);
 					self.playerDidLoad();
+				}else if(0 == msgEvent.data.indexOf("PTS_VIDEO")){
+					self.m.PTSVideo = msgEvent.data.split(' ')[1];
+					// console.log('=PTS_VIDEO '+self.m.PTSVideo);
+				}else if(0 == msgEvent.data.indexOf("PTS_AUDIO")){
+					self.m.PTSAudio = msgEvent.data.split(' ')[1];
+					// console.log('=PTS_AUDIO '+self.m.PTSAudio);
 				}else if(0 == msgEvent.data.indexOf("TAKE_SNAPSHOT")){
 					snap_status = msgEvent.data.split(' ')[1];
 					snap_pts = msgEvent.data.split(' ')[2];
@@ -445,27 +453,26 @@ window.vxgplayer = function(id, options_){
 						self.m.snapshotFile = snap_status;
 						if(snap_pts != undefined)
 							self.m.snapshotPTS = snap_pts;
-							self.module.amagiCallBackToReturnPTS(snap_pts);
-							// window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-							// window.requestFileSystem(window.TEMPORARY, 1, function(fs) {
-							// 	fs.root.getFile(self.m.snapshotFile, {create: false}, function(fileEntry) { // /test is filename
-							// 		var pom = document.createElement('a');
-							// 		pom.setAttribute('href', fileEntry.toURL());
-							// 		if(self.m.snapshotPTS == -1){
-							// 			pom.setAttribute('download', "snapshot.jpg");
-							// 		}else{
-							// 			pom.setAttribute('download', "snapshot_"+self.m.snapshotPTS+".jpg");
-							// 		}
-							// 		pom.style.display = 'none';
-							// 		document.body.appendChild(pom);
-							// 		pom.click();
-							// 		document.body.removeChild(pom);
-							// 	}, function(e) {
-							// 		console.error("[VXGPLAYER] TAKE_SNAPSHOT fs.root.getFile FAILED")
-							// 	});
-							// }, function(e) {
-							// 	console.error("[VXGPLAYER] TAKE_SNAPSHOT requestFileSystem window.TEMPORARY FAILED")
-							// });
+						window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+						window.requestFileSystem(window.TEMPORARY, 1, function(fs) {
+							fs.root.getFile(self.m.snapshotFile, {create: false}, function(fileEntry) { // /test is filename
+								var pom = document.createElement('a');
+								pom.setAttribute('href', fileEntry.toURL());
+								if(self.m.snapshotPTS == -1){
+									pom.setAttribute('download', "snapshot.jpg");
+								}else{
+									pom.setAttribute('download', "snapshot_"+self.m.snapshotPTS+".jpg");
+								}
+								pom.style.display = 'none';
+								document.body.appendChild(pom);
+								pom.click();
+								document.body.removeChild(pom);
+							}, function(e) {
+								console.error("[VXGPLAYER] TAKE_SNAPSHOT fs.root.getFile FAILED")
+							});
+						}, function(e) {
+							console.error("[VXGPLAYER] TAKE_SNAPSHOT requestFileSystem window.TEMPORARY FAILED")
+						});
 					}
 				}else if(msgEvent.data == "MEDIA_ERR_URL"){
 					self.showerror('Problem with URL');
@@ -812,17 +819,22 @@ window.vxgplayer = function(id, options_){
 				}
 			};
 
-			self.takescreenshot = function(amagiCallBackToReturnPTS){
-				self.module.command('take_snapshot', '1');
-				self.module.amagiCallBackToReturnPTS = amagiCallBackToReturnPTS;
-				
-				// el_screenshot_loading.style.display = "block";
-				// setTimeout(function(){
-				// 	el_screenshot_loading.style.display = "";
-				// },5000);
-		};
+			self.takescreenshot = function(){
+					self.module.command('take_snapshot', '1');
+					
+					el_screenshot_loading.style.display = "block";
+					setTimeout(function(){
+						el_screenshot_loading.style.display = "";
+					},5000);
+			};
 			self.getScreenshotPTS = function(){
 				return self.m.snapshotPTS;
+			};
+			self.getPTSVideo = function(){
+				return self.m.PTSVideo;
+			};
+			self.getPTSAudio = function(){
+				return self.m.PTSAudio;
 			};
 
 			self.src = function(url){
