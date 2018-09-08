@@ -33,6 +33,12 @@ export function loadEventsSuccess(events) {
   };
 }
 
+export function loadEventsFailed() {
+  return {
+    type: types.LOAD_FAILURE,
+  };
+}
+
 export function selectEvent(eventId) {
   return {
     type: types.SELECT_EVENT,
@@ -42,9 +48,12 @@ export function selectEvent(eventId) {
   };
 }
 
-export function startIntervalToCalculateRemainingTime() {
+export function startIntervalToCalculateRemainingTime(events) {
   return {
     type: types.START_INTERVAL_TO_CALCULATE_REMAINING_TIME,
+    payload: {
+      events,
+    },
   };
 }
 
