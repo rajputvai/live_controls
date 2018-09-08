@@ -5,9 +5,10 @@ import ConfigLoader from '../../components/ConfigLoader';
 
 import { loadConfig } from '../../actions/configActions';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     config: state.config,
+    location: ownProps.location,
   };
 }
 
