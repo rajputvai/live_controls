@@ -206,8 +206,14 @@ class LiveGraphics extends Component {
   render() {
     const {
       classes,
-      playlist: { graphicItemIds },
+      playlist: { graphicItemIds, noPublishedPlaylistAvailable },
     } = this.props;
+    if (noPublishedPlaylistAvailable) {
+      return <div className={classes.noPlaylists}>No playlists have been published.</div>;
+    }
+    if (graphicItemIds.length === 0) {
+      return <div className={classes.noPlaylists}>No graphics available.</div>;
+    }
     return (
       <div className={classes.root}>
         <div className={classes.headerRow}>

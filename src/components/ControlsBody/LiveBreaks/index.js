@@ -273,11 +273,11 @@ class LiveBreaks extends Component {
       playlist: { breakItemIds, noPublishedPlaylistAvailable },
     } = this.props;
     if (noPublishedPlaylistAvailable) {
-      return <div className={classes.noPlaylists}>No Playlists Have Been Published</div>;
+      return <div className={classes.noPlaylists}>No playlists have been published.</div>;
     }
 
     if (breakItemIds.length === 0) {
-      return <div className={classes.noPlaylists}>No Break Items Available</div>;
+      return <div className={classes.noPlaylists}>No break items available.</div>;
     }
 
     return (
