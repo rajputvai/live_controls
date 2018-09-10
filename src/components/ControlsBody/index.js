@@ -30,12 +30,14 @@ const styles = {
   },
   controlBody: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     flex: 1,
   },
   players: {
     display: 'flex',
-    padding: '20px 40px 0px 20px',
+    flexDirection: 'column',
+    padding: 20,
+    justifyContent: 'space-between',
   },
   playerTitle: {
     fontWeight: 500,
@@ -59,19 +61,18 @@ const styles = {
     },
   },
   playerSpacer: {
-    padding: '0 60px',
+    padding: '0 0px',
   },
   liveLogo: {
+    display: 'flex',
     color: Color.primary.p2,
     paddingRight: 60,
-    '& span': {
-      fontSize: 12,
-    },
     '& div': {
-      paddingTop: 5,
+      marginRight: 5,
+      fontSize: 12,
       '& img': {
-        width: 130,
-        height: 130,
+        width: 31,
+        height: 31,
       },
     },
   },
@@ -117,6 +118,7 @@ const styles = {
   },
   logos: {
     display: 'flex',
+    marginBottom: 20,
   },
   playersContainer: {
     display: 'flex',
@@ -125,6 +127,9 @@ const styles = {
     padding: 30,
     textAlign: 'center',
     fontSize: 20,
+  },
+  logoAssetId: {
+    color: '#0085bc',
   },
 };
 window.moment = moment;
@@ -147,12 +152,16 @@ class ControlsBody extends Component {
 
     const liveEventLogoAsset = playlist.items[LIVE_EVENT_LOGO];
     let liveLogoURL = '';
+    let liveLogoAssetId = '';
     let breakLogoURL = '';
+    let breakLogoAssetId = '';
     if (liveEventLogoAsset && liveEventLogoAsset.break_items && liveEventLogoAsset.break_items.length > 0) {
       liveEventLogoAsset.break_items.forEach(item => {
         if (item.sub_type === LIVE_LOGO) {
+          liveLogoAssetId = item.asset_id;
           liveLogoURL = item.preview_image;
         } else if (item.sub_type === BREAK_LOGO) {
+          breakLogoAssetId = item.asset_id;
           breakLogoURL = item.preview_image;
         }
       });
@@ -160,15 +169,21 @@ class ControlsBody extends Component {
     return (
       <div className={classes.logos}>
         <div className={classes.liveLogo}>
-          <span>LIVE LOGO</span>
           <div>
             <img src={liveLogoURL} alt="Live Logo" />
           </div>
+          <div>
+            <div className={classes.logoAssetId}>{liveLogoAssetId}</div>
+            LIVE LOGO
+          </div>
         </div>
         <div className={classes.liveLogo}>
-          <span>BREAK LOGO</span>
           <div>
             <img src={breakLogoURL} alt="Break Logo" />
+          </div>
+          <div>
+            <div className={classes.logoAssetId}>{breakLogoAssetId}</div>
+            BREAK LOGO
           </div>
         </div>
       </div>
@@ -200,6 +215,7 @@ class ControlsBody extends Component {
       <div className={classes.controlBody}>
         <div className={classes.playersContainer}>
           <div className={classes.players}>
+            {this.renderLogos()}
             <div>
               <div className={classes.playerTitle}>INPUT SOURCE</div>
               <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
@@ -216,7 +232,6 @@ class ControlsBody extends Component {
                   </div>
                 )}
             </div>
-            {this.renderLogos()}
           </div>
         </div>
         <Paper className={classes.controlsSection}>
