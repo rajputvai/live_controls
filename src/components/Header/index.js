@@ -71,7 +71,8 @@ class Header extends Component {
   liveOffAutomaticallyAfterEndTime = () => {
     const { selectedEvent } = this.props.events;
     if (this.state.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
-      this.getLiveMessage(selectedEvent.ref_id, 'off');
+      setLiveOnForEvent(selectedEvent.ref_id, 'off');
+      this.setState({ isLiveOn: false });
     }
   };
 
