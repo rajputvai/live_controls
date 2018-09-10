@@ -40,7 +40,7 @@ class AppWrapper extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.eventIdInUrl !== nextProps.eventIdInUrl) {
-      this.selectEventAndLoadPlaylist(nextProps.eventIdInUrl);
+      this.selectEventAndLoadPlaylist(nextProps.feedIdInUrl, nextProps.eventIdInUrl);
     }
   }
 
