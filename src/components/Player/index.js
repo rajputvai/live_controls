@@ -16,7 +16,10 @@ const styles = {
 
 class Player extends Component {
   componentDidMount() {
-    window[this.props.globalKey] = window.vxgplayer(this.element.id);
+    const player = window.vxgplayer(this.element.id);
+    window[this.props.globalKey] = player;
+    player.play();
+    player.onStateChange(this.props.setPlayerState);
   }
 
   render() {
@@ -57,7 +60,8 @@ Player.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   globalKey: PropTypes.string.isRequired,
-  latency: PropTypes.number.isRequired,
+  latency: PropTypes.string.isRequired,
+  setPlayerState: PropTypes.func.isRequired,
 };
 
 Player.defaultProps = {

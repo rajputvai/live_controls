@@ -141,7 +141,8 @@ class BreaksRow extends Component {
     return (
       this.props.item !== nextProps.item ||
       this.props.currentPlayingItemId !== nextProps.currentPlayingItemId ||
-      this.props.queue !== nextProps.queue
+      this.props.queue !== nextProps.queue ||
+      this.props.playerState !== nextProps.playerState
     );
   }
 
@@ -197,9 +198,8 @@ class BreaksRow extends Component {
   };
 
   render() {
-    const { classes, item, queue, currentPlayingItemId } = this.props;
-
-    const isPlayDisabled = item.stopped || item.played;
+    const { classes, item, queue, currentPlayingItemId, playerState } = this.props;
+    const isPlayDisabled = item.stopped || item.played || !playerState.isPlaying;
     const queued = queue.indexOf(item.asset_id) > -1;
     const someBreakPlaying = currentPlayingItemId !== '';
 
@@ -302,6 +302,7 @@ BreaksRow.propTypes = {
   toggleItem: PropTypes.func.isRequired,
   currentPlayingItemId: PropTypes.string.isRequired,
   queue: PropTypes.array.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

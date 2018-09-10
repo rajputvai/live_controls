@@ -251,6 +251,7 @@ class LiveBreaks extends Component {
           queueItem={this.queueItem}
           dequeueItem={this.dequeueItem}
           toggleItem={this.props.toggleItem}
+          playerState={this.props.playerState}
         />
       </div>
     );
@@ -327,6 +328,7 @@ LiveBreaks.propTypes = {
   dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);

@@ -198,6 +198,7 @@ class LiveGraphics extends Component {
           playItem={this.playItem}
           stopItem={this.stopItem}
           toggleItem={this.props.toggleItem}
+          playerState={this.props.playerState}
         />
       </div>
     );
@@ -255,6 +256,7 @@ LiveGraphics.propTypes = {
   stopItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveGraphics);

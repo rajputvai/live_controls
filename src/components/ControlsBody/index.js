@@ -187,6 +187,8 @@ class ControlsBody extends Component {
       dequeueItem,
       toggleItem,
       config,
+      setPlayerState,
+      playerState,
     } = this.props;
 
     if (playlist.loading) {
@@ -208,6 +210,7 @@ class ControlsBody extends Component {
                 url={config.INPUT_SOURCE_URL}
                 latency={config.VXG_PLAYER_LATENCY}
                 globalKey="inputPlayer"
+                setPlayerState={setPlayerState}
               />
             </div>
 
@@ -218,6 +221,7 @@ class ControlsBody extends Component {
                 url={config.PLAYING_NOW_URL}
                 latency={config.VXG_PLAYER_LATENCY}
                 globalKey="outputPlayer"
+                setPlayerState={setPlayerState}
               />
               {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
                 this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
@@ -231,7 +235,7 @@ class ControlsBody extends Component {
           </div>
         </div>
         <Paper className={classes.controlsSection}>
-          {this.props.selectedEvent.timeRemainingTillEventEnd > 10000 ? (
+          {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
             <Fragment>
               <Tabs
                 value={this.state.tab}
@@ -260,6 +264,7 @@ class ControlsBody extends Component {
                     dequeueItem={dequeueItem}
                     updateNowPlaying={this.props.updateNowPlaying}
                     toggleItem={toggleItem}
+                    playerState={playerState}
                   />
                 )}
                 {this.state.tab === 1 && (
@@ -271,6 +276,7 @@ class ControlsBody extends Component {
                     stopItem={stopItem}
                     updateNowPlaying={this.props.updateNowPlaying}
                     toggleItem={toggleItem}
+                    playerState={playerState}
                   />
                 )}
               </Grid>
@@ -300,6 +306,8 @@ ControlsBody.propTypes = {
   dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
+  setPlayerState: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ControlsBody);

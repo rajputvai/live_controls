@@ -14,7 +14,7 @@ export default function configReducer(state = initialState, action) {
     switch (action.type) {
       case types.LOADING_CONFIG:
         draft.loading = true;
-        return draft;
+        break;
 
       case types.LOADED_CONFIG:
         draft.loading = false;
@@ -22,7 +22,7 @@ export default function configReducer(state = initialState, action) {
         draft.config = action.payload.config;
         axios.defaults.baseURL = action.payload.config.API_URL;
         axios.defaults.params = { auth_token: action.payload.config.AUTH_TOKEN };
-        return draft;
+        break;
 
       default:
         return draft;

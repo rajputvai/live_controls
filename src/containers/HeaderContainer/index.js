@@ -6,6 +6,7 @@ import { sendMessage } from '../../actions/webSocketActions';
 function mapStateToProps(state) {
   return {
     events: state.events,
+    playerState: state.playerState,
   };
 }
 
