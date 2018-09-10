@@ -22,7 +22,7 @@ export function parsePlaylist(draft, items, playlistId) {
     if (!itemsNotToRenderInList.includes(item.asset_id)) {
       if (item.sub_type === 'signature') {
         breakItemIds.push(item.asset_id);
-      } else if (item.sub_type === 'graphic-signature') {
+      } else if (item.sub_type === 'graphics') {
         graphicItemIds.push(item.asset_id);
       }
     }
