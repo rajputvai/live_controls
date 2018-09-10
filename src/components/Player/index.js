@@ -20,7 +20,7 @@ class Player extends Component {
   }
 
   render() {
-    const { classes, id, url, width, height } = this.props;
+    const { classes, id, url, width, height, latency } = this.props;
     return (
       <div
         style={{
@@ -38,7 +38,7 @@ class Player extends Component {
           url={url}
           aspect-ratio="true"
           mute="true"
-          latency="150"
+          latency={latency}
           autostart="true"
           nmf-src="/javascripts/vxgplayer/pnacl/Release/media_player.nmf"
           nmf-path="/vxgplayer/media_player.nmf"
@@ -57,6 +57,7 @@ Player.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   globalKey: PropTypes.string.isRequired,
+  latency: PropTypes.number.isRequired,
 };
 
 Player.defaultProps = {

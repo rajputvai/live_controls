@@ -12,10 +12,11 @@ export const types = {
   NO_PUBLISHED_PLAYLIST_AVAILABLE: 'PLAYLIST.NO_PUBLISHED_PLAYLIST_AVAILABLE',
 };
 
-export function loadPlaylist(playlistId) {
+export function loadPlaylist(feedId, playlistId) {
   return {
     type: types.LOAD,
     payload: {
+      feedId,
       playlistId,
     },
   };

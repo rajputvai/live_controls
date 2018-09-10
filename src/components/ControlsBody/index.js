@@ -186,6 +186,7 @@ class ControlsBody extends Component {
       queueItem,
       dequeueItem,
       toggleItem,
+      config,
     } = this.props;
 
     if (playlist.loading) {
@@ -202,12 +203,22 @@ class ControlsBody extends Component {
           <div className={classes.players}>
             <div>
               <div className={classes.playerTitle}>INPUT SOURCE</div>
-              <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+              <Player
+                id="live"
+                url={config.INPUT_SOURCE_URL}
+                latency={config.VXG_PLAYER_LATENCY}
+                globalKey="inputPlayer"
+              />
             </div>
 
             <div className={classes.playerSpacer}>
               <div className={classes.playerTitle}>PLAYING NOW</div>
-              <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+              <Player
+                id="out"
+                url={config.PLAYING_NOW_URL}
+                latency={config.VXG_PLAYER_LATENCY}
+                globalKey="outputPlayer"
+              />
               {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
                 this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
                   <div className={classes.streamTimeRemaining}>

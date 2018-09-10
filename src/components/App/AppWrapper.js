@@ -24,18 +24,18 @@ class AppWrapper extends Component {
     return '';
   }
 
-  selectEventAndLoadPlaylist(eventId) {
+  selectEventAndLoadPlaylist(feedId, eventId) {
     this.props.selectEvent(eventId);
     const idToFetch = this.getLatestPlaylistId();
     if (idToFetch) {
-      this.props.loadPlaylist(idToFetch);
+      this.props.loadPlaylist(feedId, idToFetch);
     } else {
       this.props.noPublishedPlaylistAvailable();
     }
   }
 
   componentDidMount() {
-    this.selectEventAndLoadPlaylist(this.props.eventIdInUrl);
+    this.selectEventAndLoadPlaylist(this.props.feedIdInUrl, this.props.eventIdInUrl);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +56,7 @@ class AppWrapper extends Component {
 
 AppWrapper.propTypes = {
   eventIdInUrl: PropTypes.string.isRequired,
+  feedIdInUrl: PropTypes.string.isRequired,
   events: PropTypes.object.isRequired,
   selectEvent: PropTypes.func.isRequired,
   loadPlaylist: PropTypes.func.isRequired,

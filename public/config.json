@@ -3,5 +3,6 @@
   "AUTH_TOKEN": "RxqYxQC2qGw8tjzKsWB4",
   "INPUT_SOURCE_URL": "rtsp://10.0.5.21:4002/AmagiRTSPStream",
   "PLAYING_NOW_URL": "rtsp://10.0.5.21:4001/AmagiRTSPStream",
-  "WEBSOCKET_URL": "ws://localhost:5006"
+  "WEBSOCKET_URL": "ws://localhost:5006",
+  "VXG_PLAYER_LATENCY": "300" 
 }
