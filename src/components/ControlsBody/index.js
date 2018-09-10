@@ -2,6 +2,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import withWidth from '@material-ui/core/withWidth';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -20,24 +21,26 @@ import Loading from '../../assets/svgs/Loading';
 import Color from '../../utilities/theme/Color';
 import { formatDuration } from '../../utilities/timeHelpers';
 
-const styles = {
+const styles = theme => ({
   loadingWrapper: {
     height: '100vh',
     weight: '100vw',
   },
   root: {
-    height: 'calc(100vh - 60px)',
-  },
-  controlBody: {
-    display: 'flex',
-    flexDirection: 'row',
-    flex: 1,
+    height: '100%',
   },
   players: {
     display: 'flex',
     flexDirection: 'column',
     padding: 20,
-    justifyContent: 'space-between',
+  },
+  xlPaperHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Color.secondary.s1,
+    padding: '5px 0',
+    borderBottom: `solid 2px ${Color.other.o2}`,
+    margin: '12px 0 14px',
   },
   playerTitle: {
     fontWeight: 500,
@@ -61,12 +64,15 @@ const styles = {
     },
   },
   playerSpacer: {
-    padding: '0 0px',
+    marginBottom: 20,
+    [theme.breakpoints.up('xl')]: {
+      marginBottom: 40,
+    },
   },
   liveLogo: {
     display: 'flex',
     color: Color.primary.p2,
-    paddingRight: 60,
+    paddingRight: 30,
     '& div': {
       marginRight: 5,
       fontSize: 12,
@@ -76,10 +82,10 @@ const styles = {
       },
     },
   },
-  controlsSection: {
+  paper: {
     flex: 1,
     padding: '0 20px 10px',
-    margin: 10,
+    margin: '20px 20px 20px 0',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -120,9 +126,6 @@ const styles = {
     display: 'flex',
     marginBottom: 20,
   },
-  playersContainer: {
-    display: 'flex',
-  },
   eventHasEnded: {
     padding: 30,
     textAlign: 'center',
@@ -131,7 +134,7 @@ const styles = {
   logoAssetId: {
     color: '#0085bc',
   },
-};
+});
 window.moment = moment;
 
 const LIVE_EVENT_LOGO = 'LIVE_EVENT_LOGO';
@@ -190,7 +193,7 @@ class ControlsBody extends Component {
     );
   }
 
-  render() {
+  renderSmallScreenLayout() {
     const {
       classes,
       playlist,
@@ -203,6 +206,104 @@ class ControlsBody extends Component {
       toggleItem,
     } = this.props;
 
+    return (
+      <Paper className={classes.paper}>
+        <Tabs
+          value={this.state.tab}
+          onChange={this.handleTabChange}
+          classes={{ root: classes.tabs, indicator: classes.tabIndicator }}
+          className="row"
+        >
+          <Tab
+            classes={{ selected: classes.selectedTab }}
+            label={<span className={classes.tabLabel}>LIVE BREAKS</span>}
+          />
+          <Tab
+            classes={{ selected: classes.selectedTab }}
+            label={<span className={classes.tabLabel}>LIVE GRAPHICS</span>}
+          />
+        </Tabs>
+        <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+          {this.state.tab === 0 && (
+            <LiveBreaks
+              playlist={playlist}
+              selectedEvent={selectedEvent}
+              sendMessage={sendMessage}
+              playItem={playItem}
+              stopItem={stopItem}
+              queueItem={queueItem}
+              dequeueItem={dequeueItem}
+              updateNowPlaying={this.props.updateNowPlaying}
+              toggleItem={toggleItem}
+            />
+          )}
+          {this.state.tab === 1 && (
+            <LiveGraphics
+              playlist={playlist}
+              selectedEvent={selectedEvent}
+              sendMessage={sendMessage}
+              playItem={playItem}
+              stopItem={stopItem}
+              updateNowPlaying={this.props.updateNowPlaying}
+              toggleItem={toggleItem}
+            />
+          )}
+        </Grid>
+      </Paper>
+    );
+  }
+
+  renderLargeScreenLayout() {
+    const {
+      classes,
+      playlist,
+      sendMessage,
+      selectedEvent,
+      playItem,
+      stopItem,
+      queueItem,
+      dequeueItem,
+      toggleItem,
+    } = this.props;
+    return (
+      <Fragment>
+        <Paper className={classes.paper}>
+          <div className={classes.xlPaperHeader}>LIVE BREAKS</div>
+          <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+            <LiveBreaks
+              playlist={playlist}
+              selectedEvent={selectedEvent}
+              sendMessage={sendMessage}
+              playItem={playItem}
+              stopItem={stopItem}
+              queueItem={queueItem}
+              dequeueItem={dequeueItem}
+              updateNowPlaying={this.props.updateNowPlaying}
+              toggleItem={toggleItem}
+            />
+          </Grid>
+        </Paper>
+        <Paper className={classes.paper}>
+          <div className={classes.xlPaperHeader}>LIVE GRAPHICS</div>
+          <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+            <LiveGraphics
+              playlist={playlist}
+              selectedEvent={selectedEvent}
+              sendMessage={sendMessage}
+              playItem={playItem}
+              stopItem={stopItem}
+              updateNowPlaying={this.props.updateNowPlaying}
+              toggleItem={toggleItem}
+            />
+          </Grid>
+        </Paper>
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { classes, playlist, width } = this.props;
+
     if (playlist.loading) {
       return (
         <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
@@ -212,78 +313,35 @@ class ControlsBody extends Component {
     }
 
     return (
-      <div className={classes.controlBody}>
-        <div className={classes.playersContainer}>
-          <div className={classes.players}>
-            {this.renderLogos()}
-            <div>
-              <div className={classes.playerTitle}>INPUT SOURCE</div>
-              <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
-            </div>
-
-            <div className={classes.playerSpacer}>
-              <div className={classes.playerTitle}>PLAYING NOW</div>
-              <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
-              {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
-                this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
-                  <div className={classes.streamTimeRemaining}>
-                    TIME REMAINING
-                    <span>{formatDuration(this.props.selectedEvent.timeRemainingTillEventEnd, false)}</span>
-                  </div>
-                )}
-            </div>
+      <Grid container className={classes.root}>
+        <div className={classes.players}>
+          {this.renderLogos()}
+          <div>
+            <div className={classes.playerTitle}>INPUT SOURCE</div>
+            <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
           </div>
+          <div className={classes.playerSpacer} />
+          <div className={classes.playerTitle}>PLAYING NOW</div>
+          <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+          {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
+            this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
+              <div className={classes.streamTimeRemaining}>
+                TIME REMAINING
+                <span>{formatDuration(this.props.selectedEvent.timeRemainingTillEventEnd, false)}</span>
+              </div>
+            )}
         </div>
-        <Paper className={classes.controlsSection}>
-          {this.props.selectedEvent.timeRemainingTillEventEnd > 10000 ? (
-            <Fragment>
-              <Tabs
-                value={this.state.tab}
-                onChange={this.handleTabChange}
-                classes={{ root: classes.tabs, indicator: classes.tabIndicator }}
-                className="row"
-              >
-                <Tab
-                  classes={{ selected: classes.selectedTab }}
-                  label={<span className={classes.tabLabel}>LIVE BREAKS</span>}
-                />
-                <Tab
-                  classes={{ selected: classes.selectedTab }}
-                  label={<span className={classes.tabLabel}>LIVE GRAPHICS</span>}
-                />
-              </Tabs>
-              <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-                {this.state.tab === 0 && (
-                  <LiveBreaks
-                    playlist={playlist}
-                    selectedEvent={selectedEvent}
-                    sendMessage={sendMessage}
-                    playItem={playItem}
-                    stopItem={stopItem}
-                    queueItem={queueItem}
-                    dequeueItem={dequeueItem}
-                    updateNowPlaying={this.props.updateNowPlaying}
-                    toggleItem={toggleItem}
-                  />
-                )}
-                {this.state.tab === 1 && (
-                  <LiveGraphics
-                    playlist={playlist}
-                    selectedEvent={selectedEvent}
-                    sendMessage={sendMessage}
-                    playItem={playItem}
-                    stopItem={stopItem}
-                    updateNowPlaying={this.props.updateNowPlaying}
-                    toggleItem={toggleItem}
-                  />
-                )}
-              </Grid>
-            </Fragment>
-          ) : (
+        {this.props.selectedEvent.timeRemainingTillEventEnd < 0 ? (
+          <Fragment>
+            {width !== 'xl' && this.renderSmallScreenLayout()}
+            {width === 'xl' && this.renderLargeScreenLayout()}
+          </Fragment>
+        ) : (
+          <Paper className={classes.paper}>
             <div className={classes.eventHasEnded}>The event has ended.</div>
-          )}
-        </Paper>
-      </div>
+          </Paper>
+        )}
+      </Grid>
     );
   }
 }
@@ -304,6 +362,7 @@ ControlsBody.propTypes = {
   dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
-export default withStyles(styles)(ControlsBody);
+export default withWidth()(withStyles(styles)(ControlsBody));

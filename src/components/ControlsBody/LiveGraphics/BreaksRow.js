@@ -193,7 +193,7 @@ class BreaksRow extends Component {
             <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div>
-            <span className={classes.subType}>{item.sub_type}</span>
+            <span className={classes.subType}>{item.sub_type === 'graphic-signature' ? 'graphic' : ''}</span>
           </div>
           <div className={classes.cell}>
             {item.stopped && 'STOPPED'}
