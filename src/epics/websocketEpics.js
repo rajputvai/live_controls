@@ -30,7 +30,9 @@ const connectEpic = action$ =>
   action$.ofType(types.CONNECT).switchMap(action =>
     connectSocket(action.payload.websocketUrl)
       .catch(() =>
-        Observable.of(connectToWebSocket(action.payload.websocketUrl)).delay(TimerDurations.webSocketReconnectTimer)
+        Observable.of(connectToWebSocket(action.payload.websocketUrl))
+          .delay(TimerDurations.webSocketReconnectTimer)
+          .startWith(disconnected())
       )
       .map(data => receiveMessageFromWebSocket(data))
   );
