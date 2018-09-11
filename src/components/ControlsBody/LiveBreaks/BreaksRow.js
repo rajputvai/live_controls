@@ -47,7 +47,7 @@ const styles = {
   expandIcons: {
     color: '#000',
     fontSize: 18,
-    marginRight: 14,
+    marginRight: 8,
   },
   root: {
     color: Color.primary.p2,
@@ -59,7 +59,7 @@ const styles = {
     backgroundColor: Color.other.o2,
     border: `solid 1px ${Color.other.o8}`,
     borderRadius: 4,
-    padding: '0 20px',
+    // padding: '0 10px',
     '& > div': {
       width: '20%',
     },
@@ -137,6 +137,20 @@ const styles = {
   },
   rescuedStyle,
   ...animations.flash,
+  assetId: {
+    fontSize: 14,
+    fontWeight: 500,
+    color: Color.secondary.s1,
+    marginRight: 8,
+  },
+  assetTitle: {
+    fontSize: 13,
+    color: Color.primary.p2,
+  },
+  assetItemDuration: {
+    fontSize: 11,
+    marginTop: 4,
+  },
 };
 
 class BreaksRow extends Component {
@@ -266,8 +280,14 @@ class BreaksRow extends Component {
             <Grid key={breakItem.id} container className={this.getMediaItemClassname(breakItem)} alignItems="center">
               <Grid container alignItems="center">
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
-                <span className={classes.title}>{breakItem.title}</span> <span className={classes.divider}>|</span>{' '}
-                <span>{formatDuration(breakItem.duration)}</span>
+                <div>
+                  <div>
+                    <span className={classes.assetId}>{breakItem.asset_id}</span>
+                    <span className={classes.assetTitle}>{breakItem.title}</span>
+                  </div>
+                  <div className={classes.assetItemDuration}>DURATION - {formatDuration(breakItem.duration)}</div>
+                </div>
+                <div />
               </Grid>
               <div>
                 <span className={classes.subType}>{breakItem.sub_type}</span>

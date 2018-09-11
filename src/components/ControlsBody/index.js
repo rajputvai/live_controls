@@ -32,7 +32,7 @@ const styles = theme => ({
   players: {
     display: 'flex',
     flexDirection: 'column',
-    padding: 20,
+    padding: '20px 0 20px 20px',
   },
   xlPaperHeader: {
     fontSize: 16,
@@ -84,7 +84,7 @@ const styles = theme => ({
   },
   paper: {
     flex: 1,
-    padding: '0 20px 10px',
+    padding: '0 10px 10px',
     margin: '20px 20px 20px 0',
     display: 'flex',
     flexDirection: 'column',
@@ -326,7 +326,7 @@ class ControlsBody extends Component {
               </div>
             )}
         </div>
-        {this.props.selectedEvent.timeRemainingTillEventEnd < 0 ? (
+        {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
           <Fragment>
             {width !== 'xl' && this.renderSmallScreenLayout()}
             {width === 'xl' && this.renderLargeScreenLayout()}

@@ -7,7 +7,7 @@ import { formatDuration } from '../../../utilities/timeHelpers';
 
 const styles = {
   playStatus: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
   timeRemainingLabel: {
     fontSize: 11,
