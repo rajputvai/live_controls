@@ -144,21 +144,6 @@ const BREAK_LOGO = 'break_logo';
 class ControlsBody extends Component {
   state = { tab: 0 };
 
-  componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.interval = setInterval(() => {
-        if (window.inputPlayer) {
-          this.setState({ inputSourcePTS: window.inputPlayer.getPTSVideo() });
-        }
-      }, 40);
-    }, 5000);
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.timeout);
-    clearInterval(this.interval);
-  }
-
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   renderLogos() {
