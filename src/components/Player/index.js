@@ -19,7 +19,9 @@ class Player extends Component {
     const player = window.vxgplayer(this.element.id);
     window[this.props.globalKey] = player;
     player.play();
-    player.onStateChange(this.props.setPlayerState);
+    if (this.props.globalKey === 'inputPlayer') {
+      player.onStateChange(this.props.setPlayerState);
+    }
   }
 
   render() {

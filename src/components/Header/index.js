@@ -188,7 +188,7 @@ class Header extends Component {
           LIVE EVENT
         </Typography>
         <Button className={classes.eventsSelect} onClick={this.handleClick} size="small">
-          {loading ? 'Loading...' : selectedEvent.name}
+          {loading ? 'Loading...' : `${selectedEvent.name} - ${selectedEvent.ref_id}`}
           <ArrowDropDownIcon />
         </Button>
         <div className={classes.flex} />
@@ -230,7 +230,7 @@ class Header extends Component {
                     selected={selectedEvent.ref_id === event.ref_id}
                     onClick={this.handleMenuItemClick(event.ref_id)}
                   >
-                    {event.name}
+                    {event.name} - {event.ref_id}
                   </MenuItem>
                 ))}
             </Popover>
