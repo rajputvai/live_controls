@@ -160,7 +160,7 @@ class LiveGraphics extends Component {
     console.log('pts received from player at: ', endTime);
     console.log('time taken to get pts from player: ', endTime - startTime);
     this.props.sendMessage({
-      trigger_type: 'break',
+      trigger_type: 'graphic',
       command: 'stop',
       params: {
         live_event_id: selectedEvent.ref_id,
