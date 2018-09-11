@@ -326,7 +326,7 @@ class ControlsBody extends Component {
               </div>
             )}
         </div>
-        {this.props.selectedEvent.timeRemainingTillEventEnd < 0 ? (
+        {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
           <Fragment>
             {width !== 'xl' && this.renderSmallScreenLayout()}
             {width === 'xl' && this.renderLargeScreenLayout()}
