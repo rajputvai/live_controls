@@ -14,10 +14,15 @@ export default createMuiTheme({
         paddingTop: 7,
         paddingBottom: 7,
         borderRadius: 2,
+        '&$disabled': {
+          backgroundColor: `${Color.primary.p1}88`,
+          color: 'rgba(0, 0, 0, 0.7)',
+        },
       },
       sizeSmall: {
         fontSize: 14,
       },
+      disabled: {},
     },
     MuiTabs: {
       indicator: {
