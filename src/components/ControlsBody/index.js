@@ -285,16 +285,34 @@ class ControlsBody extends Component {
     );
   }
 
-  render() {
-    const { classes, playlist, width, config, setPlayerState } = this.props;
-
+  renderContent() {
+    const { classes, playlist, width } = this.props;
     if (playlist.loading) {
       return (
-        <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
-          <Loading />
-        </Grid>
+        <Paper className={classes.paper}>
+          <Grid container className={classes.loadingWrapper} alignItems="center" justify="center">
+            <Loading />
+          </Grid>
+        </Paper>
       );
     }
+    if (this.props.selectedEvent.timeRemainingTillEventEnd < 0) {
+      return (
+        <Fragment>
+          {width !== 'xl' && this.renderSmallScreenLayout()}
+          {width === 'xl' && this.renderLargeScreenLayout()}
+        </Fragment>
+      );
+    }
+    return (
+      <Paper className={classes.paper}>
+        <div className={classes.eventHasEnded}>The event has ended.</div>
+      </Paper>
+    );
+  }
+
+  render() {
+    const { classes, config, setPlayerState } = this.props;
 
     return (
       <Grid container className={classes.root}>
@@ -327,16 +345,7 @@ class ControlsBody extends Component {
               </div>
             )}
         </div>
-        {this.props.selectedEvent.timeRemainingTillEventEnd > 0 ? (
-          <Fragment>
-            {width !== 'xl' && this.renderSmallScreenLayout()}
-            {width === 'xl' && this.renderLargeScreenLayout()}
-          </Fragment>
-        ) : (
-          <Paper className={classes.paper}>
-            <div className={classes.eventHasEnded}>The event has ended.</div>
-          </Paper>
-        )}
+        {this.renderContent()}
       </Grid>
     );
   }
