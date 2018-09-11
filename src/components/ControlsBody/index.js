@@ -296,7 +296,7 @@ class ControlsBody extends Component {
         </Paper>
       );
     }
-    if (this.props.selectedEvent.timeRemainingTillEventEnd < 0) {
+    if (this.props.selectedEvent.timeRemainingTillEventEnd > 0) {
       return (
         <Fragment>
           {width !== 'xl' && this.renderSmallScreenLayout()}
