@@ -84,7 +84,7 @@ const styles = theme => ({
   },
   paper: {
     flex: 1,
-    padding: '0 20px 10px',
+    padding: '0 10px 10px',
     margin: '20px 20px 20px 0',
     display: 'flex',
     flexDirection: 'column',

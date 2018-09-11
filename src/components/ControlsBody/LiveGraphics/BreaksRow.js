@@ -41,7 +41,7 @@ const styles = {
   expandIcons: {
     color: '#000',
     fontSize: 18,
-    marginRight: 14,
+    marginRight: 8,
   },
   root: {
     color: Color.primary.p2,
@@ -53,7 +53,7 @@ const styles = {
     backgroundColor: Color.other.o2,
     border: `solid 1px ${Color.other.o8}`,
     borderRadius: 4,
-    padding: '0 20px',
+    // padding: '0 20px',
     '& > div': {
       width: '20%',
     },
