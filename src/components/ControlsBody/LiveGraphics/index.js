@@ -138,6 +138,10 @@ class LiveGraphics extends Component {
       },
     });
 
+    if (this.props.playlist.currentPlayingItemId) {
+      this.props.stopItem(selectedEvent.ref_id, playlist.id, this.props.playlist.currentPlayingItemId);
+    }
+
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };
 
