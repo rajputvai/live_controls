@@ -193,19 +193,40 @@ class ControlsBody extends Component {
     );
   }
 
-  renderSmallScreenLayout() {
-    const {
-      classes,
-      playlist,
-      sendMessage,
-      selectedEvent,
-      playItem,
-      stopItem,
-      queueItem,
-      dequeueItem,
-      toggleItem,
-    } = this.props;
+  renderLiveBreaks() {
+    const { playlist, sendMessage, selectedEvent, playItem, stopItem, queueItem, dequeueItem, toggleItem } = this.props;
+    return (
+      <LiveBreaks
+        playlist={playlist}
+        selectedEvent={selectedEvent}
+        sendMessage={sendMessage}
+        playItem={playItem}
+        stopItem={stopItem}
+        queueItem={queueItem}
+        dequeueItem={dequeueItem}
+        updateNowPlaying={this.props.updateNowPlaying}
+        toggleItem={toggleItem}
+      />
+    );
+  }
 
+  renderLiveGraphics() {
+    const { playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    return (
+      <LiveGraphics
+        playlist={playlist}
+        selectedEvent={selectedEvent}
+        sendMessage={sendMessage}
+        playItem={playItem}
+        stopItem={stopItem}
+        updateNowPlaying={this.props.updateNowPlaying}
+        toggleItem={toggleItem}
+      />
+    );
+  }
+
+  renderSmallScreenLayout() {
+    const { classes } = this.props;
     return (
       <Paper className={classes.paper}>
         <Tabs
@@ -224,77 +245,27 @@ class ControlsBody extends Component {
           />
         </Tabs>
         <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-          {this.state.tab === 0 && (
-            <LiveBreaks
-              playlist={playlist}
-              selectedEvent={selectedEvent}
-              sendMessage={sendMessage}
-              playItem={playItem}
-              stopItem={stopItem}
-              queueItem={queueItem}
-              dequeueItem={dequeueItem}
-              updateNowPlaying={this.props.updateNowPlaying}
-              toggleItem={toggleItem}
-            />
-          )}
-          {this.state.tab === 1 && (
-            <LiveGraphics
-              playlist={playlist}
-              selectedEvent={selectedEvent}
-              sendMessage={sendMessage}
-              playItem={playItem}
-              stopItem={stopItem}
-              updateNowPlaying={this.props.updateNowPlaying}
-              toggleItem={toggleItem}
-            />
-          )}
+          {this.state.tab === 0 && this.renderLiveBreaks()}
+          {this.state.tab === 1 && this.renderLiveGraphics()}
         </Grid>
       </Paper>
     );
   }
 
   renderLargeScreenLayout() {
-    const {
-      classes,
-      playlist,
-      sendMessage,
-      selectedEvent,
-      playItem,
-      stopItem,
-      queueItem,
-      dequeueItem,
-      toggleItem,
-    } = this.props;
+    const { classes } = this.props;
     return (
       <Fragment>
         <Paper className={classes.paper}>
           <div className={classes.xlPaperHeader}>LIVE BREAKS</div>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            <LiveBreaks
-              playlist={playlist}
-              selectedEvent={selectedEvent}
-              sendMessage={sendMessage}
-              playItem={playItem}
-              stopItem={stopItem}
-              queueItem={queueItem}
-              dequeueItem={dequeueItem}
-              updateNowPlaying={this.props.updateNowPlaying}
-              toggleItem={toggleItem}
-            />
+            {this.renderLiveBreaks()}
           </Grid>
         </Paper>
         <Paper className={classes.paper}>
           <div className={classes.xlPaperHeader}>LIVE GRAPHICS</div>
           <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            <LiveGraphics
-              playlist={playlist}
-              selectedEvent={selectedEvent}
-              sendMessage={sendMessage}
-              playItem={playItem}
-              stopItem={stopItem}
-              updateNowPlaying={this.props.updateNowPlaying}
-              toggleItem={toggleItem}
-            />
+            {this.renderLiveGraphics()}
           </Grid>
         </Paper>
       </Fragment>
