@@ -225,7 +225,11 @@ class BreaksRow extends Component {
                 <StopIcon />
               </MuiIconButton>
             ) : (
-              <MuiIconButton onClick={this.playItem} disabled={!playerState.isPlaying}>
+              <MuiIconButton
+                onClick={this.playItem}
+                className={!playerState.isPlaying ? classes.disabledActionIcons : ''}
+                disabled={!playerState.isPlaying}
+              >
                 <PlayIcon />
               </MuiIconButton>
             )}
