@@ -20,7 +20,10 @@ class Player extends Component {
     window[this.props.globalKey] = player;
     player.play();
     if (this.props.globalKey === 'inputPlayer') {
-      player.onStateChange(this.props.setPlayerState);
+      player.onStateChange(state => {
+        this.props.setPlayerState(state);
+        console.log('state ', state);
+      });
     }
   }
 
@@ -49,7 +52,7 @@ class Player extends Component {
           nmf-path="/vxgplayer/media_player.nmf"
           width={`${width}px`}
           height={`${height}px`}
-          auto-reconnect
+          auto-reconnect="true"
         />
       </div>
     );
