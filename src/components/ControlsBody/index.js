@@ -33,6 +33,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     padding: '20px 0 20px 20px',
+    marginRight: 10,
   },
   xlPaperHeader: {
     fontSize: 16,
