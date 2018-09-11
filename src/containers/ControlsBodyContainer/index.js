@@ -12,12 +12,14 @@ import {
   updateNowPlaying,
   toggleItem,
 } from '../../actions/playlistActions';
+import { setPlayerState } from '../../actions/playerStateActions';
 
 function mapStateToProps(state) {
   return {
     config: state.config.config,
     playlist: state.playlist,
     selectedEvent: state.events.selectedEvent,
+    playerState: state.playerState,
   };
 }
 
@@ -31,6 +33,7 @@ function mapDispatchToProps(dispatch) {
       dequeueItem,
       updateNowPlaying,
       toggleItem,
+      setPlayerState,
     },
     dispatch
   );

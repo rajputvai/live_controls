@@ -131,7 +131,7 @@ class LiveGraphics extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        graphic_name: 'soccer',
+        graphic_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
         non_live_masking_flag: true,
@@ -163,7 +163,7 @@ class LiveGraphics extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        graphic_name: 'soccer',
+        graphic_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
         non_live_masking_flag: true,
@@ -198,6 +198,7 @@ class LiveGraphics extends Component {
           playItem={this.playItem}
           stopItem={this.stopItem}
           toggleItem={this.props.toggleItem}
+          playerState={this.props.playerState}
         />
       </div>
     );
@@ -255,6 +256,7 @@ LiveGraphics.propTypes = {
   stopItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveGraphics);

@@ -134,7 +134,7 @@ class LiveBreaks extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        break_name: item.title,
+        break_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
       },
@@ -168,7 +168,7 @@ class LiveBreaks extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        break_name: item.title,
+        break_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
       },
@@ -196,7 +196,7 @@ class LiveBreaks extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        break_name: item.title,
+        break_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
       },
@@ -224,7 +224,7 @@ class LiveBreaks extends Component {
         timestamp,
         duration_ms: item.duration,
         jpeg_buffer: '??',
-        break_name: item.title,
+        break_name: item.asset_id,
         best_effort_flag: true,
         best_effort_threshold_ms: 1000,
       },
@@ -251,6 +251,7 @@ class LiveBreaks extends Component {
           queueItem={this.queueItem}
           dequeueItem={this.dequeueItem}
           toggleItem={this.props.toggleItem}
+          playerState={this.props.playerState}
         />
       </div>
     );
@@ -327,6 +328,7 @@ LiveBreaks.propTypes = {
   dequeueItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(LiveBreaks);

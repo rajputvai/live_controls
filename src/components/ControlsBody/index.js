@@ -194,7 +194,17 @@ class ControlsBody extends Component {
   }
 
   renderLiveBreaks() {
-    const { playlist, sendMessage, selectedEvent, playItem, stopItem, queueItem, dequeueItem, toggleItem } = this.props;
+    const {
+      playlist,
+      sendMessage,
+      selectedEvent,
+      playItem,
+      stopItem,
+      queueItem,
+      dequeueItem,
+      toggleItem,
+      playerState,
+    } = this.props;
     return (
       <LiveBreaks
         playlist={playlist}
@@ -206,12 +216,13 @@ class ControlsBody extends Component {
         dequeueItem={dequeueItem}
         updateNowPlaying={this.props.updateNowPlaying}
         toggleItem={toggleItem}
+        playerState={playerState}
       />
     );
   }
 
   renderLiveGraphics() {
-    const { playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem } = this.props;
+    const { playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem, playerState } = this.props;
     return (
       <LiveGraphics
         playlist={playlist}
@@ -221,6 +232,7 @@ class ControlsBody extends Component {
         stopItem={stopItem}
         updateNowPlaying={this.props.updateNowPlaying}
         toggleItem={toggleItem}
+        playerState={playerState}
       />
     );
   }
@@ -273,7 +285,7 @@ class ControlsBody extends Component {
   }
 
   render() {
-    const { classes, playlist, width } = this.props;
+    const { classes, playlist, width, config, setPlayerState } = this.props;
 
     if (playlist.loading) {
       return (
@@ -289,11 +301,23 @@ class ControlsBody extends Component {
           {this.renderLogos()}
           <div>
             <div className={classes.playerTitle}>INPUT SOURCE</div>
-            <Player id="live" url={this.props.config.INPUT_SOURCE_URL} globalKey="inputPlayer" />
+            <Player
+              id="live"
+              url={config.INPUT_SOURCE_URL}
+              latency={config.VXG_PLAYER_LATENCY}
+              globalKey="inputPlayer"
+              setPlayerState={setPlayerState}
+            />
           </div>
           <div className={classes.playerSpacer} />
           <div className={classes.playerTitle}>PLAYING NOW</div>
-          <Player id="out" url={this.props.config.PLAYING_NOW_URL} globalKey="outputPlayer" />
+          <Player
+            id="out"
+            url={config.PLAYING_NOW_URL}
+            latency={config.VXG_PLAYER_LATENCY}
+            globalKey="outputPlayer"
+            setPlayerState={setPlayerState}
+          />
           {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
             this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
               <div className={classes.streamTimeRemaining}>
@@ -334,6 +358,8 @@ ControlsBody.propTypes = {
   toggleItem: PropTypes.func.isRequired,
   updateNowPlaying: PropTypes.func.isRequired,
   width: PropTypes.string.isRequired,
+  playerState: PropTypes.object.isRequired,
+  setPlayerState: PropTypes.func.isRequired,
 };
 
 export default withWidth()(withStyles(styles)(ControlsBody));

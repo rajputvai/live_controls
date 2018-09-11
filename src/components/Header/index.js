@@ -71,7 +71,8 @@ class Header extends Component {
   liveOffAutomaticallyAfterEndTime = () => {
     const { selectedEvent } = this.props.events;
     if (this.state.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
-      this.getLiveMessage(selectedEvent.ref_id, 'off');
+      setLiveOnForEvent(selectedEvent.ref_id, 'off');
+      this.setState({ isLiveOn: false });
     }
   };
 
@@ -157,6 +158,7 @@ class Header extends Component {
     const {
       classes,
       events: { selectedEvent, loading },
+      playerState,
     } = this.props;
     let content;
     if (loading) {
@@ -173,7 +175,7 @@ class Header extends Component {
             color="primary"
             className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
             onClick={this.handleLiveToggle}
-            disabled={selectedEvent.timeRemainingTillEventEnd < 0}
+            disabled={selectedEvent.timeRemainingTillEventEnd < 0 || !playerState.isPlaying}
           >
             {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>
@@ -245,6 +247,7 @@ Header.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(Header));

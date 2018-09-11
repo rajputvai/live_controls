@@ -3,5 +3,6 @@
   "AUTH_TOKEN": "RxqYxQC2qGw8tjzKsWB4",
   "INPUT_SOURCE_URL": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
   "PLAYING_NOW_URL": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
-  "WEBSOCKET_URL": "ws://localhost:5006"
+  "WEBSOCKET_URL": "ws://localhost:5006",
+  "VXG_PLAYER_LATENCY": "300" 
 }

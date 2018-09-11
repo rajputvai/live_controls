@@ -42,6 +42,7 @@ class App extends Component {
     }
     return (
       <AppWrapper
+        feedIdInUrl={params.feedId}
         eventIdInUrl={params.eventId}
         events={events}
         selectEvent={selectEvent}
