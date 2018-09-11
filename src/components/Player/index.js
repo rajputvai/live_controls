@@ -49,7 +49,6 @@ class Player extends Component {
           nmf-path="/vxgplayer/media_player.nmf"
           width={`${width}px`}
           height={`${height}px`}
-          connection-timeout="60000"
         />
       </div>
     );
