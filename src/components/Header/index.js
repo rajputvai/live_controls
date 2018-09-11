@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Popover from '@material-ui/core/Popover';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import classNames from 'classnames';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import Color from '../../utilities/theme/Color';
 import { isLiveOnForEvent, setLiveOnForEvent } from '../../utilities/localStorageHelpers';
@@ -60,10 +60,6 @@ const styles = {
     },
   },
 };
-
-function getEventStartTime(time) {
-  return moment(time).format('HH:mm:ss');
-}
 
 class Header extends Component {
   state = { anchorEl: null, isLiveOn: false };
@@ -154,6 +150,11 @@ class Header extends Component {
     );
   }
 
+  getEventStartTime() {
+    const { selectedEvent } = this.props.events;
+    return moment.tz(selectedEvent.start_time, 'Europe/Amsterdam').format('Do MMM Y - HH:mm:ss');
+  }
+
   renderContent() {
     const {
       classes,
@@ -167,8 +168,7 @@ class Header extends Component {
       content = (
         <Fragment>
           <Typography variant="body1" className={classes.rootSubheading}>
-            Live event scheduled at: {getEventStartTime(selectedEvent.start_time)} ({selectedEvent.timezone})
-            {this.renderRemainingTime()}
+            Live event scheduled at: {this.getEventStartTime()} ({selectedEvent.timezone}){this.renderRemainingTime()}
           </Typography>
           <Button
             variant="contained"

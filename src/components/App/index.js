@@ -1,6 +1,7 @@
 // Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import AppWrapper from './AppWrapper';
 import LoadingGrid from '../../assets/LoadingGrid';
@@ -34,11 +35,13 @@ class App extends Component {
       return <NoFeedIdAndNoPlaylistId />;
     }
     if (!params.eventId || !(params.eventId in events.byId)) {
-      const firstEventId = events.events[0].ref_id;
-      window.location.replace(`/${params.feedId}/${params.playlistId}/${firstEventId}`);
-      // route get's blocked when for wrong eventId senario, find solution
-      // return <Redirect to={`/${params.feedId}/${params.playlistId}/${firstEventId}`} />;
-      return null;
+      // const eventsFilteredByTime = events.events.sort((e1, e2) => new Date(e1.start_time) - new Date(e2.start_time));
+      const upcomingEvent = events.events.find(event => new Date(event.start_time) > new Date());
+      if (upcomingEvent) {
+        return <Redirect to={`/${params.feedId}/${params.playlistId}/${upcomingEvent.ref_id}`} />;
+      }
+      const lastEventId = events.events[events.events.length - 1].ref_id;
+      return <Redirect to={`/${params.feedId}/${params.playlistId}/${lastEventId}`} />;
     }
     return (
       <AppWrapper

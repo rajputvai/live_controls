@@ -32,7 +32,7 @@ const styles = theme => ({
   players: {
     display: 'flex',
     flexDirection: 'column',
-    padding: 20,
+    padding: '20px 0 20px 20px',
   },
   xlPaperHeader: {
     fontSize: 16,
