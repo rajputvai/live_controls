@@ -103,6 +103,8 @@ export function updateNowPlaying(state, draft) {
   }
   const item = draft.items[state.currentPlayingItemId];
 
+  item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
+
   let foundComingUpNext = false;
   item.break_items = item.break_items.map(mediaItem => {
     if (mediaItem.played) {
@@ -117,6 +119,10 @@ export function updateNowPlaying(state, draft) {
       mediaItem.playing = true;
       mediaItem.stopped = false;
       mediaItem.comingUpNext = false;
+    }
+
+    if (mediaItem.playing) {
+      mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
     }
 
     // Coming up next

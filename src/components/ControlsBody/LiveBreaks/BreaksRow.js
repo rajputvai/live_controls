@@ -18,6 +18,9 @@ import animations from '../../../constants/animations';
 // Utils
 import { formatDuration } from '../../../utilities/timeHelpers';
 
+// Components
+import PlayStatus from './PlayStatus';
+
 const playingStyle = {
   backgroundColor: '#a8effe',
   opacity: '1 !important',
@@ -216,13 +219,14 @@ class BreaksRow extends Component {
             <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div>
-            <span className={classes.subType}>{item.sub_type}</span>
+            {item.playing ? (
+              <div className={classes.playingNow}>( PLAYING NOW )</div>
+            ) : (
+              <span className={classes.subType}>{item.sub_type}</span>
+            )}
           </div>
           <div className={classes.cell}>
-            {item.stopped && 'STOPPED'}
-            {item.playing && 'PLAYING'}
-            {item.played && 'PLAYED'}
-            {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
+            <PlayStatus item={item} />
           </div>
           {!queued ? (
             <div>
@@ -269,10 +273,7 @@ class BreaksRow extends Component {
                 <span className={classes.subType}>{breakItem.sub_type}</span>
               </div>
               <div>
-                {breakItem.stopped && 'STOPPED'}
-                {breakItem.playing && 'PLAYING'}
-                {breakItem.played && 'PLAYED'}
-                {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
+                <PlayStatus item={breakItem} />
               </div>
               <div>
                 {/* <MuiIconButton disabled>

@@ -121,7 +121,7 @@ class LiveBreaks extends Component {
     const item = items[breakId];
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-    const timestamp = window.inputPlayer.getPTSVideo();
+    const timestamp = window.inputPlayer ? window.inputPlayer.getPTSVideo() : 0;
     console.log('pts', timestamp);
     const endTime = Date.now();
     console.log('pts received from player at: ', endTime);
