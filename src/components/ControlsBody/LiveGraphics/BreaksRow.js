@@ -135,7 +135,11 @@ const styles = {
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.item !== nextProps.item || this.props.currentPlayingItemId !== nextProps.currentPlayingItemId;
+    return (
+      this.props.item !== nextProps.item ||
+      this.props.currentPlayingItemId !== nextProps.currentPlayingItemId ||
+      this.props.playerState !== nextProps.playerState
+    );
   }
 
   getClassname = () => {
@@ -178,7 +182,7 @@ class BreaksRow extends Component {
   };
 
   render() {
-    const { classes, item } = this.props;
+    const { classes, item, playerState } = this.props;
 
     return (
       <div className={classes.root}>
@@ -193,7 +197,7 @@ class BreaksRow extends Component {
             <span>{formatDuration(item.duration)}</span>
           </Grid>
           <div>
-            <span className={classes.subType}>{item.sub_type}</span>
+            <span className={classes.subType}>{item.sub_type === 'graphic-signature' ? 'graphic' : ''}</span>
           </div>
           <div className={classes.cell}>
             {item.stopped && 'STOPPED'}
@@ -203,11 +207,11 @@ class BreaksRow extends Component {
           </div>
           <div>
             {item.playing ? (
-              <MuiIconButton onClick={this.stopItem}>
+              <MuiIconButton onClick={this.stopItem} disabled={!playerState.isPlaying}>
                 <StopIcon />
               </MuiIconButton>
             ) : (
-              <MuiIconButton onClick={this.playItem}>
+              <MuiIconButton onClick={this.playItem} disabled={!playerState.isPlaying}>
                 <PlayIcon />
               </MuiIconButton>
             )}
@@ -250,6 +254,7 @@ BreaksRow.propTypes = {
   stopItem: PropTypes.func.isRequired,
   toggleItem: PropTypes.func.isRequired,
   currentPlayingItemId: PropTypes.string.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

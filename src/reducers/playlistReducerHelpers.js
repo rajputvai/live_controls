@@ -22,7 +22,7 @@ export function parsePlaylist(draft, items, playlistId) {
     if (!itemsNotToRenderInList.includes(item.asset_id)) {
       if (item.sub_type === 'signature') {
         breakItemIds.push(item.asset_id);
-      } else if (item.sub_type === 'graphic-signature') {
+      } else if (item.sub_type === 'graphics' || item.sub_type === 'graphic-signature') {
         graphicItemIds.push(item.asset_id);
       }
     }
@@ -59,13 +59,16 @@ export function parsePlaylist(draft, items, playlistId) {
 export function playItem(draft, item) {
   item.playing = true;
   item.stopped = false;
+  item.played = false;
   item.startTime = new Date().valueOf();
   let durationOffset = 0;
   item.break_items.forEach(mediaItem => {
-    if (!mediaItem.played) {
-      mediaItem.durationOffset = durationOffset;
-      durationOffset += mediaItem.duration;
-    }
+    // if (!mediaItem.played) {
+    mediaItem.durationOffset = durationOffset;
+    durationOffset += mediaItem.duration;
+    mediaItem.played = false;
+    mediaItem.stopped = false;
+    // }
   });
 }
 
@@ -103,6 +106,8 @@ export function updateNowPlaying(state, draft) {
   }
   const item = draft.items[state.currentPlayingItemId];
 
+  item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
+
   let foundComingUpNext = false;
   item.break_items = item.break_items.map(mediaItem => {
     if (mediaItem.played) {
@@ -117,6 +122,10 @@ export function updateNowPlaying(state, draft) {
       mediaItem.playing = true;
       mediaItem.stopped = false;
       mediaItem.comingUpNext = false;
+    }
+
+    if (mediaItem.playing) {
+      mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
     }
 
     // Coming up next

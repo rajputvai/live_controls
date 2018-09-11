@@ -6,6 +6,7 @@ import {
   types,
   loadingEvents,
   loadEventsSuccess,
+  loadEventsFailed,
   startIntervalToCalculateRemainingTime,
   calculateRemainingTime,
 } from '../actions/eventsActions';
@@ -17,13 +18,17 @@ function getUrl({ feedId, playlistId }) {
 const loadEventsEpic = $action =>
   $action.ofType(types.LOAD).mergeMap(action =>
     Observable.fromPromise(axios.get(getUrl(action.payload)))
-      .mergeMap(response => [loadEventsSuccess(response.data), startIntervalToCalculateRemainingTime()])
+      .mergeMap(response => [loadEventsSuccess(response.data), startIntervalToCalculateRemainingTime(response.data)])
+      .catch(error => Observable.of(loadEventsFailed(error)))
       .startWith(loadingEvents())
   );
 
 const startCalculatingRemainingTimeEpic = $action =>
-  $action
-    .ofType(types.START_INTERVAL_TO_CALCULATE_REMAINING_TIME)
-    .switchMap(() => Observable.interval(1000).mapTo(calculateRemainingTime()));
+  $action.ofType(types.START_INTERVAL_TO_CALCULATE_REMAINING_TIME).switchMap(action => {
+    if (action.payload.events.events.length > 0) {
+      return Observable.interval(1000).mapTo(calculateRemainingTime());
+    }
+    return Observable.empty();
+  });
 
 export default combineEpics(loadEventsEpic, startCalculatingRemainingTimeEpic);

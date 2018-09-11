@@ -71,7 +71,8 @@ class Header extends Component {
   liveOffAutomaticallyAfterEndTime = () => {
     const { selectedEvent } = this.props.events;
     if (this.state.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
-      this.getLiveMessage(selectedEvent.ref_id, 'off');
+      setLiveOnForEvent(selectedEvent.ref_id, 'off');
+      this.setState({ isLiveOn: false });
     }
   };
 
@@ -157,6 +158,7 @@ class Header extends Component {
     const {
       classes,
       events: { selectedEvent, loading },
+      playerState,
     } = this.props;
     let content;
     if (loading) {
@@ -173,7 +175,7 @@ class Header extends Component {
             color="primary"
             className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
             onClick={this.handleLiveToggle}
-            disabled={selectedEvent.timeRemainingTillEventEnd < 0}
+            disabled={selectedEvent.timeRemainingTillEventEnd < 0 || !playerState.isPlaying}
           >
             {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>
@@ -186,7 +188,7 @@ class Header extends Component {
           LIVE EVENT
         </Typography>
         <Button className={classes.eventsSelect} onClick={this.handleClick} size="small">
-          {loading ? 'Loading...' : selectedEvent.name}
+          {loading ? 'Loading...' : `${selectedEvent.name} - ${selectedEvent.ref_id}`}
           <ArrowDropDownIcon />
         </Button>
         <div className={classes.flex} />
@@ -228,7 +230,7 @@ class Header extends Component {
                     selected={selectedEvent.ref_id === event.ref_id}
                     onClick={this.handleMenuItemClick(event.ref_id)}
                   >
-                    {event.name}
+                    {event.name} - {event.ref_id}
                   </MenuItem>
                 ))}
             </Popover>
@@ -245,6 +247,7 @@ Header.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(withRouter(Header));
