@@ -4,6 +4,7 @@ import { types } from '../actions/webSocketActions';
 const intialState = {
   connecting: true,
   connected: false,
+  wasConnected: false,
 };
 
 export default function socketReducer(state = intialState, action) {
@@ -17,6 +18,7 @@ export default function socketReducer(state = intialState, action) {
       case types.CONNECTED:
         draft.connected = true;
         draft.connecting = false;
+        draft.wasConnected = true;
         break;
 
       case types.SENT_MESSAGE:

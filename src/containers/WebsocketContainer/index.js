@@ -9,6 +9,7 @@ function mapStateToProps(state, ownProps) {
   return {
     connected: state.webSocket.connected,
     connecting: state.webSocket.connecting,
+    wasConnected: state.webSocket.wasConnected,
     websocketUrl: state.config.config.WEBSOCKET_URL,
     location: ownProps.location,
   };

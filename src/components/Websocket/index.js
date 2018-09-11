@@ -9,6 +9,12 @@ class Websocket extends React.Component {
     this.props.connectToWebSocket(this.props.websocketUrl);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.wasConnected && !this.props.connected && nextProps.connected) {
+      window.location.reload();
+    }
+  }
+
   componentWillUnmount() {
     this.props.disconnectFromWebSocket();
   }
@@ -31,6 +37,7 @@ Websocket.propTypes = {
   children: PropTypes.object.isRequired,
   connected: PropTypes.bool.isRequired,
   connecting: PropTypes.bool.isRequired,
+  wasConnected: PropTypes.bool.isRequired,
   connectToWebSocket: PropTypes.func.isRequired,
   disconnectFromWebSocket: PropTypes.func.isRequired,
   websocketUrl: PropTypes.string.isRequired,
