@@ -44,16 +44,28 @@ export function parsePlaylist(draft, items, playlistId) {
         return mediaItem;
       }),
     };
-
-    if (itemsHash[item.asset_id].playing) {
-      draft.currentPlayingItemId = item.asset_id;
-    }
   });
 
   draft.items = itemsHash;
   // draft.itemIds = itemIds;
   draft.breakItemIds = breakItemIds;
   draft.graphicItemIds = graphicItemIds;
+
+  // Find current playing break
+  draft.breakItemIds.forEach(breakItemId => {
+    const breakItem = draft.items[breakItemId];
+    if (breakItem.playing) {
+      draft.currentPlayingItemId = breakItemId;
+    }
+  });
+
+  // Find current playing graphics
+  draft.graphicItemIds.forEach(graphicItemId => {
+    const graphicItem = draft.items[graphicItemId];
+    if (graphicItem.playing) {
+      draft.currentPlayingGraphics.push(graphicItemId);
+    }
+  });
 }
 
 export function playItem(draft, item) {
