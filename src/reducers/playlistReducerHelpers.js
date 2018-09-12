@@ -101,63 +101,89 @@ export function dequeueItem(draft, item) {
 }
 
 export function updateNowPlaying(state, draft) {
-  if (!state.currentPlayingItemId) {
-    return;
-  }
-  const item = draft.items[state.currentPlayingItemId];
+  // Break
+  if (state.currentPlayingItemId) {
+    const item = draft.items[state.currentPlayingItemId];
 
-  item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
+    item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
 
-  let foundComingUpNext = false;
-  item.break_items = item.break_items.map(mediaItem => {
-    if (mediaItem.played) {
+    let foundComingUpNext = false;
+    item.break_items = item.break_items.map(mediaItem => {
+      if (mediaItem.played) {
+        return mediaItem;
+      }
+      // Check if item has started playings
+      if (
+        !mediaItem.playing &&
+        item.startTime + mediaItem.durationOffset < new Date().valueOf() &&
+        item.startTime + mediaItem.durationOffset + mediaItem.duration > new Date().valueOf()
+      ) {
+        mediaItem.playing = true;
+        mediaItem.stopped = false;
+        mediaItem.comingUpNext = false;
+      }
+
+      if (mediaItem.playing) {
+        mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
+      }
+
+      // Coming up next
+      if (
+        !foundComingUpNext &&
+        !mediaItem.played &&
+        !mediaItem.playing &&
+        item.startTime + mediaItem.durationOffset - new Date().valueOf() < timerDurations.comingUpNext
+      ) {
+        mediaItem.comingUpNext = true;
+        foundComingUpNext = true;
+        mediaItem.stopped = false;
+      }
+
+      // Finishes playing
+      if (mediaItem.playing && item.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()) {
+        mediaItem.playing = false;
+        mediaItem.played = true;
+      }
       return mediaItem;
-    }
-    // Check if item has started playings
-    if (
-      !mediaItem.playing &&
-      item.startTime + mediaItem.durationOffset < new Date().valueOf() &&
-      item.startTime + mediaItem.durationOffset + mediaItem.duration > new Date().valueOf()
-    ) {
-      mediaItem.playing = true;
-      mediaItem.stopped = false;
-      mediaItem.comingUpNext = false;
-    }
+    });
 
-    if (mediaItem.playing) {
-      mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
-    }
+    if (item.break_items.filter(mediaItem => mediaItem.played).length === item.break_items.length) {
+      item.playing = false;
+      item.played = true;
+      item.stopped = false;
+      draft.currentPlayingItemId = '';
 
-    // Coming up next
-    if (
-      !foundComingUpNext &&
-      !mediaItem.played &&
-      !mediaItem.playing &&
-      item.startTime + mediaItem.durationOffset - new Date().valueOf() < timerDurations.comingUpNext
-    ) {
-      mediaItem.comingUpNext = true;
-      foundComingUpNext = true;
-      mediaItem.stopped = false;
-    }
-
-    // Finishes playing
-    if (mediaItem.playing && item.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()) {
-      mediaItem.playing = false;
-      mediaItem.played = true;
-    }
-    return mediaItem;
-  });
-
-  if (item.break_items.filter(mediaItem => mediaItem.played).length === item.break_items.length) {
-    item.playing = false;
-    item.played = true;
-    item.stopped = false;
-    draft.currentPlayingItemId = '';
-
-    if (draft.items.queue.length > 0) {
-      const breakId = draft.items.queue.splice(0, 1)[0];
-      playItem(draft, draft.items[breakId]);
-      draft.currentPlayingItemId = breakId;
+      if (draft.items.queue.length > 0) {
+        const breakId = draft.items.queue.splice(0, 1)[0];
+        playItem(draft, draft.items[breakId]);
+        draft.currentPlayingItemId = breakId;
+      }
     }
   }
+
+  // Graphics
+  if (draft.currentPlayingGraphics.length > 0) {
+    draft.currentPlayingGraphics.forEach(playingGraphicId => {
+      const playingGraphic = draft.items[playingGraphicId];
+      // Finishes playing
+      if (playingGraphic.playing && playingGraphic.startTime + playingGraphic.duration < new Date().valueOf()) {
+        playingGraphic.playing = false;
+        playingGraphic.played = true;
+      }
+    });
+  }
+}
+
+export function playGraphics(draft, item) {
+  item.playing = true;
+  item.stopped = false;
+  item.played = false;
+  item.startTime = new Date().valueOf();
+}
+
+export function stopGraphics(draft, item) {
+  item.playing = false;
+  item.played = false;
+  item.stopped = true;
+  item.endTime = new Date().valueOf();
 }

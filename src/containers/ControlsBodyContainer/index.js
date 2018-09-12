@@ -11,6 +11,8 @@ import {
   dequeueItem,
   updateNowPlaying,
   toggleItem,
+  playGraphics,
+  stopGraphics,
 } from '../../actions/playlistActions';
 import { setPlayerState } from '../../actions/playerStateActions';
 
@@ -34,6 +36,8 @@ function mapDispatchToProps(dispatch) {
       updateNowPlaying,
       toggleItem,
       setPlayerState,
+      playGraphics,
+      stopGraphics,
     },
     dispatch
   );

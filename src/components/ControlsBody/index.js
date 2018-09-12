@@ -223,14 +223,14 @@ class ControlsBody extends Component {
   }
 
   renderLiveGraphics() {
-    const { playlist, sendMessage, selectedEvent, playItem, stopItem, toggleItem, playerState } = this.props;
+    const { playlist, sendMessage, selectedEvent, playGraphics, stopGraphics, toggleItem, playerState } = this.props;
     return (
       <LiveGraphics
         playlist={playlist}
         selectedEvent={selectedEvent}
         sendMessage={sendMessage}
-        playItem={playItem}
-        stopItem={stopItem}
+        playItem={playGraphics}
+        stopItem={stopGraphics}
         updateNowPlaying={this.props.updateNowPlaying}
         toggleItem={toggleItem}
         playerState={playerState}
@@ -370,6 +370,8 @@ ControlsBody.propTypes = {
   width: PropTypes.string.isRequired,
   playerState: PropTypes.object.isRequired,
   setPlayerState: PropTypes.func.isRequired,
+  playGraphics: PropTypes.func.isRequired,
+  stopGraphics: PropTypes.func.isRequired,
 };
 
 export default withWidth()(withStyles(styles)(ControlsBody));

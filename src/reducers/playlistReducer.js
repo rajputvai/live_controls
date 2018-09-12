@@ -1,12 +1,22 @@
 import produce from 'immer';
 import { types } from '../actions/playlistActions';
 
-import { parsePlaylist, playItem, stopItem, queueItem, dequeueItem, updateNowPlaying } from './playlistReducerHelpers';
+import {
+  parsePlaylist,
+  playItem,
+  stopItem,
+  queueItem,
+  dequeueItem,
+  updateNowPlaying,
+  playGraphics,
+  stopGraphics,
+} from './playlistReducerHelpers';
 
 const INITIAL_STATE = {
   playlist: {},
   status: {},
   currentPlayingItemId: '',
+  currentPlayingGraphics: [],
   loading: true,
   items: {},
   noPublishedPlaylistAvailable: false,
@@ -70,6 +80,17 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
         draft.loading = false;
         draft.noPublishedPlaylistAvailable = true;
         break;
+
+      case types.PLAY_GRAPHICS:
+        playGraphics(draft, draft.items[action.payload.graphicId]);
+        draft.currentPlayingGraphics.push(action.payload.graphicId);
+        break;
+
+      case types.STOP_GRAPHICS:
+        stopGraphics(draft, draft.items[action.payload.graphicId]);
+        draft.currentPlayingGraphics.splice(draft.currentPlayingGraphics.indexOf(action.payload.graphicId), 1);
+        break;
+
       default:
     }
   });
