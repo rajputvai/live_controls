@@ -174,7 +174,7 @@ class ControlsBody extends Component {
       <div className={classes.logos}>
         <div className={classes.liveLogo}>
           <div>
-            <img src={liveLogoURL} alt="Live Logo" />
+            <img src={liveLogoURL} />
           </div>
           <div>
             <div className={classes.logoAssetId}>{liveLogoAssetId}</div>
@@ -183,7 +183,7 @@ class ControlsBody extends Component {
         </div>
         <div className={classes.liveLogo}>
           <div>
-            <img src={breakLogoURL} alt="Break Logo" />
+            <img src={breakLogoURL} />
           </div>
           <div>
             <div className={classes.logoAssetId}>{breakLogoAssetId}</div>

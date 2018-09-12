@@ -11,21 +11,7 @@ import BreaksRow from './BreaksRow';
 // Assets
 import Color from '../../../utilities/theme/Color';
 
-const styles = {
-  headerRow: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: Color.primary.p3,
-    padding: '0 20px 10px',
-    display: 'flex',
-    maxWidth: 'calc(100% - 15px)',
-    '& > div': {
-      width: '20%',
-    },
-    '& > div:first-child': {
-      width: '40%',
-    },
-  },
+const styles = theme => ({
   expandIcons: {
     color: '#000',
     fontSize: 18,
@@ -38,43 +24,34 @@ const styles = {
     flexDirection: 'column',
     overflow: 'hidden',
   },
-  breakRow: {
-    backgroundColor: Color.other.o2,
-    border: `solid 1px ${Color.other.o8}`,
-    borderRadius: 4,
-    padding: '0 20px',
-    '& > div': {
-      width: '20%',
-    },
-    '& > div:first-child': {
-      paddingLeft: 14,
-      width: '40%',
+  headerRow: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: Color.primary.p3,
+    display: 'flex',
+    maxWidth: 'calc(100% - 15px)',
+    marginBottom: 10,
+  },
+  cell1: {
+    flex: 1,
+    marginLeft: 20,
+  },
+  cell2: {
+    width: 175,
+    [theme.breakpoints.only('xl')]: {
+      width: 150,
     },
   },
-  breakItemsWrapper: {},
-  breakItemsRow: {
-    padding: '0 20px',
-    position: 'relative',
-    '&:before': {
-      content: '""',
-      position: 'absolute',
-      margin: '0 20px',
-      height: '100%',
-      width: 'calc(100% - 40px)',
-      top: 0,
-      left: 0,
-      backgroundColor: Color.other.o2,
-      border: `solid 1px ${Color.other.o8}`,
-      borderTop: 'none',
-      borderRadius: 4,
+  cell3: {
+    width: 175,
+    [theme.breakpoints.only('xl')]: {
+      width: 150,
     },
-    '& > div': {
-      width: '20%',
-      zIndex: 2,
-    },
-    '& > div:first-child': {
-      width: '40%',
-      paddingLeft: 20,
+  },
+  cell4: {
+    width: 125,
+    [theme.breakpoints.only('xl')]: {
+      width: 100,
     },
   },
   title: {
@@ -90,7 +67,7 @@ const styles = {
   autoSizer: {
     flex: 1,
   },
-};
+});
 
 class LiveBreaks extends Component {
   componentDidMount() {
@@ -284,10 +261,10 @@ class LiveBreaks extends Component {
     return (
       <div className={classes.root}>
         <div className={classes.headerRow}>
-          <div>BREAK/ ASSET INFORMATION</div>
-          <div>ASSET TYPE</div>
-          <div>PLAYED STATUS</div>
-          <div>ACTIONS </div>
+          <div className={classes.cell1}>BREAK/ ASSET INFORMATION</div>
+          <div className={classes.cell2}>ASSET TYPE</div>
+          <div className={classes.cell3}>PLAYED STATUS</div>
+          <div className={classes.cell4}>ACTIONS</div>
         </div>
         <div className={classes.autoSizer}>
           <AutoSizer>
@@ -301,7 +278,7 @@ class LiveBreaks extends Component {
                 rowHeight={this.getRowHeight}
                 rowRenderer={this.renderRow}
                 rowCount={breakItemIds.length}
-                style={{ outline: 'none' }}
+                style={{ outline: 'none', overflowY: 'scroll' }}
                 overscanIndicesGetter={this.overscanIndicesGetter}
                 overscanRowCount={50}
               />

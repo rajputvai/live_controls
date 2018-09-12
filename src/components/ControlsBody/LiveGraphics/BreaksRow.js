@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MuiIconButton from '@material-ui/core/IconButton';
+import classNames from 'classnames';
 
 // Assets
 import IconButton from '../../../assets/IconButton';
@@ -37,7 +38,7 @@ const comingUpNextStyle = {
   animation: 'flash linear 1.5s infinite',
 };
 
-const styles = {
+const styles = theme => ({
   expandIcons: {
     color: '#000',
     fontSize: 18,
@@ -54,18 +55,10 @@ const styles = {
     border: `solid 1px ${Color.other.o8}`,
     borderRadius: 4,
     // padding: '0 20px',
-    '& > div': {
-      width: '20%',
-    },
-    '& > div:first-child': {
-      paddingLeft: 14,
-      width: '40%',
-    },
   },
   breakItemsWrapper: {},
   breakItemsRow: {
     minHeight: 50,
-    padding: '0 20px',
     position: 'relative',
     '&:before': {
       content: '""',
@@ -80,13 +73,50 @@ const styles = {
       borderTop: 'none',
       borderRadius: 4,
     },
-    '& > div': {
-      width: '20%',
-      zIndex: 2,
+  },
+  cell1: {
+    flex: 1,
+    zIndex: 100,
+    marginLeft: 16,
+  },
+  cell2: {
+    width: 175,
+    zIndex: 100,
+    [theme.breakpoints.only('xl')]: {
+      width: 150,
     },
-    '& > div:first-child': {
-      width: '40%',
-      paddingLeft: 20,
+  },
+  cell3: {
+    width: 175,
+    zIndex: 100,
+    [theme.breakpoints.only('xl')]: {
+      width: 150,
+    },
+  },
+  cell4: {
+    width: 125,
+    zIndex: 100,
+    [theme.breakpoints.only('xl')]: {
+      width: 100,
+    },
+  },
+  subItemCell1: {
+    flex: 1,
+    zIndex: 100,
+    marginLeft: 34,
+  },
+  subItemCell4: {
+    width: 125,
+    zIndex: 100,
+    [theme.breakpoints.only('xl')]: {
+      width: 100,
+    },
+  },
+  actionsIcon: {
+    marginLeft: -10,
+    marginRight: 10,
+    [theme.breakpoints.only('xl')]: {
+      marginRight: 5,
     },
   },
   title: {
@@ -107,6 +137,9 @@ const styles = {
     border: 'solid 1px #f06292',
     color: '#f06292',
     padding: '2px 10px',
+    fontSize: '10px',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
   },
   playingBreak: playingStyle,
   playingItem: {
@@ -114,7 +147,10 @@ const styles = {
   },
   playedBreak: playedStyle,
   playedItem: {
-    '&:before': playedStyle,
+    opacity: 0.7,
+    '&:before': {
+      backgroundColor: '#adcadb',
+    },
   },
   comingUpNextBreak: comingUpNextStyle,
   comingUpNextItem: {
@@ -145,7 +181,7 @@ const styles = {
     fontSize: 11,
     marginTop: 4,
   },
-};
+});
 
 class BreaksRow extends Component {
   shouldComponentUpdate(nextProps) {
@@ -199,9 +235,14 @@ class BreaksRow extends Component {
     const { classes, item, playerState } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        ref={node => {
+          this.row = node;
+        }}
+      >
         <Grid container className={this.getClassname()} alignItems="center">
-          <Grid container alignItems="center">
+          <Grid container alignItems="center" className={classes.cell1}>
             <IconButton
               type={item.expanded ? 'removeCircle' : 'addCircle'}
               className={classes.expandIcons}
@@ -210,24 +251,24 @@ class BreaksRow extends Component {
             <span className={classes.title}>{item.title}</span> <span className={classes.divider}>|</span>{' '}
             <span>{formatDuration(item.duration)}</span>
           </Grid>
-          <div>
+          <div className={classes.cell2}>
             <span className={classes.subType}>{item.sub_type}</span>
           </div>
-          <div className={classes.cell}>
+          <div className={classes.cell3}>
             {item.stopped && 'STOPPED'}
             {item.playing && 'PLAYING'}
             {item.played && 'PLAYED'}
             {!item.playing && !item.played && !item.stopped && 'NOT PLAYED'}
           </div>
-          <div>
+          <div className={classes.cell4}>
             {item.playing ? (
-              <MuiIconButton onClick={this.stopItem} disabled={!playerState.isPlaying}>
+              <MuiIconButton className={classes.actionsIcon} onClick={this.stopItem} disabled={!playerState.isPlaying}>
                 <StopIcon />
               </MuiIconButton>
             ) : (
               <MuiIconButton
                 onClick={this.playItem}
-                className={!playerState.isPlaying ? classes.disabledActionIcons : ''}
+                className={classNames(classes.actionsIcon, !playerState.isPlaying && classes.disabledActionIcons)}
                 disabled={!playerState.isPlaying}
               >
                 <PlayIcon />
@@ -238,7 +279,7 @@ class BreaksRow extends Component {
         {item.expanded &&
           item.break_items.map((breakItem, breakIndex) => (
             <Grid key={breakItem.id} container className={this.getMediaItemClassname(breakItem)} alignItems="center">
-              <Grid container alignItems="center">
+              <Grid container alignItems="center" className={classes.subItemCell1}>
                 <div className={classes.breakIndex}>{breakIndex + 1}</div>
                 <div>
                   <div>
@@ -248,16 +289,16 @@ class BreaksRow extends Component {
                   <div className={classes.assetItemDuration}>DURATION - {formatDuration(breakItem.duration)}</div>
                 </div>
               </Grid>
-              <div>
+              <div className={classes.cell2}>
                 <span className={classes.subType}>{breakItem.sub_type}</span>
               </div>
-              <div>
+              <div className={classes.cell3}>
                 {breakItem.stopped && 'STOPPED'}
                 {breakItem.playing && 'PLAYING'}
                 {breakItem.played && 'PLAYED'}
                 {!breakItem.playing && !breakItem.played && !breakItem.stopped && 'NOT PLAYED'}
               </div>
-              <div>
+              <div className={classes.cell4}>
                 {/* <MuiIconButton disabled>
                   <PlayIcon className={classes.disabledActionIcons} />
                 </MuiIconButton>
