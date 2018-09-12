@@ -89,22 +89,19 @@ const styles = theme => ({
     width: 175,
     zIndex: 100,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 125,
     },
   },
   cell3: {
     width: 175,
     zIndex: 100,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 125,
     },
   },
   cell4: {
-    width: 125,
+    width: 180,
     zIndex: 100,
-    [theme.breakpoints.only('xl')]: {
-      width: 100,
-    },
   },
   subItemCell1: {
     flex: 1,
@@ -112,11 +109,8 @@ const styles = theme => ({
     marginLeft: 34,
   },
   subItemCell4: {
-    width: 125,
+    width: 180,
     zIndex: 100,
-    [theme.breakpoints.only('xl')]: {
-      width: 100,
-    },
   },
   actionsIcon: {
     marginLeft: -10,
@@ -251,8 +245,8 @@ class BreaksRow extends Component {
   };
 
   render() {
-    const { classes, item, queue, currentPlayingItemId, playerState } = this.props;
-    const isPlayDisabled = item.stopped || item.played || !playerState.isPlaying;
+    const { classes, item, queue, currentPlayingItemId, playerState, eventEnded } = this.props;
+    const isPlayDisabled = item.stopped || item.played || !playerState.isPlaying || eventEnded;
     const queued = queue.indexOf(item.asset_id) > -1;
     const someBreakPlaying = currentPlayingItemId !== '';
 
@@ -307,8 +301,8 @@ class BreaksRow extends Component {
               </MuiIconButton>
             </div>
           ) : (
-            <div>
-              <span className={classes.message}>This break has been queued ({queue.indexOf(item.asset_id) + 1})</span>
+            <div className={classes.cell4}>
+              <span className={classes.message}>Break queued ({queue.indexOf(item.asset_id) + 1})</span>
               <MuiIconButton onClick={this.dequeueItem}>
                 <DequeueIcon />
               </MuiIconButton>
@@ -364,6 +358,7 @@ BreaksRow.propTypes = {
   currentPlayingItemId: PropTypes.string.isRequired,
   queue: PropTypes.array.isRequired,
   playerState: PropTypes.object.isRequired,
+  eventEnded: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(BreaksRow);

@@ -39,20 +39,17 @@ const styles = theme => ({
   cell2: {
     width: 175,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 125,
     },
   },
   cell3: {
     width: 175,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 125,
     },
   },
   cell4: {
-    width: 125,
-    [theme.breakpoints.only('xl')]: {
-      width: 100,
-    },
+    width: 180,
   },
   title: {
     fontSize: 16,
@@ -90,6 +87,7 @@ class LiveBreaks extends Component {
   });
 
   playItem = breakId => {
+    this.props.toggleItem(breakId);
     const {
       selectedEvent,
       playlist: { playlist, items },
@@ -229,6 +227,7 @@ class LiveBreaks extends Component {
           dequeueItem={this.dequeueItem}
           toggleItem={this.props.toggleItem}
           playerState={this.props.playerState}
+          eventEnded={this.props.selectedEvent.timeRemainingTillEventEnd < 0}
         />
       </div>
     );

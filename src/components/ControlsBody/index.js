@@ -8,6 +8,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import moment from 'moment';
+import classNames from 'classnames';
 
 // Components
 import LiveBreaks from './LiveBreaks';
@@ -89,6 +90,10 @@ const styles = theme => ({
     margin: '20px 20px 20px 0',
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+  },
+  disabledPaper: {
+    opacity: 0.8,
   },
   tabs: {
     borderBottom: `solid 1px ${Color.other.o6}`,
@@ -134,6 +139,11 @@ const styles = theme => ({
   },
   logoAssetId: {
     color: '#0085bc',
+  },
+  eventEndedNote: {
+    fontSize: 20,
+    textAlign: 'center',
+    padding: 20,
   },
 });
 window.moment = moment;
@@ -241,7 +251,15 @@ class ControlsBody extends Component {
   renderSmallScreenLayout() {
     const { classes } = this.props;
     return (
-      <Paper className={classes.paper}>
+      <Paper
+        className={classNames(
+          classes.paper,
+          this.props.selectedEvent.timeRemainingTillEventEnd < 0 && classes.disabledPaper
+        )}
+      >
+        {this.props.selectedEvent.timeRemainingTillEventEnd < 0 && (
+          <div className={classes.eventEndedNote}>This event has ended.</div>
+        )}
         <Tabs
           value={this.state.tab}
           onChange={this.handleTabChange}
@@ -268,20 +286,37 @@ class ControlsBody extends Component {
   renderLargeScreenLayout() {
     const { classes } = this.props;
     return (
-      <Fragment>
-        <Paper className={classes.paper}>
-          <div className={classes.xlPaperHeader}>LIVE BREAKS</div>
-          <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            {this.renderLiveBreaks()}
-          </Grid>
-        </Paper>
-        <Paper className={classes.paper}>
-          <div className={classes.xlPaperHeader}>LIVE GRAPHICS</div>
-          <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
-            {this.renderLiveGraphics()}
-          </Grid>
-        </Paper>
-      </Fragment>
+      <Grid container item sm direction="column">
+        {this.props.selectedEvent.timeRemainingTillEventEnd < 0 && (
+          <div className={classes.eventEndedNote}>This event has ended.</div>
+        )}
+        <Grid container item style={{ flex: 1 }}>
+          <Paper
+            style={{ flex: 7 }}
+            className={classNames(
+              classes.paper,
+              this.props.selectedEvent.timeRemainingTillEventEnd < 0 && classes.disabledPaper
+            )}
+          >
+            <div className={classes.xlPaperHeader}>LIVE BREAKS</div>
+            <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+              {this.renderLiveBreaks()}
+            </Grid>
+          </Paper>
+          <Paper
+            style={{ flex: 5 }}
+            className={classNames(
+              classes.paper,
+              this.props.selectedEvent.timeRemainingTillEventEnd < 0 && classes.disabledPaper
+            )}
+          >
+            <div className={classes.xlPaperHeader}>LIVE GRAPHICS</div>
+            <Grid container wrap="nowrap" className={classes.tabContentWrapper}>
+              {this.renderLiveGraphics()}
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 
@@ -296,18 +331,11 @@ class ControlsBody extends Component {
         </Paper>
       );
     }
-    if (this.props.selectedEvent.timeRemainingTillEventEnd > 0) {
-      return (
-        <Fragment>
-          {width !== 'xl' && this.renderSmallScreenLayout()}
-          {width === 'xl' && this.renderLargeScreenLayout()}
-        </Fragment>
-      );
-    }
     return (
-      <Paper className={classes.paper}>
-        <div className={classes.eventHasEnded}>The event has ended.</div>
-      </Paper>
+      <Fragment>
+        {width !== 'xl' && this.renderSmallScreenLayout()}
+        {width === 'xl' && this.renderLargeScreenLayout()}
+      </Fragment>
     );
   }
 

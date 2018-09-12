@@ -22,19 +22,19 @@ const styles = theme => ({
   cell2: {
     width: 175,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 100,
     },
   },
   cell3: {
     width: 175,
     [theme.breakpoints.only('xl')]: {
-      width: 150,
+      width: 100,
     },
   },
   cell4: {
     width: 125,
     [theme.breakpoints.only('xl')]: {
-      width: 100,
+      width: 60,
     },
   },
   expandIcons: {
@@ -87,6 +87,7 @@ class LiveGraphics extends Component {
   });
 
   playItem = breakId => {
+    this.props.toggleItem(breakId);
     const {
       selectedEvent,
       playlist: { playlist, items },
@@ -176,6 +177,7 @@ class LiveGraphics extends Component {
           stopItem={this.stopItem}
           toggleItem={this.props.toggleItem}
           playerState={this.props.playerState}
+          eventEnded={this.props.selectedEvent.timeRemainingTillEventEnd < 0}
         />
       </div>
     );

@@ -58,6 +58,7 @@ export function parsePlaylist(draft, items, playlistId) {
 
 export function playItem(draft, item) {
   item.playing = true;
+  item.expanded = true;
   item.stopped = false;
   item.played = false;
   item.startTime = new Date().valueOf();
