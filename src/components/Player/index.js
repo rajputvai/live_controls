@@ -47,7 +47,6 @@ class Player extends Component {
     if (this.props.globalKey === 'inputPlayer') {
       player.onStateChange(state => {
         this.props.setPlayerState(state);
-        console.log('state ', state);
       });
     }
   }
