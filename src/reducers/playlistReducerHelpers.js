@@ -230,13 +230,14 @@ export function updateNowPlaying(state, draft) {
         playingGraphic.playing = false;
         playingGraphic.played = true;
         playingGraphic.stopped = false;
-        draft.currentPlayingItemId = '';
+        draft.currentPlayingGraphics.splice(draft.currentPlayingGraphics.indexOf(playingGraphicId), 1);
 
-        if (draft.items.queue.length > 0) {
-          const breakId = draft.items.queue.splice(0, 1)[0];
-          playItem(draft, draft.items[breakId]);
-          draft.currentPlayingItemId = breakId;
-        }
+        // Queuing for graphics
+        // if (draft.items.queue.length > 0) {
+        //   const breakId = draft.items.queue.splice(0, 1)[0];
+        //   playItem(draft, draft.items[breakId]);
+        //   draft.currentPlayingItemId = breakId;
+        // }
       }
     });
   }
