@@ -70,7 +70,7 @@ class Player extends Component {
   };
 
   render() {
-    const { classes, id, url, width, height, latency, playerState } = this.props;
+    const { classes, id, url, width, height, latency } = this.props;
     return (
       <div
         style={{
@@ -95,15 +95,16 @@ class Player extends Component {
           height={`${height}px`}
           auto-reconnect="true"
         />
-        {playerState.isPlaying && (
-          <div className={classes.controlsWrapper}>
-            {this.state.volume === 0 ? (
-              <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
-            ) : (
-              <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
-            )}
-          </div>
-        )}
+        {window[this.props.globalKey] &&
+          window[this.props.globalKey].readyState() === 2 && (
+            <div className={classes.controlsWrapper}>
+              {this.state.volume === 0 ? (
+                <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
+              ) : (
+                <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+              )}
+            </div>
+          )}
       </div>
     );
   }
@@ -118,7 +119,7 @@ Player.propTypes = {
   globalKey: PropTypes.string.isRequired,
   latency: PropTypes.string.isRequired,
   setPlayerState: PropTypes.func.isRequired,
-  playerState: PropTypes.object.isRequired,
+  // playerState: PropTypes.object.isRequired,
 };
 
 Player.defaultProps = {
