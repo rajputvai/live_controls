@@ -312,7 +312,7 @@ class ControlsBody extends Component {
   }
 
   render() {
-    const { classes, config, setPlayerState } = this.props;
+    const { classes, config, setPlayerState, playerState } = this.props;
 
     return (
       <Grid container className={classes.root}>
@@ -326,6 +326,7 @@ class ControlsBody extends Component {
               latency={config.VXG_PLAYER_LATENCY}
               globalKey="inputPlayer"
               setPlayerState={setPlayerState}
+              playerState={playerState}
             />
           </div>
           <div className={classes.playerSpacer} />
@@ -336,6 +337,7 @@ class ControlsBody extends Component {
             latency={config.VXG_PLAYER_LATENCY}
             globalKey="outputPlayer"
             setPlayerState={setPlayerState}
+            playerState={playerState}
           />
           {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
             this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (

@@ -57,16 +57,20 @@ class Player extends Component {
   handleVolume = () => {
     this.setState(prevState => {
       if (prevState.volume === 0) {
-        window[this.props.globalKey].volume(1);
+        if (window[this.props.globalKey]) {
+          window[this.props.globalKey].volume(1);
+        }
         return { volume: 1 };
       }
-      window[this.props.globalKey].volume(0);
+      if (window[this.props.globalKey]) {
+        window[this.props.globalKey].volume(0);
+      }
       return { volume: 0 };
     });
   };
 
   render() {
-    const { classes, id, url, width, height, latency } = this.props;
+    const { classes, id, url, width, height, latency, playerState } = this.props;
     return (
       <div
         style={{
@@ -91,13 +95,15 @@ class Player extends Component {
           height={`${height}px`}
           auto-reconnect="true"
         />
-        <div className={classes.controlsWrapper}>
-          {this.state.volume === 0 ? (
-            <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
-          ) : (
-            <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
-          )}
-        </div>
+        {playerState.isPlaying && (
+          <div className={classes.controlsWrapper}>
+            {this.state.volume === 0 ? (
+              <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
+            ) : (
+              <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+            )}
+          </div>
+        )}
       </div>
     );
   }
@@ -112,6 +118,7 @@ Player.propTypes = {
   globalKey: PropTypes.string.isRequired,
   latency: PropTypes.string.isRequired,
   setPlayerState: PropTypes.func.isRequired,
+  playerState: PropTypes.object.isRequired,
 };
 
 Player.defaultProps = {
