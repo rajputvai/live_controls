@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import AppWrapper from './AppWrapper';
 import LoadingGrid from '../../assets/LoadingGrid';
 import NoFeedIdAndNoPlaylistId from './NoFeedIdAndNoPlaylistId';
+import NoEvents from './NoEvents';
 
 class App extends Component {
   componentDidMount() {
@@ -32,7 +33,7 @@ class App extends Component {
       return <LoadingGrid />;
     }
     if (events.events.length === 0) {
-      return <NoFeedIdAndNoPlaylistId />;
+      return <NoEvents />;
     }
     if (!params.eventId || !(params.eventId in events.byId)) {
       // const eventsFilteredByTime = events.events.sort((e1, e2) => new Date(e1.start_time) - new Date(e2.start_time));
