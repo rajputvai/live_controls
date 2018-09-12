@@ -40,16 +40,19 @@ class Player extends Component {
   state = { volume: 0 };
 
   componentDidMount() {
-    const player = window.vxgplayer(this.element.id);
-    window[this.props.globalKey] = player;
-    player.play();
-    player.volume(this.state.volume);
-    if (this.props.globalKey === 'inputPlayer') {
-      player.onStateChange(state => {
-        this.props.setPlayerState(state);
-        console.log('state ', state);
-      });
-    }
+    let player;
+    try {
+      player = window.vxgplayer(this.element.id);
+      window[this.props.globalKey] = player;
+      player.play();
+      player.volume(this.state.volume);
+      if (this.props.globalKey === 'inputPlayer') {
+        player.onStateChange(state => {
+          this.props.setPlayerState(state);
+          console.log('state ', state);
+        });
+      }
+    } catch (err) {}
   }
 
   handleVolume = () => {
