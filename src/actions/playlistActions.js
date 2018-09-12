@@ -10,6 +10,8 @@ export const types = {
   UPDATE_NOW_PLAYING: 'PLAYLIST.UPDATE_NOW_PLAYING',
   TOGGLE_ITEM: 'PLAYLIST.TOGGLE_ITEM',
   NO_PUBLISHED_PLAYLIST_AVAILABLE: 'PLAYLIST.NO_PUBLISHED_PLAYLIST_AVAILABLE',
+  PLAY_GRAPHICS: 'PLAYLIST.PLAY_GRAPHICS',
+  STOP_GRAPHICS: 'PLAYLIST.STOP_GRAPHICS',
 };
 
 export function loadPlaylist(feedId, playlistId) {
@@ -99,5 +101,27 @@ export function toggleItem(itemId) {
 export function noPublishedPlaylistAvailable() {
   return {
     type: types.NO_PUBLISHED_PLAYLIST_AVAILABLE,
+  };
+}
+
+export function playGraphics(eventId, playlistId, graphicId) {
+  return {
+    type: types.PLAY_GRAPHICS,
+    payload: {
+      eventId,
+      playlistId,
+      graphicId,
+    },
+  };
+}
+
+export function stopGraphics(eventId, playlistId, graphicId) {
+  return {
+    type: types.STOP_GRAPHICS,
+    payload: {
+      eventId,
+      playlistId,
+      graphicId,
+    },
   };
 }

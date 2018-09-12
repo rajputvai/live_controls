@@ -95,7 +95,7 @@ class LiveGraphics extends Component {
     const item = items[breakId];
     const startTime = Date.now();
     console.log('requesting player for snapshot at: ', startTime);
-    const timestamp = window.inputPlayer.getPTSVideo();
+    const timestamp = window.inputPlayer ? window.inputPlayer.getPTSVideo() : 0;
     console.log('pts', timestamp);
     const endTime = Date.now();
     console.log('pts received from player at: ', endTime);
@@ -114,10 +114,6 @@ class LiveGraphics extends Component {
         non_live_masking_flag: true,
       },
     });
-
-    if (this.props.playlist.currentPlayingItemId) {
-      this.props.stopItem(selectedEvent.ref_id, playlist.id, this.props.playlist.currentPlayingItemId);
-    }
 
     this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
   };

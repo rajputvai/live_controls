@@ -101,63 +101,170 @@ export function dequeueItem(draft, item) {
 }
 
 export function updateNowPlaying(state, draft) {
-  if (!state.currentPlayingItemId) {
-    return;
-  }
-  const item = draft.items[state.currentPlayingItemId];
+  // Break
+  if (state.currentPlayingItemId) {
+    const item = draft.items[state.currentPlayingItemId];
 
-  item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
+    item.timeRemaining = item.startTime + item.duration - new Date().valueOf();
 
-  let foundComingUpNext = false;
-  item.break_items = item.break_items.map(mediaItem => {
-    if (mediaItem.played) {
+    let foundComingUpNext = false;
+    item.break_items = item.break_items.map(mediaItem => {
+      if (mediaItem.played) {
+        return mediaItem;
+      }
+      // Check if item has started playings
+      if (
+        !mediaItem.playing &&
+        item.startTime + mediaItem.durationOffset < new Date().valueOf() &&
+        item.startTime + mediaItem.durationOffset + mediaItem.duration > new Date().valueOf()
+      ) {
+        mediaItem.playing = true;
+        mediaItem.stopped = false;
+        mediaItem.comingUpNext = false;
+      }
+
+      if (mediaItem.playing) {
+        mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
+      }
+
+      // Coming up next
+      if (
+        !foundComingUpNext &&
+        !mediaItem.played &&
+        !mediaItem.playing &&
+        item.startTime + mediaItem.durationOffset - new Date().valueOf() < timerDurations.comingUpNext
+      ) {
+        mediaItem.comingUpNext = true;
+        foundComingUpNext = true;
+        mediaItem.stopped = false;
+      }
+
+      // Finishes playing
+      if (mediaItem.playing && item.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()) {
+        mediaItem.playing = false;
+        mediaItem.played = true;
+      }
       return mediaItem;
+    });
+
+    if (item.break_items.filter(mediaItem => mediaItem.played).length === item.break_items.length) {
+      item.playing = false;
+      item.played = true;
+      item.stopped = false;
+      draft.currentPlayingItemId = '';
+
+      if (draft.items.queue.length > 0) {
+        const breakId = draft.items.queue.splice(0, 1)[0];
+        playItem(draft, draft.items[breakId]);
+        draft.currentPlayingItemId = breakId;
+      }
     }
-    // Check if item has started playings
-    if (
-      !mediaItem.playing &&
-      item.startTime + mediaItem.durationOffset < new Date().valueOf() &&
-      item.startTime + mediaItem.durationOffset + mediaItem.duration > new Date().valueOf()
-    ) {
-      mediaItem.playing = true;
-      mediaItem.stopped = false;
+  }
+
+  // Graphics
+  if (draft.currentPlayingGraphics.length > 0) {
+    draft.currentPlayingGraphics.forEach(playingGraphicId => {
+      const playingGraphic = draft.items[playingGraphicId];
+      // Finishes playing
+      if (playingGraphic.playing && playingGraphic.startTime + playingGraphic.duration < new Date().valueOf()) {
+        playingGraphic.playing = false;
+        playingGraphic.played = true;
+      }
+
+      // Time remaining
+      if (playingGraphic.playing) {
+        playingGraphic.timeRemaining = playingGraphic.startTime + playingGraphic.duration - new Date().valueOf();
+      }
+
+      let foundComingUpNext = false;
+      playingGraphic.break_items = playingGraphic.break_items.map(mediaItem => {
+        if (mediaItem.played) {
+          return mediaItem;
+        }
+        // Check if item has started playings
+        if (
+          !mediaItem.playing &&
+          playingGraphic.startTime + mediaItem.durationOffset < new Date().valueOf() &&
+          playingGraphic.startTime + mediaItem.durationOffset + mediaItem.duration > new Date().valueOf()
+        ) {
+          mediaItem.playing = true;
+          mediaItem.stopped = false;
+          mediaItem.comingUpNext = false;
+        }
+
+        if (mediaItem.playing) {
+          mediaItem.timeRemaining =
+            playingGraphic.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
+        }
+
+        // Coming up next
+        if (
+          !foundComingUpNext &&
+          !mediaItem.played &&
+          !mediaItem.playing &&
+          playingGraphic.startTime + mediaItem.durationOffset - new Date().valueOf() < timerDurations.comingUpNext
+        ) {
+          mediaItem.comingUpNext = true;
+          foundComingUpNext = true;
+          mediaItem.stopped = false;
+        }
+
+        // Finishes playing
+        if (
+          mediaItem.playing &&
+          playingGraphic.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()
+        ) {
+          mediaItem.playing = false;
+          mediaItem.played = true;
+        }
+        return mediaItem;
+      });
+
+      if (
+        playingGraphic.break_items.filter(mediaItem => mediaItem.played).length === playingGraphic.break_items.length
+      ) {
+        playingGraphic.playing = false;
+        playingGraphic.played = true;
+        playingGraphic.stopped = false;
+        draft.currentPlayingItemId = '';
+
+        if (draft.items.queue.length > 0) {
+          const breakId = draft.items.queue.splice(0, 1)[0];
+          playItem(draft, draft.items[breakId]);
+          draft.currentPlayingItemId = breakId;
+        }
+      }
+    });
+  }
+}
+
+export function playGraphics(draft, item) {
+  item.playing = true;
+  item.stopped = false;
+  item.played = false;
+  item.startTime = new Date().valueOf();
+  let durationOffset = 0;
+  item.break_items.forEach(mediaItem => {
+    mediaItem.durationOffset = durationOffset;
+    durationOffset += mediaItem.duration;
+    mediaItem.played = false;
+    mediaItem.stopped = false;
+  });
+}
+
+export function stopGraphics(draft, item) {
+  item.playing = false;
+  item.played = false;
+  item.stopped = true;
+  item.endTime = new Date().valueOf();
+  item.break_items.forEach(mediaItem => {
+    if (mediaItem.playing) {
+      mediaItem.playing = false;
+      mediaItem.played = false;
+      mediaItem.stopped = true;
+    }
+    if (mediaItem.comingUpNext || (!mediaItem.played && !mediaItem.playing)) {
       mediaItem.comingUpNext = false;
     }
-
-    if (mediaItem.playing) {
-      mediaItem.timeRemaining = item.startTime + mediaItem.durationOffset + mediaItem.duration - new Date().valueOf();
-    }
-
-    // Coming up next
-    if (
-      !foundComingUpNext &&
-      !mediaItem.played &&
-      !mediaItem.playing &&
-      item.startTime + mediaItem.durationOffset - new Date().valueOf() < timerDurations.comingUpNext
-    ) {
-      mediaItem.comingUpNext = true;
-      foundComingUpNext = true;
-      mediaItem.stopped = false;
-    }
-
-    // Finishes playing
-    if (mediaItem.playing && item.startTime + mediaItem.durationOffset + mediaItem.duration < new Date().valueOf()) {
-      mediaItem.playing = false;
-      mediaItem.played = true;
-    }
-    return mediaItem;
   });
-
-  if (item.break_items.filter(mediaItem => mediaItem.played).length === item.break_items.length) {
-    item.playing = false;
-    item.played = true;
-    item.stopped = false;
-    draft.currentPlayingItemId = '';
-
-    if (draft.items.queue.length > 0) {
-      const breakId = draft.items.queue.splice(0, 1)[0];
-      playItem(draft, draft.items[breakId]);
-      draft.currentPlayingItemId = breakId;
-    }
-  }
 }
