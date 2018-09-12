@@ -8,8 +8,8 @@ import IconButton from '../../assets/IconButton';
 
 const styles = {
   root: {
-    '&:hover $volumeIcon': {
-      display: 'block',
+    '&:hover $controlsWrapper': {
+      display: 'flex',
     },
     overflow: 'hidden',
     position: 'relative',
@@ -21,13 +21,18 @@ const styles = {
     margin: 0,
     position: 'absolute',
   },
-  volumeIcon: {
-    zIndex: 100,
-    color: '#fff',
+  controlsWrapper: {
     position: 'absolute',
-    bottom: 0,
-    left: 10,
+    zIndex: 100,
     display: 'none',
+    alignItems: 'center',
+    padding: '5px 10px',
+    width: '100%',
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+  },
+  volumeIcon: {
+    color: '#fff',
   },
 };
 
@@ -84,11 +89,13 @@ class Player extends Component {
           height={`${height}px`}
           auto-reconnect="true"
         />
-        {this.state.volume === 0 ? (
-          <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
-        ) : (
-          <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
-        )}
+        <div className={classes.controlsWrapper}>
+          {this.state.volume === 0 ? (
+            <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
+          ) : (
+            <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+          )}
+        </div>
       </div>
     );
   }
