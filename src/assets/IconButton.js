@@ -14,6 +14,8 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import EditIcon from '@material-ui/icons/Edit';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 
 const styles = {
   '@keyframes shake': {
@@ -45,6 +47,8 @@ const icons = {
   removeRedEye: RemoveRedEyeIcon,
   addCircle: AddCircleIcon,
   removeCircle: RemoveCircleIcon,
+  volumeOff: VolumeOffIcon,
+  volumeUp: VolumeUpIcon,
 };
 
 function IconButton(props) {
@@ -71,6 +75,8 @@ IconButton.propTypes = {
     'search',
     'addCircle',
     'removeCircle',
+    'volumeOff',
+    'volumeUp',
   ]).isRequired,
   className: PropTypes.string,
 };

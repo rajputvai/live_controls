@@ -4,21 +4,41 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import Color from '../../utilities/theme/Color';
+import IconButton from '../../assets/IconButton';
 
 const styles = {
   root: {
+    '&:hover $volumeIcon': {
+      display: 'block',
+    },
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  player: {
     boxShadow: 'none',
     borderRadius: 2,
     border: `solid 1px ${Color.primary.p2}`,
     margin: 0,
+    position: 'absolute',
+  },
+  volumeIcon: {
+    zIndex: 100,
+    color: '#fff',
+    position: 'absolute',
+    bottom: 0,
+    left: 10,
+    display: 'none',
   },
 };
 
 class Player extends Component {
+  state = { volume: 0 };
+
   componentDidMount() {
     const player = window.vxgplayer(this.element.id);
     window[this.props.globalKey] = player;
     player.play();
+    player.volume(this.state.volume);
     if (this.props.globalKey === 'inputPlayer') {
       player.onStateChange(state => {
         this.props.setPlayerState(state);
@@ -27,6 +47,17 @@ class Player extends Component {
     }
   }
 
+  handleVolume = () => {
+    this.setState(prevState => {
+      if (prevState.volume === 0) {
+        window[this.props.globalKey].volume(1);
+        return { volume: 1 };
+      }
+      window[this.props.globalKey].volume(0);
+      return { volume: 0 };
+    });
+  };
+
   render() {
     const { classes, id, url, width, height, latency } = this.props;
     return (
@@ -34,18 +65,17 @@ class Player extends Component {
         style={{
           width,
           height,
-          overflow: 'hidden',
         }}
+        className={classes.root}
       >
         <div
           ref={el => {
             this.element = el;
           }}
           id={id}
-          className={classNames('vxgplayer', classes.root)}
+          className={classNames('vxgplayer', classes.player)}
           url={url}
           aspect-ratio="true"
-          mute="true"
           latency={latency}
           autostart="true"
           nmf-src="/javascripts/vxgplayer/pnacl/Release/media_player.nmf"
@@ -54,6 +84,11 @@ class Player extends Component {
           height={`${height}px`}
           auto-reconnect="true"
         />
+        {this.state.volume === 0 ? (
+          <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
+        ) : (
+          <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+        )}
       </div>
     );
   }
