@@ -9,13 +9,12 @@ import ControlsBodyContainer from '../../containers/ControlsBodyContainer';
 class AppWrapper extends Component {
   state = {};
 
-  getLatestPlaylistId() {
+  getLatestPlaylistId(eventId) {
     const {
       events: { byId },
-      eventIdInUrl,
     } = this.props;
 
-    const playlists = byId[eventIdInUrl].playlists;
+    const playlists = byId[eventId].playlists;
     const publishedPlaylists = playlists.filter(playlist => playlist.state === 'published');
     const orderedByLatest = publishedPlaylists.sort((p1, p2) => p2.id - p1.id);
     if (orderedByLatest.length > 0) {
@@ -26,7 +25,7 @@ class AppWrapper extends Component {
 
   selectEventAndLoadPlaylist(feedId, eventId) {
     this.props.selectEvent(eventId);
-    const idToFetch = this.getLatestPlaylistId();
+    const idToFetch = this.getLatestPlaylistId(eventId);
     if (idToFetch) {
       this.props.loadPlaylist(feedId, idToFetch);
     } else {
