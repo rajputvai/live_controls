@@ -167,6 +167,9 @@ export function updateNowPlaying(state, draft) {
     draft.currentPlayingGraphics.forEach(playingGraphicId => {
       const playingGraphic = draft.items[playingGraphicId];
       // Finishes playing
+      if (playingGraphic.playing) {
+        playingGraphic.expanded = true;
+      }
       if (playingGraphic.playing && playingGraphic.startTime + playingGraphic.duration < new Date().valueOf()) {
         playingGraphic.playing = false;
         playingGraphic.played = true;

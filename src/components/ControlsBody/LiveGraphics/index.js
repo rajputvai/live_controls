@@ -87,7 +87,6 @@ class LiveGraphics extends Component {
   });
 
   playItem = breakId => {
-    this.props.toggleItem(breakId);
     const {
       selectedEvent,
       playlist: { playlist, items },
