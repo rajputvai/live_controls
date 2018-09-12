@@ -17,6 +17,7 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/observable/dom/webSocket';
 import 'rxjs/observable/dom/WebSocketSubject';
 import 'rxjs/add/observable/interval';
+import 'rxjs/add/observable/empty';
 
 import configLoaderEpics from './configLoaderEpics';
 import eventsEpics from './eventsEpics';

@@ -40,24 +40,31 @@ class Player extends Component {
   state = { volume: 0 };
 
   componentDidMount() {
-    const player = window.vxgplayer(this.element.id);
-    window[this.props.globalKey] = player;
-    player.play();
-    player.volume(this.state.volume);
-    if (this.props.globalKey === 'inputPlayer') {
-      player.onStateChange(state => {
-        this.props.setPlayerState(state);
-      });
-    }
+    let player;
+    try {
+      player = window.vxgplayer(this.element.id);
+      window[this.props.globalKey] = player;
+      player.play();
+      player.volume(this.state.volume);
+      if (this.props.globalKey === 'inputPlayer') {
+        player.onStateChange(state => {
+          this.props.setPlayerState(state);
+        });
+      }
+    } catch (err) {}
   }
 
   handleVolume = () => {
     this.setState(prevState => {
       if (prevState.volume === 0) {
-        window[this.props.globalKey].volume(1);
+        if (window[this.props.globalKey]) {
+          window[this.props.globalKey].volume(1);
+        }
         return { volume: 1 };
       }
-      window[this.props.globalKey].volume(0);
+      if (window[this.props.globalKey]) {
+        window[this.props.globalKey].volume(0);
+      }
       return { volume: 0 };
     });
   };
@@ -88,13 +95,16 @@ class Player extends Component {
           height={`${height}px`}
           auto-reconnect="true"
         />
-        <div className={classes.controlsWrapper}>
-          {this.state.volume === 0 ? (
-            <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
-          ) : (
-            <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+        {window[this.props.globalKey] &&
+          window[this.props.globalKey].readyState() === 2 && (
+            <div className={classes.controlsWrapper}>
+              {this.state.volume === 0 ? (
+                <IconButton type="volumeOff" onClick={this.handleVolume} className={classes.volumeIcon} />
+              ) : (
+                <IconButton type="volumeUp" onClick={this.handleVolume} className={classes.volumeIcon} />
+              )}
+            </div>
           )}
-        </div>
       </div>
     );
   }
@@ -109,6 +119,7 @@ Player.propTypes = {
   globalKey: PropTypes.string.isRequired,
   latency: PropTypes.string.isRequired,
   setPlayerState: PropTypes.func.isRequired,
+  // playerState: PropTypes.object.isRequired,
 };
 
 Player.defaultProps = {

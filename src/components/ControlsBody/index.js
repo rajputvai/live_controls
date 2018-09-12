@@ -174,7 +174,7 @@ class ControlsBody extends Component {
       <div className={classes.logos}>
         <div className={classes.liveLogo}>
           <div>
-            <img src={liveLogoURL} alt="Live Logo" />
+            <img src={liveLogoURL} />
           </div>
           <div>
             <div className={classes.logoAssetId}>{liveLogoAssetId}</div>
@@ -183,7 +183,7 @@ class ControlsBody extends Component {
         </div>
         <div className={classes.liveLogo}>
           <div>
-            <img src={breakLogoURL} alt="Break Logo" />
+            <img src={breakLogoURL} />
           </div>
           <div>
             <div className={classes.logoAssetId}>{breakLogoAssetId}</div>
@@ -312,7 +312,7 @@ class ControlsBody extends Component {
   }
 
   render() {
-    const { classes, config, setPlayerState } = this.props;
+    const { classes, config, setPlayerState, playerState } = this.props;
 
     return (
       <Grid container className={classes.root}>
@@ -326,6 +326,7 @@ class ControlsBody extends Component {
               latency={config.VXG_PLAYER_LATENCY}
               globalKey="inputPlayer"
               setPlayerState={setPlayerState}
+              playerState={playerState}
             />
           </div>
           <div className={classes.playerSpacer} />
@@ -336,6 +337,7 @@ class ControlsBody extends Component {
             latency={config.VXG_PLAYER_LATENCY}
             globalKey="outputPlayer"
             setPlayerState={setPlayerState}
+            playerState={playerState}
           />
           {this.props.selectedEvent.timeRemainingTillEventStart <= 0 &&
             this.props.selectedEvent.timeRemainingTillEventEnd > 0 && (
