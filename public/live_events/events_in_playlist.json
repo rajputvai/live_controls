@@ -1,0 +1,1324 @@
+{
+  "events": [
+    {
+      "name": "Major League Soccer",
+      "ref_id": "MLS-30-11-2018-5-12-1543579076",
+      "start_time": "2018-11-30T12:06:00.000Z",
+      "end_time": "2018-11-30T12:11:00.000Z",
+      "timezone": "America/New_York",
+      "state": "new",
+      "event_type": "managed",
+      "meta": {
+        "key1": "value1"
+      },
+      "intents": [
+        {
+          "name": "Alessandrini-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Audio-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Bad-live-source-quality",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Carlsberg-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Chivas-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "End-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Entry-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Exit-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-end-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-begin",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-end",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-half",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Foul",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal-replay",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Post-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Pre-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Redcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Romario-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Sebastian-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Skyscraper-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Technical-problem",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Video-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Woodland-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Yellowcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        }
+      ],
+      "playlists": [
+        {
+          "id": 1469,
+          "type": "break",
+          "state": "published"
+        }
+      ]
+    },
+    {
+      "name": "Major League Soccer",
+      "ref_id": "MLS-30-11-2018-5-13-1543579077",
+      "start_time": "2018-11-30T12:12:00.000Z",
+      "end_time": "2018-11-30T12:17:00.000Z",
+      "timezone": "America/New_York",
+      "state": "new",
+      "event_type": "managed",
+      "meta": {
+        "key1": "value1"
+      },
+      "intents": [
+        {
+          "name": "Alessandrini-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Audio-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Bad-live-source-quality",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Carlsberg-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Chivas-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "End-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Entry-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Exit-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-end-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-begin",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-end",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-half",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Foul",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal-replay",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Post-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Pre-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Redcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Romario-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Sebastian-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Skyscraper-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Technical-problem",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Video-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Woodland-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Yellowcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        }
+      ],
+      "playlists": [
+        {
+          "id": 1470,
+          "type": "break",
+          "state": "published"
+        }
+      ]
+    },
+    {
+      "name": "Major League Soccer",
+      "ref_id": "MLS-30-11-2018-5-14-1543579077",
+      "start_time": "2018-11-30T12:18:00.000Z",
+      "end_time": "2018-11-30T12:23:00.000Z",
+      "timezone": "America/New_York",
+      "state": "new",
+      "event_type": "managed",
+      "meta": {
+        "key1": "value1"
+      },
+      "intents": [
+        {
+          "name": "Alessandrini-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Audio-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Bad-live-source-quality",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Carlsberg-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Chivas-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "End-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Entry-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Exit-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-end-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-begin",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-end",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-half",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Foul",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal-replay",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Post-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Pre-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Redcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Romario-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Sebastian-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Skyscraper-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Technical-problem",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Video-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Woodland-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Yellowcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        }
+      ],
+      "playlists": [
+        {
+          "id": 1471,
+          "type": "break",
+          "state": "published"
+        }
+      ]
+    },
+    {
+      "name": "Major League Soccer",
+      "ref_id": "MLS-30-11-2018-5-15-1543579077",
+      "start_time": "2018-11-30T12:24:00.000Z",
+      "end_time": "2018-11-30T12:29:00.000Z",
+      "timezone": "America/New_York",
+      "state": "new",
+      "event_type": "managed",
+      "meta": {
+        "key1": "value1"
+      },
+      "intents": [
+        {
+          "name": "Alessandrini-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Audio-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Bad-live-source-quality",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Carlsberg-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Chivas-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "End-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Entry-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Exit-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-end-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-begin",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-end",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-half",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Foul",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal-replay",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Post-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Pre-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Redcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Romario-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Sebastian-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Skyscraper-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Technical-problem",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Video-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Woodland-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Yellowcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        }
+      ],
+      "playlists": [
+        {
+          "id": 1472,
+          "type": "break",
+          "state": "published"
+        }
+      ]
+    },
+    {
+      "name": "Major League Soccer",
+      "ref_id": "MLS-30-11-2018-5-16-1543579078",
+      "start_time": "2018-11-30T12:30:00.000Z",
+      "end_time": "2018-11-30T12:35:00.000Z",
+      "timezone": "America/New_York",
+      "state": "new",
+      "event_type": "managed",
+      "meta": {
+        "key1": "value1"
+      },
+      "intents": [
+        {
+          "name": "Alessandrini-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Audio-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Bad-live-source-quality",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Carlsberg-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Chivas-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "End-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Entry-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Exit-break",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 5000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-end-of-match",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extend-half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-begin",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-end",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Extended-match-half",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Foul",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Goal-replay",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Half-time",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 15000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Post-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Pre-awards",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 30000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Redcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Romario-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Sebastian-player",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Skyscraper-aband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Technical-problem",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Video-loss",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Woodland-lband",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        },
+        {
+          "name": "Yellowcard",
+          "start_time": "2018-09-07T08:00:00.080Z",
+          "duration": 10000,
+          "preroll": 0,
+          "trigger": "manual",
+          "intent_type": "default",
+          "action_type": "any-video"
+        }
+      ],
+      "playlists": [
+        {
+          "id": 1473,
+          "type": "break",
+          "state": "published"
+        }
+      ]
+    }
+  ]
+}

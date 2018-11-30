@@ -12,6 +12,8 @@ import AppContainer from './containers/AppContainer';
 import ConfigLoaderContainer from './containers/ConfigLoaderContainer';
 import WebsocketContainer from './containers/WebsocketContainer';
 
+localStorage.clear();
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

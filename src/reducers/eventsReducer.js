@@ -1,5 +1,4 @@
 import produce from 'immer';
-import moment from 'moment';
 
 import { types } from '../actions/eventsActions';
 
@@ -14,9 +13,8 @@ const INITIAL_STATE = {
 };
 
 function getRemainingTime(draft) {
-  const now = moment();
-  draft.selectedEvent.timeRemainingTillEventStart = moment(draft.selectedEvent.start_time).diff(now, 'milliseconds');
-  draft.selectedEvent.timeRemainingTillEventEnd = moment(draft.selectedEvent.end_time).diff(now, 'milliseconds');
+  draft.selectedEvent.timeRemainingTillEventStart = -1000000;
+  draft.selectedEvent.timeRemainingTillEventEnd = 864000000000000;
 }
 
 export default function eventsReducer(state = INITIAL_STATE, action) {

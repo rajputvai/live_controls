@@ -1,8 +1,9 @@
 {
-  "API_URL": "http://blipzzard.amagi.tv/v1/api/",
-  "AUTH_TOKEN": "RxqYxQC2qGw8tjzKsWB4",
-  "INPUT_SOURCE_URL": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
-  "PLAYING_NOW_URL": "rtsp://184.72.239.149/vod/mp4:BigBuckBunny_115k.mov",
+  "API_URL": "",
+  "AUTH_TOKEN": "pwSonz9GyxzqdZ33kMmh",
+  "INPUT_SOURCE_URL": "rtsp://182.72.211.138:4001/AmagiRTSPStream",
+  "PLAYING_NOW_URL": "rtsp://182.72.211.138:4002/AmagiRTSPStream",
   "WEBSOCKET_URL": "ws://localhost:5006",
   "VXG_PLAYER_LATENCY": "300" 
 }
+

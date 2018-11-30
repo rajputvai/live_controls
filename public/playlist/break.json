@@ -1,0 +1,1845 @@
+{
+  "id": 1469,
+  "play_on": "2018-11-30",
+  "uploaded_by": "Anusha",
+  "created_at": "2018-11-30T06:59:23.000-05:00",
+  "status": "published",
+  "ptype": "break",
+  "version": "MLS-30-11-2018-5-12-154357907620181130-3836-1rh9l1e",
+  "live_event": {
+    "name": "Major League Soccer",
+    "ref_id": "MLS-30-11-2018-5-12-1543579076"
+  },
+  "start_time": "2018-11-30T06:00:00.000-05:00",
+  "end_time": "2018-12-01T06:00:00.000-05:00",
+  "items": [
+    {
+      "id": 1,
+      "title": "Entry-break",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Entry-break",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 5000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 2,
+          "title": "MLS Ident",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPBUM00005",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 66,
+            "media_id": 84,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 66,
+              "media_id": 84,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005.mp4"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Exit-break",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Exit-break",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 5000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 4,
+          "title": "MLS Ident",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPBUM00005",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 66,
+            "media_id": 84,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 66,
+              "media_id": 84,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005.mp4"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Half-time",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Half-time",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 15040,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 6,
+          "title": "Sony",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00106",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 40,
+            "media_id": 62,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 40,
+              "media_id": 62,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106.mp4"
+        },
+        {
+          "id": 7,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00103",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 33,
+            "media_id": 55,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 33,
+              "media_id": 55,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00103_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00103.mp4"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "End-of-match",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "End-of-match",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 15000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 9,
+          "title": "Puma",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00102",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 250,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 35,
+            "media_id": 57,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 250,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 35,
+              "media_id": 57,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00102_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00102.mp4"
+        },
+        {
+          "id": 10,
+          "title": "Etsy",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00100",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 32,
+            "media_id": 54,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 32,
+              "media_id": 54,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100.mp4"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Extend-half-time",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Extend-half-time",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 15040,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 12,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00104",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 39,
+            "media_id": 61,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 39,
+              "media_id": 61,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104.mp4"
+        },
+        {
+          "id": 13,
+          "title": "Sony",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00105",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 36,
+            "media_id": 58,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 36,
+              "media_id": 58,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00105_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00105.mp4"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Extend-end-of-match",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Extend-end-of-match",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 15040,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 15,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00104",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 39,
+            "media_id": 61,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 39,
+              "media_id": 61,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104.mp4"
+        },
+        {
+          "id": 16,
+          "title": "Etsy",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00100",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 32,
+            "media_id": 54,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 32,
+              "media_id": 54,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100.mp4"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Extended-match-begin",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Extended-match-begin",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 30040,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 18,
+          "title": "Fitbit",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00101",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 500,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 41,
+            "media_id": 63,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 20000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 500,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 41,
+              "media_id": 63,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101.mp4"
+        },
+        {
+          "id": 19,
+          "title": "Sony",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00106",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 40,
+            "media_id": 62,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 40,
+              "media_id": 62,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106.mp4"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Extended-match-half",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Extended-match-half",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 30000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 21,
+          "title": "Galaxy Note",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00008",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 750,
+              "default_segment": true,
+              "file_offset": 13724,
+              "start_timecode": 2040
+            },
+            "id": 29,
+            "media_id": 51,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 30000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 750,
+                "default_segment": true,
+                "file_offset": 13724,
+                "start_timecode": 2040
+              },
+              "id": 29,
+              "media_id": 51,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00008_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00008.mp4"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Extended-match-end",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Extended-match-end",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 30080,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 23,
+          "title": "Sony",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00106",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 40,
+            "media_id": 62,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 40,
+              "media_id": 62,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00106.mp4"
+        },
+        {
+          "id": 24,
+          "title": "Puma",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00102",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 250,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 35,
+            "media_id": 57,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 250,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 35,
+              "media_id": 57,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00102_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00102.mp4"
+        },
+        {
+          "id": 25,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00104",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 39,
+            "media_id": 61,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 39,
+              "media_id": 61,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104.mp4"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Pre-awards",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Pre-awards",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 30040,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 27,
+          "title": "Fitbit",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00101",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 500,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 41,
+            "media_id": 63,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 20000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 500,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 41,
+              "media_id": 63,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101.mp4"
+        },
+        {
+          "id": 28,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00104",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 251,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 39,
+            "media_id": 61,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10040,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 251,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 39,
+              "media_id": 61,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00104.mp4"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Post-awards",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "Post-awards",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 30000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 30,
+          "title": "Fitbit",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00101",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 500,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 41,
+            "media_id": 63,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 20000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 500,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 41,
+              "media_id": 63,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00101.mp4"
+        },
+        {
+          "id": 31,
+          "title": "Chiron",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00103",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 33,
+            "media_id": 55,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 33,
+              "media_id": 55,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00103_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00103.mp4"
+        },
+        {
+          "id": 32,
+          "title": "Etsy",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPCOM00100",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 32,
+            "media_id": 54,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 32,
+              "media_id": 54,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPCOM00100.mp4"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Goal",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Goal",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 34,
+          "title": "Goal",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00002",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00002_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00002.mp4"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "title": "Goal-replay",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Goal-replay",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 36,
+          "title": "Goal Replay",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00003",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00003_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00003.mp4"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "title": "Alessandrini-player",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Alessandrini-player",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 38,
+          "title": "Alessandrini Player",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00015",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00015_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00015.mp4"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "title": "Sebastian-player",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Sebastian-player",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 40,
+          "title": "Sebastian Player",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00016",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00016_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00016.mp4"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "title": "Romario-player",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Romario-player",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 42,
+          "title": "Romario Player",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00017",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00017_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00017.mp4"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "title": "Foul",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Foul",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 44,
+          "title": "Foul",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00001",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00001_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00001.mp4"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "title": "Yellowcard",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Yellowcard",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 46,
+          "title": "Yellowcard",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00005",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00005_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00005.mp4"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "title": "Redcard",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Redcard",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 48,
+          "title": "Redcard",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00004",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00004_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00004.mp4"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "title": "Carlsberg-lband",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Carlsberg-lband",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 50,
+          "title": "Carlsberg",
+          "type": "secondary",
+          "sub_type": "lband",
+          "asset_id": "AMGEXPS000011",
+          "comments": "dve_type=lband&dve_width=1442&dve_height=810&dve_posx=478&dve_posy=270&lband_position=left&effect_duration=1200&dve_height=810&dve_posx=478&dve_posy=270&dve_type=lband&dve_width=1442&effect_duration=1200&lband_position=left",
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS000011_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS000011.mp4"
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "title": "Woodland-lband",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Woodland-lband",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 52,
+          "title": "Woodland",
+          "type": "secondary",
+          "sub_type": "lband",
+          "asset_id": "AMGEXPS000010",
+          "comments": "dve_type=lband&dve_width=1442&dve_height=810&dve_posx=478&dve_posy=270&lband_position=left&effect_duration=1200&dve_height=812&dve_posx=478&dve_posy=268&dve_type=lband&dve_width=1442&effect_duration=1200&lband_position=left",
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS000010_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS000010.mp4"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "title": "Chivas-aband",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Chivas-aband",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 54,
+          "title": "Chivas",
+          "type": "secondary",
+          "sub_type": "aston",
+          "asset_id": "AMGEXPS000012",
+          "comments": "dve_type=aston&dve_width=1920&dve_height=810&dve_posx=0&dve_posy=270&effect_duration=1200&dve_height=810&dve_posx=0&dve_posy=270&dve_type=aston&dve_width=1920&effect_duration=1200",
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS000012_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS000012.mp4"
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "title": "Skyscraper-aband",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Skyscraper-aband",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 56,
+          "title": "Skyscraper",
+          "type": "secondary",
+          "sub_type": "aston",
+          "asset_id": "AMGEXPS00009",
+          "comments": "dve_type=aston&dve_width=1920&dve_height=810&dve_posx=0&dve_posy=270&effect_duration=1200&dve_height=810&dve_posx=0&dve_posy=270&dve_type=aston&dve_width=1920&effect_duration=1200",
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS00009_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS00009.mp4"
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "title": "Audio-loss",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Audio-loss",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 58,
+          "title": "Audio loss",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00007",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00007_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00007.mp4"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "title": "Video-loss",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Video-loss",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 60,
+          "title": "Video loss",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00006",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00006_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00006.mp4"
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "title": "Bad-live-source-quality",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Bad-live-source-quality",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 62,
+          "title": "Video loss",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00008",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00008_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00008.mp4"
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "title": "Technical-problem",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "Technical-problem",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 10000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 64,
+          "title": "Video loss",
+          "type": "secondary",
+          "sub_type": "bug",
+          "asset_id": "AMGEXPL00009",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 10000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPL00009_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPL00009.mp4"
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "title": "LAST_BREAK",
+      "type": "signature",
+      "sub_type": "signature",
+      "asset_id": "LAST_BREAK",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 5000,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 66,
+          "title": "MLS Ident",
+          "type": "primary",
+          "sub_type": "commerical",
+          "asset_id": "AMGEXPBUM00005",
+          "comments": null,
+          "join_status": null,
+          "offset": 0,
+          "segment": {
+            "data": {
+              "offset": 0,
+              "duration": 125,
+              "default_segment": true,
+              "file_offset": 12032,
+              "start_timecode": 2040
+            },
+            "id": 66,
+            "media_id": 84,
+            "segment_id": 1
+          },
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 5000,
+          "available_segments": [
+            {
+              "data": {
+                "offset": 0,
+                "duration": 125,
+                "default_segment": true,
+                "file_offset": 12032,
+                "start_timecode": 2040
+              },
+              "id": 66,
+              "media_id": 84,
+              "segment_id": 1
+            }
+          ],
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005_%s.png",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPBUM00005.mp4"
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "title": "LIVE_EVENT_LOGO",
+      "type": "signature",
+      "sub_type": "graphics",
+      "asset_id": "LIVE_EVENT_LOGO",
+      "comments": null,
+      "join_status": null,
+      "offset": 0,
+      "segment": null,
+      "playing": false,
+      "status": "Present",
+      "subtitle_scheduled": false,
+      "duration": 0,
+      "available_segments": null,
+      "preview_image": "",
+      "preview_video": "",
+      "break_items": [
+        {
+          "id": 68,
+          "title": "Live logo",
+          "type": "secondary",
+          "sub_type": "live_logo",
+          "asset_id": "AMGEXPS00006",
+          "comments": null,
+          "join_status": null,
+          "offset": null,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 15000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS00006_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS00006.mp4"
+        },
+        {
+          "id": 69,
+          "title": "Break logo",
+          "type": "secondary",
+          "sub_type": "break_logo",
+          "asset_id": "AMGEXPS00007",
+          "comments": null,
+          "join_status": null,
+          "offset": null,
+          "segment": null,
+          "playing": false,
+          "status": "Present",
+          "subtitle_scheduled": false,
+          "duration": 15000,
+          "available_segments": null,
+          "preview_image": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/graphics/cplive/AMGEXPS00007_.jpg",
+          "preview_video": "https://amagicloud-cplive-demo.s3-accelerate.amazonaws.com/preview/media/cplive/AMGEXPS00007.mp4"
+        }
+      ]
+    }
+  ]
+}
