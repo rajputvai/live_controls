@@ -152,7 +152,7 @@ class Header extends Component {
 
   getEventStartTime() {
     const { selectedEvent } = this.props.events;
-    return moment.tz(selectedEvent.start_time, 'Europe/Amsterdam').format('Do MMM Y - HH:mm:ss');
+    return moment.tz(selectedEvent.start_time, selectedEvent.timezone).format('Do MMM Y - HH:mm:ss');
   }
 
   renderContent() {
