@@ -1,3 +1,5 @@
+import { playItem, stopItem, queueItem, dequeueItem, playGraphics, stopGraphics } from "./playlistActions";
+
 export const types = {
   CONNECT: 'LIVE_CONTROLS.WEBSOCKET_CONNECT',
   CONNECTED: 'LIVE_CONTROLS.WEBSOCKET_CONNECTED',
@@ -24,13 +26,42 @@ export function connectedToWebSocket() {
 }
 
 export function receiveMessageFromWebSocket(msg) {
-  if (msg.type) {
-    return msg;
+  if (msg.trigger_type === "break") {
+    switch (msg.command) {
+      case "start":
+        playItem(msg.params.live_event_id, msg.params.break_name);
+        break;
+
+      case "stop":
+        stopItem(msg.params.live_event_id, msg.params.break_name);
+        break;
+      
+      case "queue":
+        queueItem(msg.params.live_event_id, msg.params.break_name);
+        break;
+
+      case "dequeue":
+        dequeueItem(msg.params.live_event_id, msg.params.break_name);
+        break;
+    }
+  } else if (msg.trigger_type === "graphic") {
+    switch (msg.command) {
+      case "start":
+        playGraphics(msg.params.live_event_id, msg.params.graphic_name);
+        break;
+
+      case "stop":
+        stopGraphics(msg.params.live_event_id, msg.params.graphic_name);
+        break;
+    }
   }
-  return {
-    type: 'RECEIVE_MESSAGE',
-    payload: msg,
-  };
+  // if (msg.type) {
+  //   return msg;
+  // }
+  // return {
+  //   type: 'RECEIVE_MESSAGE',
+  //   payload: msg,
+  // };
 }
 
 export function sendMessage(payload) {

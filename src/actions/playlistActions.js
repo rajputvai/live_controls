@@ -39,45 +39,41 @@ export function loadPlaylistSuccess(playlist) {
   };
 }
 
-export function playItem(eventId, playlistId, breakId) {
+export function playItem(eventId, breakId) {
   return {
     type: types.PLAY_ITEM,
     payload: {
       eventId,
-      playlistId,
       breakId,
     },
   };
 }
 
-export function stopItem(eventId, playlistId, breakId) {
+export function stopItem(eventId, breakId) {
   return {
     type: types.STOP_ITEM,
     payload: {
       eventId,
-      playlistId,
       breakId,
     },
   };
 }
 
-export function queueItem(eventId, playlistId, breakId) {
+export function queueItem(eventId, breakId) {
   return {
     type: types.QUEUE_ITEM,
     payload: {
       eventId,
-      playlistId,
       breakId,
     },
   };
 }
 
-export function dequeueItem(eventId, playlistId, breakId) {
+export function dequeueItem(eventId, breakId) {
   return {
     type: types.DEQUEUE_ITEM,
     payload: {
       eventId,
-      playlistId,
       breakId,
     },
   };
@@ -104,23 +100,21 @@ export function noPublishedPlaylistAvailable() {
   };
 }
 
-export function playGraphics(eventId, playlistId, graphicId) {
+export function playGraphics(eventId, graphicId) {
   return {
     type: types.PLAY_GRAPHICS,
     payload: {
       eventId,
-      playlistId,
       graphicId,
     },
   };
 }
 
-export function stopGraphics(eventId, playlistId, graphicId) {
+export function stopGraphics(eventId, graphicId) {
   return {
     type: types.STOP_GRAPHICS,
     payload: {
       eventId,
-      playlistId,
       graphicId,
     },
   };

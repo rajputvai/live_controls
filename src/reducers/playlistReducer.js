@@ -43,6 +43,9 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
 
       case types.PLAY_ITEM: {
         const { breakId } = action.payload;
+        if (draft.currentPlayingItemId) {
+          stopItem(draft, draft.items[draft.currentPlayingItemId]);
+        }
         playItem(breakId, draft.items[breakId]);
         draft.currentPlayingItemId = breakId;
         break;

@@ -115,7 +115,7 @@ class LiveGraphics extends Component {
       },
     });
 
-    this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.playItem(selectedEvent.ref_id, item.asset_id);
   };
 
   stopItem = itemId => {
@@ -146,7 +146,7 @@ class LiveGraphics extends Component {
         non_live_masking_flag: true,
       },
     });
-    this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.stopItem(selectedEvent.ref_id, item.asset_id);
   };
 
   getRowHeight = ({ index }) => {

@@ -114,11 +114,12 @@ class LiveBreaks extends Component {
       },
     });
 
-    if (this.props.playlist.currentPlayingItemId) {
-      this.props.stopItem(selectedEvent.ref_id, playlist.id, this.props.playlist.currentPlayingItemId);
-    }
+    // * this logic is moved to reducer.
+    // if (this.props.playlist.currentPlayingItemId) {
+    //   this.props.stopItem(selectedEvent.ref_id, this.props.playlist.currentPlayingItemId);
+    // }
 
-    this.props.playItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.playItem(selectedEvent.ref_id, item.asset_id);
   };
 
   stopItem = itemId => {
@@ -147,7 +148,7 @@ class LiveBreaks extends Component {
         best_effort_threshold_ms: 1000,
       },
     });
-    this.props.stopItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.stopItem(selectedEvent.ref_id, item.asset_id);
   };
 
   queueItem = itemId => {
@@ -175,7 +176,7 @@ class LiveBreaks extends Component {
         best_effort_threshold_ms: 1000,
       },
     });
-    this.props.queueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.queueItem(selectedEvent.ref_id, item.asset_id);
   };
 
   dequeueItem = itemId => {
@@ -204,7 +205,7 @@ class LiveBreaks extends Component {
       },
     });
 
-    this.props.dequeueItem(selectedEvent.ref_id, playlist.id, item.asset_id);
+    this.props.dequeueItem(selectedEvent.ref_id, item.asset_id);
   };
 
   renderRow = ({ index, key, style }) => {
