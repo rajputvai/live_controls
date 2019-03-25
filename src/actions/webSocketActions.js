@@ -52,10 +52,10 @@ export function receiveMessageFromWebSocket(msg) {
   // if (msg.type) {
   //   return msg;
   // }
-  // return {
-  //   type: 'RECEIVE_MESSAGE',
-  //   payload: msg,
-  // };
+  return {
+    type: 'RECEIVE_MESSAGE',
+    payload: msg,
+  };
 }
 
 export function sendMessage(payload) {
