@@ -6,6 +6,7 @@ export const types = {
   SELECT_EVENT: 'EVENTS.SELECT_EVENTS',
   START_INTERVAL_TO_CALCULATE_REMAINING_TIME: 'EVENTS.START_INTERVAL_TO_CALCULATE_REMAINING_TIME',
   CALCULATE_REMAINING_TIME: 'EVENTS.CALCULATE_REMAINING_TIME',
+  SET_LIVE_ON: 'EVENTS.SET_LIVE_ON'
 };
 
 export function loadEvents(feedId, playlistId) {
@@ -61,4 +62,13 @@ export function calculateRemainingTime() {
   return {
     type: types.CALCULATE_REMAINING_TIME,
   };
+}
+
+export function setLiveOn(liveOn) {
+  return {
+    type: types.SET_LIVE_ON,
+    payload: {
+      liveOn
+    }
+  }
 }

@@ -51,6 +51,7 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
 
       case types.SELECT_EVENT: {
         draft.selectedEvent = draft.byId[action.payload.eventId];
+        draft.isLiveOn = isLiveOnForEvent(action.payload.eventId);
         break;
       }
 
@@ -58,6 +59,10 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
         getRemainingTime(draft);
         break;
       }
+
+      case types.SET_LIVE_ON:
+        draft.isLiveOn = action.payload.liveOn;
+        break;
 
       default:
     }

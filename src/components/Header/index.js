@@ -66,9 +66,10 @@ class Header extends Component {
 
   liveOffAutomaticallyAfterEndTime = () => {
     const { selectedEvent } = this.props.events;
-    if (this.state.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
+    if (this.props.events.isLiveOn && selectedEvent.timeRemainingTillEventEnd < 0) {
       setLiveOnForEvent(selectedEvent.ref_id, 'off');
-      this.setState({ isLiveOn: false });
+      // this.setState({ isLiveOn: false });
+      this.props.setLiveOn(false);
     }
   };
 
@@ -78,7 +79,7 @@ class Header extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.events.selectedEvent !== nextProps.events.selectedEvent) {
-      this.setState({ isLiveOn: isLiveOnForEvent(nextProps.events.selectedEvent.ref_id) });
+      // this.setState({ isLiveOn: isLiveOnForEvent(nextProps.events.selectedEvent.ref_id) });
     }
   }
 
@@ -114,7 +115,7 @@ class Header extends Component {
     console.log('time taken to get pts from player: ', endTime - startTime);
     this.props.sendMessage({
       trigger_type: 'live',
-      command: this.state.isLiveOn ? 'off' : 'on',
+      command: this.props.events.isLiveOn ? 'off' : 'on',
       params: {
         live_event_id: selectedEventId,
         timestamp,
@@ -122,7 +123,8 @@ class Header extends Component {
       },
     });
     setLiveOnForEvent(selectedEventId, value);
-    this.setState({ isLiveOn: value === 'on' });
+    this.props.setLiveOn(value === 'on');
+    // this.setState({ isLiveOn: value === 'on' });
   };
 
   handleLiveToggle = () => {
@@ -130,7 +132,7 @@ class Header extends Component {
       events: { selectedEvent },
     } = this.props;
     console.log('on click: ', Date.now());
-    if (this.state.isLiveOn) {
+    if (this.props.events.isLiveOn) {
       this.getLiveMessage(selectedEvent.ref_id, 'off');
     } else {
       this.getLiveMessage(selectedEvent.ref_id, 'on');
@@ -175,11 +177,11 @@ class Header extends Component {
           <Button
             variant="contained"
             color="primary"
-            className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
+            className={classNames(classes.rootButton, this.props.events.isLiveOn && classes.liveOffBtn)}
             onClick={this.handleLiveToggle}
             disabled={selectedEvent.timeRemainingTillEventEnd < 0 || !playerState.isPlaying || disabled}
           >
-            {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
+            {this.props.events.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>
         </Fragment>
       );
