@@ -162,6 +162,8 @@ class Header extends Component {
       playerState,
     } = this.props;
     let content;
+    const disabled = true; // ! TEMP FLAG
+
     if (loading) {
       content = 'Loading...';
     } else {
@@ -175,7 +177,7 @@ class Header extends Component {
             color="primary"
             className={classNames(classes.rootButton, this.state.isLiveOn && classes.liveOffBtn)}
             onClick={this.handleLiveToggle}
-            disabled={selectedEvent.timeRemainingTillEventEnd < 0 || !playerState.isPlaying}
+            disabled={selectedEvent.timeRemainingTillEventEnd < 0 || !playerState.isPlaying || disabled}
           >
             {this.state.isLiveOn ? 'LIVE OFF' : 'LIVE ON'}
           </Button>

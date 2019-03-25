@@ -236,6 +236,7 @@ class BreaksRow extends Component {
 
   render() {
     const { classes, item, playerState, eventEnded } = this.props;
+    const disabled = true; // ! TEMP FLAG
 
     return (
       <div
@@ -265,7 +266,7 @@ class BreaksRow extends Component {
               <MuiIconButton
                 className={classes.actionsIcon}
                 onClick={this.stopItem}
-                disabled={!playerState.isPlaying || eventEnded}
+                disabled={!playerState.isPlaying || eventEnded || disabled}
               >
                 <StopIcon />
               </MuiIconButton>
@@ -276,7 +277,7 @@ class BreaksRow extends Component {
                   classes.actionsIcon,
                   (!playerState.isPlaying || eventEnded) && classes.disabledActionIcons
                 )}
-                disabled={!playerState.isPlaying || eventEnded}
+                disabled={!playerState.isPlaying || eventEnded || disabled}
               >
                 <PlayIcon />
               </MuiIconButton>

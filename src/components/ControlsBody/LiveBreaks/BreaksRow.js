@@ -246,7 +246,8 @@ class BreaksRow extends Component {
 
   render() {
     const { classes, item, queue, currentPlayingItemId, playerState, eventEnded } = this.props;
-    const isPlayDisabled = item.stopped || item.played || !playerState.isPlaying || eventEnded;
+    const disabled = true; // ! TEMP FLAG
+    const isPlayDisabled = item.stopped || item.played || !playerState.isPlaying || eventEnded || disabled;
     const queued = queue.indexOf(item.asset_id) > -1;
     const someBreakPlaying = currentPlayingItemId !== '';
 
@@ -275,7 +276,7 @@ class BreaksRow extends Component {
           {!queued ? (
             <div className={classes.cell4}>
               {item.playing ? (
-                <MuiIconButton className={classes.actionsIcon} onClick={this.stopItem}>
+                <MuiIconButton className={classes.actionsIcon} onClick={this.stopItem} disabled={disabled}>
                   <StopIcon />
                 </MuiIconButton>
               ) : (
@@ -292,7 +293,7 @@ class BreaksRow extends Component {
               </MuiIconButton> */}
               <MuiIconButton
                 className={classes.actionsIcon}
-                disabled={isPlayDisabled || !someBreakPlaying || item.playing}
+                disabled={isPlayDisabled || !someBreakPlaying || item.playing || disabled}
                 onClick={this.queueItem}
               >
                 <QueueBreakIcon
@@ -303,7 +304,7 @@ class BreaksRow extends Component {
           ) : (
             <div className={classes.cell4}>
               <span className={classes.message}>Break queued ({queue.indexOf(item.asset_id) + 1})</span>
-              <MuiIconButton onClick={this.dequeueItem}>
+              <MuiIconButton onClick={this.dequeueItem} disabled={disabled}>
                 <DequeueIcon />
               </MuiIconButton>
             </div>
