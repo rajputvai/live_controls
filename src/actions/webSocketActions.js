@@ -29,30 +29,24 @@ export function receiveMessageFromWebSocket(msg) {
   if (msg.trigger_type === "break") {
     switch (msg.command) {
       case "start":
-        playItem(msg.params.live_event_id, msg.params.break_name);
-        break;
+        return playItem(msg.params.live_event_id, msg.params.break_name);
 
       case "stop":
-        stopItem(msg.params.live_event_id, msg.params.break_name);
-        break;
+        return stopItem(msg.params.live_event_id, msg.params.break_name);
       
       case "queue":
-        queueItem(msg.params.live_event_id, msg.params.break_name);
-        break;
+        return queueItem(msg.params.live_event_id, msg.params.break_name);
 
       case "dequeue":
-        dequeueItem(msg.params.live_event_id, msg.params.break_name);
-        break;
+        return dequeueItem(msg.params.live_event_id, msg.params.break_name);
     }
   } else if (msg.trigger_type === "graphic") {
     switch (msg.command) {
       case "start":
-        playGraphics(msg.params.live_event_id, msg.params.graphic_name);
-        break;
+        return playGraphics(msg.params.live_event_id, msg.params.graphic_name);
 
       case "stop":
-        stopGraphics(msg.params.live_event_id, msg.params.graphic_name);
-        break;
+        return stopGraphics(msg.params.live_event_id, msg.params.graphic_name);
     }
   }
   // if (msg.type) {
