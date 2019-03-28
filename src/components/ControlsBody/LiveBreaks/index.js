@@ -67,18 +67,10 @@ const styles = theme => ({
 });
 
 class LiveBreaks extends Component {
-  componentDidMount() {
-    this.interval = setInterval(this.props.updateNowPlaying, 1000);
-  }
-
   componentDidUpdate() {
     if (!this.props.playlist.noPublishedPlaylistAvailable && this.listEl) {
       this.listEl.recomputeRowHeights();
     }
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
   overscanIndicesGetter = ({ cellCount, overscanCellsCount, startIndex, stopIndex }) => ({

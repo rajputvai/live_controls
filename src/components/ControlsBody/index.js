@@ -155,6 +155,14 @@ const BREAK_LOGO = 'break_logo';
 class ControlsBody extends Component {
   state = { tab: 0 };
 
+  componentDidMount() {
+    this.interval = setInterval(this.props.updateNowPlaying, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   handleTabChange = (event, value) => this.setState({ tab: value });
 
   renderLogos() {
