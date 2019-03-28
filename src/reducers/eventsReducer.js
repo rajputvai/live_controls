@@ -35,6 +35,8 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
         }
         action.payload.events.events.forEach(event => {
           event.ref_id = event.event_id; // ! ref_id was changed to event_id in backend, we continue to use it as ref_id to keep the change minimal
+          event.start_time = event.event_start_time; // ! start_time was changed to event_start_time
+          event.end_time = moment.utc(moment(event.event_start_time).valueOf() + event.duration).toISOString(); // ! end_time was removed from json
           draft.byId[event.ref_id] = event;
         });
         if (!draft.selectedEvent) {
