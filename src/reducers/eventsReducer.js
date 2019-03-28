@@ -34,6 +34,7 @@ export default function eventsReducer(state = INITIAL_STATE, action) {
           break;
         }
         action.payload.events.events.forEach(event => {
+          event.ref_id = event.event_id; // ! ref_id was changed to event_id in backend, we continue to use it as ref_id to keep the change minimal
           draft.byId[event.ref_id] = event;
         });
         if (!draft.selectedEvent) {

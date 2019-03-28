@@ -14,7 +14,7 @@ class AppWrapper extends Component {
       events: { byId },
     } = this.props;
 
-    const playlists = byId[eventId].playlists;
+    const playlists = byId[eventId].break_playlists;
     const publishedPlaylists = playlists.filter(playlist => playlist.state === 'published');
     const orderedByLatest = publishedPlaylists.sort((p1, p2) => p2.id - p1.id);
     if (orderedByLatest.length > 0) {

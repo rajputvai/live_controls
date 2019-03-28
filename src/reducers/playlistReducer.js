@@ -35,7 +35,7 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
 
       case types.LOAD_SUCCESS: {
         draft.playlist = action.payload.playlist;
-        parsePlaylist(draft, action.payload.playlist.items, action.payload.playlist.id);
+        parsePlaylist(draft, action.payload.playlist.items || [], action.payload.playlist.id);
         draft.loading = false;
         draft.noPublishedPlaylistAvailable = false;
         break;

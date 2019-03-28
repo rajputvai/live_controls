@@ -20,7 +20,7 @@ export function parsePlaylist(draft, items, playlistId) {
   items.forEach(item => {
     let durationOffset = 0;
     if (!itemsNotToRenderInList.includes(item.asset_id)) {
-      if (item.sub_type === 'signature') {
+      if (item.sub_type === 'break') {
         breakItemIds.push(item.asset_id);
       } else if (item.sub_type === 'graphics' || item.sub_type === 'graphic-signature') {
         graphicItemIds.push(item.asset_id);
