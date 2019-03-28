@@ -275,7 +275,7 @@ class BreaksRow extends Component {
                 onClick={this.playItem}
                 className={classNames(
                   classes.actionsIcon,
-                  (!playerState.isPlaying || eventEnded) && classes.disabledActionIcons
+                  (!playerState.isPlaying || eventEnded || disabled) && classes.disabledActionIcons
                 )}
                 disabled={!playerState.isPlaying || eventEnded || disabled}
               >
