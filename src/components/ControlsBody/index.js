@@ -369,7 +369,7 @@ class ControlsBody extends Component {
           <div className={classes.playerTitle}>PLAYING NOW</div>
           <Player
             id="out"
-            url={config.PLAYING_NOW_URL}
+            url={config.PLAYING_NOW_URL[this.props.feedId] || ""}
             latency={config.VXG_PLAYER_LATENCY}
             globalKey="outputPlayer"
             setPlayerState={setPlayerState}

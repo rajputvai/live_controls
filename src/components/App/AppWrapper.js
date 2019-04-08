@@ -47,7 +47,7 @@ class AppWrapper extends Component {
     return (
       <MainWrapper>
         <HeaderContainer />
-        <ControlsBodyContainer />
+        <ControlsBodyContainer feedId={this.props.feedIdInUrl} />
       </MainWrapper>
     );
   }

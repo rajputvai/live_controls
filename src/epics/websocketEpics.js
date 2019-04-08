@@ -8,6 +8,7 @@ import {
   receiveMessageFromWebSocket,
   sentMessage,
   disconnected,
+  disconnectFromWebSocket,
 } from '../actions/webSocketActions';
 import TimerDurations from '../constants/timerDurations';
 
@@ -29,16 +30,30 @@ const connectSocket = websocketUrl => {
 const connectEpic = action$ =>
   action$.ofType(types.CONNECT).switchMap(action =>
     connectSocket(action.payload.websocketUrl)
+      .map(data => receiveMessageFromWebSocket(data))
       .catch(() =>
         Observable.of(connectToWebSocket(action.payload.websocketUrl))
           .delay(TimerDurations.webSocketReconnectTimer)
-          .startWith(disconnected())
+          .startWith(disconnectFromWebSocket())
       )
-      .map(data => receiveMessageFromWebSocket(data))
   );
 
 const connectedEpic = action$ =>
-  action$.ofType(types.CONNECT).switchMap(() => onOpenSubject.mapTo(connectedToWebSocket()));
+  action$.ofType(types.CONNECT).switchMap(() =>
+    onOpenSubject.map(() => {
+      onCloseSubject.map(() => disconnectFromWebSocket());
+      return connectedToWebSocket();
+    })
+  );
+
+const connectedEpic2 = (action$, state$) =>
+  action$.ofType(types.CONNECTED).switchMap(() =>
+    onCloseSubject.switchMap(e =>
+      Observable.of(connectToWebSocket(state$.value.config.config.socketUrl))
+        .delay(5000)
+        .startWith(disconnectFromWebSocket())
+    )
+  );
 
 const sendMessageEpic = action$ =>
   action$.ofType(types.SEND_MESSAGE).map(action => {
@@ -53,4 +68,4 @@ const disconnectEpic = action$ =>
     return disconnected();
   });
 
-export default combineEpics(connectEpic, connectedEpic, sendMessageEpic, disconnectEpic);
+export default combineEpics(connectEpic, connectedEpic, connectedEpic2, sendMessageEpic, disconnectEpic);
